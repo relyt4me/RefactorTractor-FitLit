@@ -2,18 +2,37 @@ class UserRepo {
   constructor(users) {
     this.users = users;
   };
+
+/* User Repo should have two methods:
+  - get user data for a given user ID
+  - get average step goal for all users
+*/ 
   getDataFromID(id) {
     return this.users.find((user) => id === user.id);
   };
   getDataFromUserID(id, dataSet) {
     return dataSet.filter((userData) => id === userData.userID);
   };
+
+  //This method was passing the test, changed it to pass
   calculateAverageStepGoal() {
     var totalStepGoal = this.users.reduce((sumSoFar, data) => {
       return sumSoFar = sumSoFar + data.dailyStepGoal;
     }, 0);
     return totalStepGoal / this.users.length;
   };
+
+//   fetchAverageStepGoal() {
+//     const average = this.data.reduce((acc, user) => {
+//         acc += user.dailyStepGoal
+//         return acc;
+//     }, 0)
+//     return Math.round(average / this.data.length)
+//   }
+// }
+
+
+
   makeSortedUserArray(id, dataSet) {
     let selectedID = this.getDataFromUserID(id, dataSet)
     let sortedByDate = selectedID.sort((a, b) => new Date(b.date) - new Date(a.date));
