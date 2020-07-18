@@ -2,80 +2,68 @@ import { expect } from 'chai';
 
 import UserRepo from '../src/User-repo';
 import User from '../src/User';
+import userSampleData from './sampleData/userSampleData';
 
-
-describe('User Repo', function() {
-  let user1;
-  let user2;
-  let user;
-  let userRepo;
+describe('UserRepo', () => {
+  let user1, user2, user3, users, userRepo;
 
   beforeEach(function() {
-    user1 = new User({
-      id: 1,
-      name: "Alex Roth",
-      address: "1234 Turing Street, Denver CO 80301-1697",
-      email: "alex.roth1@hotmail.com",
-      strideLength: 4.3,
-      dailyStepGoal: 10000,
-      friends: [2, 3, 4]
-    });
-    user2 = new User({
-      id: 2,
-      name: "Allie McCarthy",
-      address: "1235 Turing Street, Denver CO 80301-1697",
-      email: "allie.mcc1@hotmail.com",
-      strideLength: 3.3,
-      dailyStepGoal: 9000,
-      friends: [1, 3, 4]
-    });
-    users = [user1, user2];
+    user1 = new User(userSampleData[0]);
+    user2 = new User(userSampleData[1]);
+    user3 = new User(userSampleData[2]);
+    users = [user1, user2, user3];
     userRepo = new UserRepo(users);
   });
 
-  it('should be a function', function() {
-    const userRepo = new UserRepo();
-
+  it('Should be a function', function() {
     expect(UserRepo).to.be.a('function');
   });
-
-  it('takes an array of user data', function() {
-
-    expect(userRepo.users).to.include(user2);
+  
+  it('should be an instance of UserRepository', () => {
+    expect(userRepo).to.be.an.instanceof(UserRepo);
   });
 
-  it('should have a parameter to take in user data', function() {
-    const user1 = new User({
-      id: 1,
-      name: "Alex Roth",
-      address: "1234 Turing Street, Denver CO 80301-1697",
-      email: "alex.roth1@hotmail.com",
-      strideLength: 4.3,
-      dailyStepGoal: 10000,
-      friends: [2, 3, 4]
-    });
-    const users = [user1];
-    const userRepo = new UserRepo(users);
-
-    console.log('here: ', userRepo.users[0]);
-
-    expect(userRepo.users[0].id).to.equal(1);
+  it('should have data of all the users', () => {
+    expect(userRepo.users).to.deep.equal([user1, user2, user3]);
   });
+
+  //Sad path Test Added:
+  it('should be undefined if no arguement is given for the user', () => {
+    const noUser = new UserRepo()
+    expect(noUser.data).to.equal(undefined);
+  });
+
+  // it('should have a parameter to take in user data', function() {
+  //   const user1 = new User({
+  //     id: 1,
+  //     name: "Alex Roth",
+  //     address: "1234 Turing Street, Denver CO 80301-1697",
+  //     email: "alex.roth1@hotmail.com",
+  //     strideLength: 4.3,
+  //     dailyStepGoal: 10000,
+  //     friends: [2, 3, 4]
+  //   });
+  //   const users = [user1];
+  //   const userRepo = new UserRepo(users);
+
+  //   console.log('here: ', userRepo.users[0]);
+
+  //   expect(userRepo.users[0].id).to.equal(1);
+  // });
 
   it('should return user data when given user ID', function() {
+    const data = userRepo.getDataFromID(1);
+    expect(data).to.eql(user1);
+  });
 
-
-    userRepo.getDataFromID(1);
-
-    expect(userRepo.getDataFromID(1)).to.eql(user1);
+  it('should be undefined if no id is provided for the data', () => {
+    const data = userRepo.getDataFromID()
+    expect(data).to.equal(undefined)  
   });
 
   it('should return the average of all users step goals', function() {
-
-
-    userRepo.calculateAverageStepGoal();
-
-    expect(userRepo.calculateAverageStepGoal()).to.eql(9500);
+    const stepGoals = userRepo.calculateAverageStepGoal();
+    expect(stepGoals.calculateAverageStepGoal()).to.eql(9500);
   });
 
   describe('array changes', function() {
