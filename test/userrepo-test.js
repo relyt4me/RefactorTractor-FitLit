@@ -21,36 +21,36 @@ describe('UserRepo', () => {
     expect(UserRepo).to.be.a('function');
   });
   
-  it('should be an instance of UserRepository', () => {
+  it('Should be an instance of UserRepository', () => {
     expect(userRepo).to.be.an.instanceof(UserRepo);
   });
 
-  it('should have data of all the users', () => {
+  it('Should have data of all the users', () => {
     expect(userRepo.users).to.deep.eql([user1, user2, user3]);
   });
 
   //Sad path Test Added:
-  it('should be undefined if no arguement is given for the user', () => {
+  it('Should be undefined if no arguement is given for the user', () => {
     const noUser = new UserRepo()
     expect(noUser.data).to.eql(undefined);
   });
 
-  it('should have a parameter to take in user data', function() {
+  it('Should have a parameter to take in user data', function() {
     expect(userRepo.users[0].id).to.equal(1);
   });
 
-  it('should return user data when given user ID', () => {
+  it('Should return user data when given user ID', () => {
     const data = userRepo.getDataFromID(1);
     expect(data).to.eql(user1);
   });
 
   //Sad path test added:
-  it('should be undefined if no id is provided for the data', () => {
+  it('Should be undefined if no id is provided for the data', () => {
     const data = userRepo.getDataFromID()
     expect(data).to.eql(undefined)  
   });
 
-  it('should get a users data from its userID in any data set', () => {
+  it('Should get a users data from its userID in any data set', () => {
     expect(userRepo.getDataFromUserID(1, hydrationSampleData)).to.eql([
       { userID: 1, date: '2019/06/15', numOunces: 37 },
       { userID: 1, date: '2019/06/16', numOunces: 69 },
@@ -62,14 +62,20 @@ describe('UserRepo', () => {
     ]);
   });
 
-  it('should return the average of all users step goals', () => {
+  //Sad path:
+  it('Should be undefined if not the correct arguements', () => {
+    const data = userRepo.getDataFromID('string', 1)
+    expect(data).to.eql(undefined)  
+  });
+
+  it('Should return the average of all users step goals', () => {
     const stepGoals = userRepo.calculateAverageStepGoal();
     expect(stepGoals).to.eql(6667);
   });
 
   //All the tests below are related to grabbing arrays and sorting them. 
 
-  describe('array changes', () => {
+  describe('Array changes:', () => {
     let user1, user2, user3, user4, user5, users, userRepo;
 
     beforeEach(() => {
@@ -82,7 +88,7 @@ describe('UserRepo', () => {
       userRepo = new UserRepo(users);
     });
 
-    it('should sort the given array given by date', () => {
+    it('Should sort the given array given by date', () => {
       const sortedHydro = userRepo.makeSortedUserArray(1, hydrationSampleData)
       expect(sortedHydro).to.eql([
         { userID: 1, date: '2019/06/21', numOunces: 50 },
@@ -95,11 +101,11 @@ describe('UserRepo', () => {
       ]);
     });
 
-    it('should get a users most recent date using the app', () => {
+    it('Should get a users most recent date using the app', () => {
       expect(userRepo.getToday(4, hydrationSampleData)).to.eql('2019/06/21');
     });
 
-    it('should sort data by date and extract its week', () => {
+    it('Should sort data by date and extract its week', () => {
       const week = userRepo.getFirstWeek(1, hydrationSampleData)
       expect(week).to.eql([
         { userID: 1, date: '2019/06/21', numOunces: 50 },
@@ -112,12 +118,12 @@ describe('UserRepo', () => {
       ]);
     });
 
-    it('should get a sorted week of data for a single user from a date', () => {
+    it('Should get a sorted week of data for a single user from a date', () => {
       const weekHydro = userRepo.getWeekFromDate('2019/06/15', 1, hydrationSampleData)
       expect(weekHydro).to.eql([{ userID: 1, date: '2019/06/15', numOunces: 37 }]);
     });
 
-    it('should get a week of data for all users in data set', () => {
+    it('Should get a week of data for all users in data set', () => {
       const weekHydro = userRepo.chooseWeekDataForAllUsers(hydrationSampleData, '2019/06/15');
       expect(weekHydro).to.eql([
         { userID: 1, date: '2019/06/15', numOunces: 37 },
@@ -128,7 +134,7 @@ describe('UserRepo', () => {
       ]);  
     });
 
-    it('should get a day of data for all users in data set', () => {
+    it('Should get a day of data for all users in data set', () => {
       const weekHydro = userRepo.chooseDayDataForAllUsers(hydrationSampleData, '2019/06/15');
       expect(weekHydro).to.eql([
         { userID: 1, date: '2019/06/15', numOunces: 37 },
@@ -139,7 +145,7 @@ describe('UserRepo', () => {
       ]);  
     });
 
-    it('should isolate a user ID and its values of any relevant data', () => {
+    it('Should isolate a user ID and its values of any relevant data', () => {
       const idAndDataSleep = userRepo.isolateUsernameAndRelevantData(sleepSampleData, "2019/06/21", 'sleepQuality', userRepo.chooseWeekDataForAllUsers(sleepSampleData, "2019/06/21"));
       const idAndDataHydro = userRepo.isolateUsernameAndRelevantData(hydrationSampleData, "2019/06/21", 'numOunces', userRepo.chooseWeekDataForAllUsers(hydrationSampleData, "2019/05/09"));
       expect(idAndDataSleep).to.eql({
@@ -152,12 +158,12 @@ describe('UserRepo', () => {
       expect(idAndDataHydro).to.eql({})
     });
 
-    it('should rank user ids according to relevant data value averages', () => {
+    it('Should rank user ids according to relevant data value averages', () => {
       const weekSleep = userRepo.rankUserIDsbyRelevantDataValue(sleepSampleData, "2019/06/21", 'sleepQuality', userRepo.chooseWeekDataForAllUsers(sleepSampleData, "2019/06/21"))
       expect(weekSleep).to.eql(['5', '2', '3', '1', '4'])
     });
 
-    it('should show list in order of userID and average of relevant value', () => {
+    it('Should show list in order of userID and average of relevant value', () => {
       const weekSleep = userRepo.combineRankedUserIDsAndAveragedData(sleepSampleData, "2019/06/21", 'sleepQuality', userRepo.chooseWeekDataForAllUsers(sleepSampleData, "2019/06/21"))
       expect(weekSleep).to.eql([
         { "5": 3.5428571428571423 },
