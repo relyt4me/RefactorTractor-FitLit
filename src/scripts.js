@@ -25,15 +25,7 @@ window.onload = startApp(); //Starts Here (global variables currentInformation =
 
 function startApp() {
   instantiatePageData();
-  let mostRecentDate = getUsersRecentDate(currentUser.id, hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
-
-  document.getElementById('headerText').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function)
-  populateUserWidget(); // fills out user infor (iteration 1 dashboard)
-  populateHydrationSection(mostRecentDate);
-  populateSleepSection(mostRecentDate);
-  let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
-  populateActivitySection(mostRecentDate, winnerNow);
-  populateFriendsSection(mostRecentDate);
+  populatePage();
 }
 
 function instantiatePageData() {
@@ -44,7 +36,16 @@ function instantiatePageData() {
   currentUser = newRandomUser(); // now in one helper function
 }
 
-function populatePage() {}
+function populatePage() {
+  let mostRecentDate = getUsersRecentDate(currentUser.id, hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
+  document.getElementById('headerText').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function`;
+  populateUserWidget(); // fills out user infor (iteration 1 dashboard)
+  populateHydrationSection(mostRecentDate);
+  populateSleepSection(mostRecentDate);
+  let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
+  populateActivitySection(mostRecentDate, winnerNow);
+  populateFriendsSection(mostRecentDate);
+}
 
 function instantiateUsers() {
   const allUsers = userData.map((user) => {
