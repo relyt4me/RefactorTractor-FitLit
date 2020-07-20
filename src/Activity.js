@@ -6,7 +6,7 @@ class Activity { //should probably be renamed
   constructor(activityData) { //constructor sucks but has to stay
     this.activityData = activityData //
   }
-  //not used
+  //// begin uneeded methods
   // getMilesFromStepsByDate(id, date, userRepo) {
   //   // THIS IS NEVER USED
   //    //returns miles walked on a specific date
@@ -38,6 +38,7 @@ class Activity { //should probably be renamed
   // getStairRecord(id) { // returns highest number of stairs user as ever done on single day
   //   return this.activityData.filter(data => id === data.userID).reduce((acc, elem) => (elem.flightsOfStairs > acc) ? elem.flightsOfStairs : acc, 0);
   // }
+  //// end not needed methods
   getAllUserAverageForDay(date, userRepo, relevantData) { //relevent data is string
     let selectedDayData = userRepo.chooseDayDataForAllUsers(this.activityData, date);
     return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[relevantData], 0) / selectedDayData.length).toFixed(1));
