@@ -3,6 +3,7 @@ import Activity from '../src/Activity';
 import UserRepo from '../src/User-repo';
 import User from '../src/User';
 
+// import test data file carly made
 describe('Activity', function() {
   let activityData;
   let user1;
@@ -13,7 +14,7 @@ describe('Activity', function() {
   let userRepo;
   let activity;
 
-  beforeEach(function() {
+  beforeEach(function() { // create smaller sample, probably use before
     activityData = [{
         "userID": 1,
         "date": "2019/06/15",
@@ -199,7 +200,7 @@ describe('Activity', function() {
     userRepo = new UserRepo(users);
     activity = new Activity(activityData);
   });
-  it('should take in data', function() {
+  it('should take in data', function() { //what data?
     expect(activity.activityData[0].userID).to.eql(1);
     expect(activity.activityData[4].date).to.eql("2019/06/15");
     expect(activity.activityData[3].numSteps).to.eql(3486);
