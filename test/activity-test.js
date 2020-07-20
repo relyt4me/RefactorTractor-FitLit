@@ -3,6 +3,7 @@ import Activity from '../src/Activity';
 import UserRepo from '../src/User-repo';
 import User from '../src/User';
 
+// import test data file carly made
 describe('Activity', function() {
   let activityData;
   let user1;
@@ -13,7 +14,7 @@ describe('Activity', function() {
   let userRepo;
   let activity;
 
-  beforeEach(function() {
+  beforeEach(function() { // create smaller sample, probably use before
     activityData = [{
       "userID": 1,
       "date": "2019/06/15",
@@ -199,13 +200,17 @@ describe('Activity', function() {
     userRepo = new UserRepo(users);
     activity = new Activity(activityData);
   });
-  it('should take in data', function() {
+  it('should take in data', function() { //what data?
     expect(activity.activityData[0].userID).to.eql(1);
     expect(activity.activityData[4].date).to.eql("2019/06/15");
     expect(activity.activityData[3].numSteps).to.eql(3486);
     expect(activity.activityData[8].minutesActive).to.eql(41);
     expect(activity.activityData[10].flightsOfStairs).to.eql(24);
   });
+
+
+
+//// edit test to use dynamic functions, currently failing because commented out methods
   it('should return the miles a given user has walked on a given date', function() {
     expect(activity.getMilesFromStepsByDate(1, "2019/06/15", userRepo.users[0])).to.eql(2.9);
   });
@@ -231,6 +236,9 @@ describe('Activity', function() {
   it('should return the highest number of stairs climbed in a day for all time', function() {
     expect(activity.getStairRecord(11)).to.eql(33);
   });
+//// end test editing for dynamic functions
+
+
 
   it('should return the average flight of stairs for all users on given day', function() {
     expect(activity.getAllUserAverageForDay("2019/06/15", userRepo, "flightsOfStairs")).to.eql(21.2)
