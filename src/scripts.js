@@ -15,24 +15,6 @@ import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
 
-var historicalWeek = document.querySelectorAll('.historicalWeek');
-
-var friendChallengeListToday = document.getElementById('friendChallengeListToday');
-var friendChallengeListHistory = document.getElementById('friendChallengeListHistory');
-var bigWinner = document.getElementById('bigWinner');
-var userStepsToday = document.getElementById('userStepsToday');
-var avgStepsToday = document.getElementById('avgStepsToday');
-var userStairsToday = document.getElementById('userStairsToday');
-var avgStairsToday = document.getElementById('avgStairsToday');
-var userMinutesToday = document.getElementById('userMinutesToday');
-var avgMinutesToday = document.getElementById('avgMinutesToday');
-var userStepsThisWeek = document.getElementById('userStepsThisWeek');
-var userStairsThisWeek = document.getElementById('userStairsThisWeek');
-var userMinutesThisWeek = document.getElementById('userMinutesThisWeek');
-var bestUserSteps = document.getElementById('bestUserSteps');
-var streakList = document.getElementById('streakList');
-var streakListMinutes = document.getElementById('streakListMinutes');
-
 let userRepo;
 let hydrationRepo;
 let sleepRepo;
@@ -44,9 +26,6 @@ window.onload = startApp(); //Starts Here (global variables currentInformation =
 function startApp() {
   instantiatePageData();
   let mostRecentDate = getUsersRecentDate(currentUser.id, hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
-  //************remove after getting rid of in other functionality down 2
-  let randomHistory = makeRandomDate(userRepo, currentUser.id, hydrationData); // a random date? (do we need this) REMOVE
-  historicalWeek.forEach((instance) => instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`)); // remove the random week and historical week placements REMOVE
 
   document.getElementById('headerText').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function)
   populateUserWidget(); // fills out user infor (iteration 1 dashboard)
@@ -54,7 +33,7 @@ function startApp() {
   populateSleepSection(mostRecentDate);
   let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
   populateActivitySection(mostRecentDate, winnerNow);
-  addFriendGameInfo(currentUser.id, activityRepo, userRepo, mostRecentDate, randomHistory, currentUser);
+  populateFriendsSection(mostRecentDate);
 }
 
 function instantiatePageData() {
@@ -125,8 +104,8 @@ function populateHydrationSection(currentDate) {
 }
 
 // ['2019/4/20 32', '2019/4/20 32', '2019/4/20 32', '2019/4/20 32'] - array format for these functions
-function makeArrayIntoHTMLList(array, unit) {
-  return array.map((dateAndAmount) => `<li class="historical-list-listItem">On ${dateAndAmount}${unit}</li>`).join('');
+function makeArrayIntoHTMLList(arrayData, unit) {
+  return arrayData.map((dateAndAmount) => `<li class="historical-list-listItem">On ${dateAndAmount}${unit}</li>`).join('');
 }
 
 function populateSleepSection(currentDate) {
@@ -153,19 +132,17 @@ function populateActivitySection(currentDate, winnerId) {
   document.getElementById('bestUserSteps').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.userDataForWeek(winnerId, currentDate, userRepo, 'numSteps'), 'steps'));
 }
 
-function addFriendGameInfo(id, activityInfo, userStorage, dateString, laterDateString, user) {
-  // docQS done here for all, somewhere in here we are getting a second set which shold be later but we want to remove that rando week
-  friendChallengeListToday.insertAdjacentHTML('afterBegin', makeFriendChallengeHTML(id, activityInfo, userStorage, activityInfo.showChallengeListAndWinner(user, dateString, userStorage)));
-  streakList.insertAdjacentHTML('afterBegin', makeStepStreakHTML(id, activityInfo, userStorage, activityInfo.getStreak(userStorage, id, 'numSteps')));
-  streakListMinutes.insertAdjacentHTML('afterBegin', makeStepStreakHTML(id, activityInfo, userStorage, activityInfo.getStreak(userStorage, id, 'minutesActive')));
-  friendChallengeListHistory.insertAdjacentHTML('afterBegin', makeFriendChallengeHTML(id, activityInfo, userStorage, activityInfo.showChallengeListAndWinner(user, dateString, userStorage)));
-  bigWinner.insertAdjacentHTML('afterBegin', `THIS WEEK'S WINNER! ${activityInfo.showcaseWinner(user, dateString, userStorage)} steps`);
+function populateFriendsSection(currentDate) {
+  document.getElementById('friendChallengeListToday').insertAdjacentHTML('afterBegin', makeFriendChallengeHTML(activityRepo.showChallengeListAndWinner(currentUser, currentDate, userRepo)));
+  document.getElementById('streakList').insertAdjacentHTML('afterBegin', makeStepStreakHTML(activityRepo.getStreak(userRepo, currentUser.id, 'numSteps')));
+  document.getElementById('streakListMinutes').insertAdjacentHTML('afterBegin', makeStepStreakHTML(activityRepo.getStreak(userRepo, currentUser.id, 'minutesActive')));
+  document.getElementById('bigWinner').insertAdjacentHTML('afterBegin', `THIS WEEK'S WINNER! ${activityRepo.showcaseWinner(currentUser, currentDate, userRepo)} steps`);
 }
 
-function makeFriendChallengeHTML(id, activityInfo, userStorage, method) {
-  return method.map((friendChallengeData) => `<li class="historical-list-listItem">Your friend ${friendChallengeData} average steps.</li>`).join('');
+function makeFriendChallengeHTML(arrayData) {
+  return arrayData.map((friendChallengeData) => `<li class="historical-list-listItem">Your friend ${friendChallengeData} average steps.</li>`).join('');
 }
 
-function makeStepStreakHTML(id, activityInfo, userStorage, method) {
-  return method.map((streakData) => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
+function makeStepStreakHTML(arrayData) {
+  return arrayData.map((streakData) => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
 }
