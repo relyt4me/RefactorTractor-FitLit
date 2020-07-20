@@ -15,20 +15,8 @@ import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
 
-var userAddress = document.getElementById('userAddress');
-var userEmail = document.getElementById('userEmail');
-var userStridelength = document.getElementById('userStridelength');
-var friendList = document.getElementById('friendList');
-var hydrationToday = document.getElementById('hydrationToday');
-var hydrationAverage = document.getElementById('hydrationAverage');
-var hydrationThisWeek = document.getElementById('hydrationThisWeek');
-var hydrationEarlierWeek = document.getElementById('hydrationEarlierWeek');
 var historicalWeek = document.querySelectorAll('.historicalWeek');
-var sleepToday = document.getElementById('sleepToday');
-var sleepQualityToday = document.getElementById('sleepQualityToday');
-var avUserSleepQuality = document.getElementById('avUserSleepQuality');
-var sleepThisWeek = document.getElementById('sleepThisWeek');
-var sleepEarlierWeek = document.getElementById('sleepEarlierWeek');
+
 var friendChallengeListToday = document.getElementById('friendChallengeListToday');
 var friendChallengeListHistory = document.getElementById('friendChallengeListHistory');
 var bigWinner = document.getElementById('bigWinner');
@@ -62,8 +50,8 @@ function startApp() {
 
   document.getElementById('headerText').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function)
   populateUserWidget(); // fills out user infor (iteration 1 dashboard)
-  addHydrationInfo(currentUser.id, hydrationRepo, mostRecentDate, userRepo, randomHistory);
-  addSleepInfo(currentUser.id, sleepRepo, mostRecentDate, userRepo, randomHistory);
+  populateHydrationSection(mostRecentDate);
+  populateSleepSection(currentUser.id, sleepRepo, mostRecentDate, userRepo, randomHistory);
   let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
   addActivityInfo(currentUser.id, activityRepo, mostRecentDate, userRepo, randomHistory, currentUser, winnerNow);
   addFriendGameInfo(currentUser.id, activityRepo, userRepo, mostRecentDate, randomHistory, currentUser);
@@ -129,49 +117,53 @@ function makeWinnerID(activityInfo, user, dateString, userStorage) {
   return activityInfo.getWinnerId(user, dateString, userStorage);
 }
 
-//const addHydrationInfo = () => {};
-function addHydrationInfo(id, hydrationInfo, dateString, userStorage, laterDateString) {
-  // remove laterDate (possibly make single function for hydration and sleep)
-  // docQS done here, change the adjacentHTML to just mess with the span
-  hydrationToday.insertAdjacentHTML('afterBegin', `<p>You drank</p><p><span class="number">${hydrationInfo.calculateDailyOunces(id, dateString)}</span></p><p>oz water today.</p>`);
-  // docQS done here, same as above
-  hydrationAverage.insertAdjacentHTML('afterBegin', `<p>Your average water intake is</p><p><span class="number">${hydrationInfo.calculateAverageOunces(id)}</span></p> <p>oz per day.</p>`);
-  // docQS done here, passes in an array of 'Date: onces' for one week
-  hydrationThisWeek.insertAdjacentHTML('afterBegin', makeHydrationHTML(id, hydrationInfo, userStorage, hydrationInfo.calculateFirstWeekOunces(userStorage, id)));
-  // not using below after getting rid of random week
-  hydrationEarlierWeek.insertAdjacentHTML('afterBegin', makeHydrationHTML(id, hydrationInfo, userStorage, hydrationInfo.calculateRandomWeekOunces(laterDateString, id, userStorage)));
+function populateHydrationSection(currentDate) {
+  console.log(currentUser.id);
+  console.log(currentDate);
+  // change the adjacentHTML to just mess with the span
+  document
+    .getElementById('hydrationToday')
+    .insertAdjacentHTML('afterBegin', `<p>You drank</p><p><span class="number">${hydrationRepo.calculateDailyOunces(currentUser.id, currentDate)}</span></p><p>oz water today.</p>`);
+  document
+    .getElementById('hydrationAverage')
+    .insertAdjacentHTML('afterBegin', `<p>Your average water intake is</p><p><span class="number">${hydrationRepo.calculateAverageOunces(currentUser.id)}</span></p> <p>oz per day.</p>`);
+  document.getElementById('hydrationThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(hydrationRepo.calculateFirstWeekOunces(userRepo, currentUser.id), 'oz'));
 }
 
-function makeHydrationHTML(id, hydrationInfo, userStorage, method) {
-  // not passing in a method but a week of ounces, Duplicate logic for other make____HTML
-  return method.map((drinkData) => `<li class="historical-list-listItem">On ${drinkData}oz</li>`).join('');
+// ['2019/4/20 32', '2019/4/20 32', '2019/4/20 32', '2019/4/20 32'] - array format for these functions
+function makeArrayIntoHTMLList(array, unit) {
+  return array.map((dateAndAmount) => `<li class="historical-list-listItem">On ${dateAndAmount}${unit}</li>`).join('');
 }
 
-function addSleepInfo(id, sleepInfo, dateString, userStorage, laterDateString) {
-  // remove laterDateString, need to include quality of sleep in html locations
-  // docQS done here, just mess with span
-  sleepToday.insertAdjacentHTML('afterBegin', `<p>You slept</p> <p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours today.</p>`);
-  // docQS done here, just mess with span
-  sleepQualityToday.insertAdjacentHTML('afterBegin', `<p>Your sleep quality was</p> <p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>out of 5.</p>`);
-  // docQS done here,
-  avUserSleepQuality.insertAdjacentHTML(
-    'afterBegin',
-    `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() * 100) / 100}</span></p><p>out of 5.</p>`
-  );
-  // same notes as above in Hydration
-  sleepThisWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(dateString, id, userStorage)));
-  sleepEarlierWeek.insertAdjacentHTML('afterBegin', makeSleepHTML(id, sleepInfo, userStorage, sleepInfo.calculateWeekSleep(laterDateString, id, userStorage)));
-}
+// function populateSleepSection(id, sleepInfo, dateString, userStorage, laterDateString) {
+//   // remove laterDateString, need to include quality of sleep in html locations
+//   // just mess with span
+//   document.getElementById('sleepToday').insertAdjacentHTML('afterBegin', `<p>You slept</p> <p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours today.</p>`);
+//   // just mess with span
+//   document
+//     .getElementById('sleepQualityToday')
+//     .insertAdjacentHTML('afterBegin', `<p>Your sleep quality was</p> <p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>out of 5.</p>`);
+//   // just mess with Span
+//   document
+//     .getElementById('avUserSleepQuality')
+//     .insertAdjacentHTML(
+//       'afterBegin',
+//       `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() * 100) / 100}</span></p><p>out of 5.</p>`
+//     );
+//   // same notes as above in Hydration
+//   document.getElementById('sleepThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(sleepInfo.calculateWeekSleep(dateString, id, userStorage), 'hours'));
+//   document.getElementById('sleepEarlierWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(sleepInfo.calculateWeekSleep(laterDateString, id, userStorage), '/5 quality of sleep'));
+// }
 
-function makeSleepHTML(id, sleepInfo, userStorage, method) {
-  // deal with just the span? has params not used
-  return method.map((sleepData) => `<li class="historical-list-listItem">On ${sleepData} hours</li>`).join('');
-}
+// function makeSleepHTML(id, sleepInfo, userStorage, method) {
+//   // deal with just the span? has params not used
+//   return method.map((sleepData) => `<li class="historical-list-listItem">On ${sleepData} hours</li>`).join('');
+// }
 
-// never called
-function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
-  return method.map((sleepQualityData) => `<li class="historical-list-listItem">On ${sleepQualityData}/5 quality of sleep</li>`).join('');
-}
+// // never called
+// function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
+//   return method.map((sleepQualityData) => `<li class="historical-list-listItem">On ${sleepQualityData}/5 quality of sleep</li>`).join('');
+// }
 
 function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateString, user, winnerId) {
   // docQS done here for all of these
