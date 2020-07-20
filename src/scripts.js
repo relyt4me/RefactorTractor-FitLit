@@ -52,23 +52,23 @@ var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes');
 
-window.onload = startApp(); //Starts Here
+window.onload = startApp(); //Starts Here (global variables currentInformation = {})
 
 function startApp() {
-  let userList = [];
+  let userList = []; // let userRepo = new UserRepo(makeUsers()); next three lines ** here to randomHistory should be a function for instatiating data
   makeUsers(userList);
   let userRepo = new UserRepo(userList);
-  let hydrationRepo = new Hydration(hydrationData);
-  let sleepRepo = new Sleep(sleepData);
-  let activityRepo = new Activity(activityData);
-  var userNowId = pickUser();
-  let userNow = getUserById(userNowId, userRepo);
-  let today = makeToday(userRepo, userNowId, hydrationData);
-  let randomHistory = makeRandomDate(userRepo, userNowId, hydrationData);
+  let hydrationRepo = new Hydration(hydrationData); // created our hydration class based on (need to get hydration from API)
+  let sleepRepo = new Sleep(sleepData); // same as above Sleep
+  let activityRepo = new Activity(activityData); // same as above Activity
+  var userNowId = pickUser(); // rename currentUser = newRandomUser() (userNowID = currentUser.id)
+  let userNow = getUserById(userNowId, userRepo); //covered from above
+  let today = makeToday(userRepo, userNowId, hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
+  let randomHistory = makeRandomDate(userRepo, userNowId, hydrationData); // a random date? (do we need this) REMOVE
   historicalWeek.forEach((instance) =>
     instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`)
-  );
-  addInfoToSidebar(userNow, userRepo);
+  ); // remove the random week and historical week placements REMOVE
+  addInfoToSidebar(userNow, userRepo); //
   addHydrationInfo(userNowId, hydrationRepo, today, userRepo, randomHistory);
   addSleepInfo(userNowId, sleepRepo, today, userRepo, randomHistory);
   let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
@@ -92,35 +92,51 @@ function startApp() {
 }
 
 function makeUsers(array) {
+  //rename instatiateUsers remove parameter add line under with returned array
   userData.forEach(function (dataItem) {
-    let user = new User(dataItem);
+    //this is a data file and makes instances of all of the users from the data file in one array
+    let user = new User(dataItem); // need to get data file from the API
     array.push(user);
   });
 }
 
 function pickUser() {
-  return Math.floor(Math.random() * 50);
+  return Math.floor(Math.random() * 50); //needs more dynamic if more users
 }
 
 function getUserById(id, listRepo) {
   return listRepo.getDataFromID(id);
 }
 
+function makeToday(userStorage, id, dataSet) {
+  // refactor
+  var sortedArray = userStorage.makeSortedUserArray(id, dataSet); // makeSorted orders set by date from recent starting
+  return sortedArray[0].date;
+}
+
+function makeRandomDate(userStorage, id, dataSet) {
+  // gives a random date (used where?)
+  var sortedArray = userStorage.makeSortedUserArray(id, dataSet); // sorts data set by date from recent
+  return sortedArray[Math.floor(Math.random() * sortedArray.length + 1)].date;
+}
+
 function addInfoToSidebar(user, userStorage) {
-  sidebarName.innerText = user.name;
-  headerText.innerText = `${user.getFirstName()}'s Activity Tracker`;
-  stepGoalCard.innerText = `Your daily step goal is ${user.dailyStepGoal}.`;
-  avStepGoalCard.innerText = `The average daily step goal is ${userStorage.calculateAverageStepGoal()}`;
-  userAddress.innerText = user.address;
-  userEmail.innerText = user.email;
-  userStridelength.innerText = `Your stridelength is ${user.strideLength} meters.`;
+  sidebarName.innerText = user.name; // docQS should be done here
+  headerText.innerText = `${user.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function)
+  stepGoalCard.innerText = `Your daily step goal is ${user.dailyStepGoal}.`; // docQS done here
+  avStepGoalCard.innerText = `The average daily step goal is ${userStorage.calculateAverageStepGoal()}`; // not a thing need docQS displays averagestepgoal from userRepo
+  userAddress.innerText = user.address; // docQS should be done here
+  userEmail.innerText = user.email; // docQS should be done here
+  userStridelength.innerText = `Your stridelength is ${user.strideLength} meters.`; // docQS should be done here
   friendList.insertAdjacentHTML(
+    // docQS should be done here
     'afterBegin',
-    makeFriendHTML(user, userStorage)
+    makeFriendHTML(user, userStorage) //rename to userRepo renamed display friendlist
   );
 }
 
 function makeFriendHTML(user, userStorage) {
+  // gets the HTML for the ul that gets put there
   return user
     .getFriendsNames(userStorage)
     .map(
@@ -131,16 +147,6 @@ function makeFriendHTML(user, userStorage) {
 
 function makeWinnerID(activityInfo, user, dateString, userStorage) {
   return activityInfo.getWinnerId(user, dateString, userStorage);
-}
-
-function makeToday(userStorage, id, dataSet) {
-  var sortedArray = userStorage.makeSortedUserArray(id, dataSet);
-  return sortedArray[0].date;
-}
-
-function makeRandomDate(userStorage, id, dataSet) {
-  var sortedArray = userStorage.makeSortedUserArray(id, dataSet);
-  return sortedArray[Math.floor(Math.random() * sortedArray.length + 1)].date;
 }
 
 function addHydrationInfo(
