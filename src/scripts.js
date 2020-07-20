@@ -118,8 +118,6 @@ function makeWinnerID(activityInfo, user, dateString, userStorage) {
 }
 
 function populateHydrationSection(currentDate) {
-  console.log(currentUser.id);
-  console.log(currentDate);
   // change the adjacentHTML to just mess with the span
   document
     .getElementById('hydrationToday')
