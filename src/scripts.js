@@ -48,35 +48,38 @@ var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes');
 
+var currentInformation = {};
+
 window.onload = startApp(); //Starts Here (global variables currentInformation = {})
 
 function startApp() {
-  let userList = []; // let userRepo = new UserRepo(makeUsers()); next three lines ** here to randomHistory should be a function for instatiating data
-  makeUsers(userList);
-  let userRepo = new UserRepo(userList);
+  currentInformation.userRepo = new UserRepo(instantiateUsers());
+  // let userList = []; // let userRepo = new UserRepo(makeUsers()); next three lines ** here to randomHistory should be a function for instatiating data
+  // makeUsers(userList);
+  // let userRepo = new UserRepo(userList);
   let hydrationRepo = new Hydration(hydrationData); // created our hydration class based on (need to get hydration from API)
   let sleepRepo = new Sleep(sleepData); // same as above Sleep
   let activityRepo = new Activity(activityData); // same as above Activity
   var userNowId = pickUser(); // rename currentUser = newRandomUser() (userNowID = currentUser.id)
-  let userNow = getUserById(userNowId, userRepo); //covered from above
-  let today = makeToday(userRepo, userNowId, hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
-  let randomHistory = makeRandomDate(userRepo, userNowId, hydrationData); // a random date? (do we need this) REMOVE
+  let userNow = getUserById(userNowId, currentInformation.userRepo); //covered from above
+  let today = makeToday(currentInformation.userRepo, userNowId, hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
+  let randomHistory = makeRandomDate(currentInformation.userRepo, userNowId, hydrationData); // a random date? (do we need this) REMOVE
   historicalWeek.forEach((instance) => instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`)); // remove the random week and historical week placements REMOVE
-  addInfoToSidebar(userNow, userRepo); // fills out user infor (iteration 1 dashboard)
-  addHydrationInfo(userNowId, hydrationRepo, today, userRepo, randomHistory);
-  addSleepInfo(userNowId, sleepRepo, today, userRepo, randomHistory);
-  let winnerNow = makeWinnerID(activityRepo, userNow, today, userRepo);
-  addActivityInfo(userNowId, activityRepo, today, userRepo, randomHistory, userNow, winnerNow);
-  addFriendGameInfo(userNowId, activityRepo, userRepo, today, randomHistory, userNow);
+  addInfoToSidebar(userNow, currentInformation.userRepo); // fills out user infor (iteration 1 dashboard)
+  addHydrationInfo(userNowId, hydrationRepo, today, currentInformation.userRepo, randomHistory);
+  addSleepInfo(userNowId, sleepRepo, today, currentInformation.userRepo, randomHistory);
+  let winnerNow = makeWinnerID(activityRepo, userNow, today, currentInformation.userRepo);
+  addActivityInfo(userNowId, activityRepo, today, currentInformation.userRepo, randomHistory, userNow, winnerNow);
+  addFriendGameInfo(userNowId, activityRepo, currentInformation.userRepo, today, randomHistory, userNow);
 }
 
-function makeUsers(array) {
-  //rename instatiateUsers remove parameter add line under with returned array
-  userData.forEach(function (dataItem) {
+function instantiateUsers() {
+  const allUsers = userData.map((user) => {
     //this is a data file and makes instances of all of the users from the data file in one array
-    let user = new User(dataItem); // need to get data file from the API
-    array.push(user);
+    return new User(user); // need to get data file from the API
   });
+  console.log(allUsers);
+  return allUsers;
 }
 
 function pickUser() {
