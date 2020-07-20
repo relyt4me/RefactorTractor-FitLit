@@ -51,7 +51,7 @@ function startApp() {
   document.getElementById('headerText').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function)
   populateUserWidget(); // fills out user infor (iteration 1 dashboard)
   populateHydrationSection(mostRecentDate);
-  populateSleepSection(currentUser.id, sleepRepo, mostRecentDate, userRepo, randomHistory);
+  populateSleepSection(mostRecentDate);
   let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
   addActivityInfo(currentUser.id, activityRepo, mostRecentDate, userRepo, randomHistory, currentUser, winnerNow);
   addFriendGameInfo(currentUser.id, activityRepo, userRepo, mostRecentDate, randomHistory, currentUser);
@@ -133,35 +133,24 @@ function makeArrayIntoHTMLList(array, unit) {
   return array.map((dateAndAmount) => `<li class="historical-list-listItem">On ${dateAndAmount}${unit}</li>`).join('');
 }
 
-// function populateSleepSection(id, sleepInfo, dateString, userStorage, laterDateString) {
-//   // remove laterDateString, need to include quality of sleep in html locations
-//   // just mess with span
-//   document.getElementById('sleepToday').insertAdjacentHTML('afterBegin', `<p>You slept</p> <p><span class="number">${sleepInfo.calculateDailySleep(id, dateString)}</span></p> <p>hours today.</p>`);
-//   // just mess with span
-//   document
-//     .getElementById('sleepQualityToday')
-//     .insertAdjacentHTML('afterBegin', `<p>Your sleep quality was</p> <p><span class="number">${sleepInfo.calculateDailySleepQuality(id, dateString)}</span></p><p>out of 5.</p>`);
-//   // just mess with Span
-//   document
-//     .getElementById('avUserSleepQuality')
-//     .insertAdjacentHTML(
-//       'afterBegin',
-//       `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepInfo.calculateAllUserSleepQuality() * 100) / 100}</span></p><p>out of 5.</p>`
-//     );
-//   // same notes as above in Hydration
-//   document.getElementById('sleepThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(sleepInfo.calculateWeekSleep(dateString, id, userStorage), 'hours'));
-//   document.getElementById('sleepEarlierWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(sleepInfo.calculateWeekSleep(laterDateString, id, userStorage), '/5 quality of sleep'));
-// }
-
-// function makeSleepHTML(id, sleepInfo, userStorage, method) {
-//   // deal with just the span? has params not used
-//   return method.map((sleepData) => `<li class="historical-list-listItem">On ${sleepData} hours</li>`).join('');
-// }
-
-// // never called
-// function makeSleepQualityHTML(id, sleepInfo, userStorage, method) {
-//   return method.map((sleepQualityData) => `<li class="historical-list-listItem">On ${sleepQualityData}/5 quality of sleep</li>`).join('');
-// }
+function populateSleepSection(currentDate) {
+  // just mess with span
+  document
+    .getElementById('sleepToday')
+    .insertAdjacentHTML('afterBegin', `<p>You slept</p> <p><span class="number">${sleepRepo.calculateDailySleep(currentUser.id, currentDate)}</span></p> <p>hours today.</p>`);
+  // just mess with span
+  document
+    .getElementById('sleepQualityToday')
+    .insertAdjacentHTML('afterBegin', `<p>Your sleep quality was</p> <p><span class="number">${sleepRepo.calculateDailySleepQuality(currentUser.id, currentDate)}</span></p><p>out of 5.</p>`);
+  // just mess with Span
+  document
+    .getElementById('avUserSleepQuality')
+    .insertAdjacentHTML(
+      'afterBegin',
+      `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepRepo.calculateAllUserSleepQuality() * 100) / 100}</span></p><p>out of 5.</p>`
+    );
+  document.getElementById('sleepThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(sleepRepo.calculateWeekSleep(currentDate, currentUser.id, userRepo), 'hours'));
+}
 
 function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateString, user, winnerId) {
   // docQS done here for all of these
