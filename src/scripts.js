@@ -48,29 +48,29 @@ var bestUserSteps = document.getElementById('bestUserSteps');
 var streakList = document.getElementById('streakList');
 var streakListMinutes = document.getElementById('streakListMinutes');
 
-var currentInformation = {};
+let userRepo;
+let hydrationRepo;
+let sleepRepo;
+let activityRepo;
+let currentUser;
 
 window.onload = startApp(); //Starts Here (global variables currentInformation = {})
 
 function startApp() {
-  currentInformation.userRepo = new UserRepo(instantiateUsers());
-  // let userList = []; // let userRepo = new UserRepo(makeUsers()); next three lines ** here to randomHistory should be a function for instatiating data
-  // makeUsers(userList);
-  // let userRepo = new UserRepo(userList);
-  let hydrationRepo = new Hydration(hydrationData); // created our hydration class based on (need to get hydration from API)
-  let sleepRepo = new Sleep(sleepData); // same as above Sleep
-  let activityRepo = new Activity(activityData); // same as above Activity
-  var userNowId = pickUser(); // rename currentUser = newRandomUser() (userNowID = currentUser.id)
-  let userNow = getUserById(userNowId, currentInformation.userRepo); //covered from above
-  let today = makeToday(currentInformation.userRepo, userNowId, hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
-  let randomHistory = makeRandomDate(currentInformation.userRepo, userNowId, hydrationData); // a random date? (do we need this) REMOVE
+  userRepo = new UserRepo(instantiateUsers());
+  hydrationRepo = new Hydration(hydrationData); // created our hydration class based on (need to get hydration from API)
+  sleepRepo = new Sleep(sleepData); // same as above Sleep
+  activityRepo = new Activity(activityData); // same as above Activity
+  currentUser = newRandomUser(); // now in one helper function
+  let mostRecentDate = getMostCurrentDate(currentUser.id, hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
+  let randomHistory = makeRandomDate(userRepo, currentUser.id, hydrationData); // a random date? (do we need this) REMOVE
   historicalWeek.forEach((instance) => instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`)); // remove the random week and historical week placements REMOVE
-  addInfoToSidebar(userNow, currentInformation.userRepo); // fills out user infor (iteration 1 dashboard)
-  addHydrationInfo(userNowId, hydrationRepo, today, currentInformation.userRepo, randomHistory);
-  addSleepInfo(userNowId, sleepRepo, today, currentInformation.userRepo, randomHistory);
-  let winnerNow = makeWinnerID(activityRepo, userNow, today, currentInformation.userRepo);
-  addActivityInfo(userNowId, activityRepo, today, currentInformation.userRepo, randomHistory, userNow, winnerNow);
-  addFriendGameInfo(userNowId, activityRepo, currentInformation.userRepo, today, randomHistory, userNow);
+  addInfoToSidebar(currentUser, userRepo); // fills out user infor (iteration 1 dashboard)
+  addHydrationInfo(currentUser.id, hydrationRepo, mostRecentDate, userRepo, randomHistory);
+  addSleepInfo(currentUser.id, sleepRepo, mostRecentDate, userRepo, randomHistory);
+  let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
+  addActivityInfo(currentUser.id, activityRepo, mostRecentDate, userRepo, randomHistory, currentUser, winnerNow);
+  addFriendGameInfo(currentUser.id, activityRepo, userRepo, mostRecentDate, randomHistory, currentUser);
 }
 
 function instantiateUsers() {
@@ -78,21 +78,18 @@ function instantiateUsers() {
     //this is a data file and makes instances of all of the users from the data file in one array
     return new User(user); // need to get data file from the API
   });
-  console.log(allUsers);
   return allUsers;
 }
 
-function pickUser() {
-  return Math.floor(Math.random() * 50); //needs more dynamic if more users
+// grabs a random instatiated user from the userRepo global variable
+function newRandomUser() {
+  const randomID = Math.floor(Math.random() * userRepo.users.length);
+  return userRepo.getDataFromID(randomID);
 }
 
-function getUserById(id, listRepo) {
-  return listRepo.getDataFromID(id);
-}
-
-function makeToday(userStorage, id, dataSet) {
+function getMostCurrentDate(id, dataSet) {
   // refactor
-  var sortedArray = userStorage.makeSortedUserArray(id, dataSet); // makeSorted orders set by date from recent starting
+  var sortedArray = userRepo.makeSortedUserArray(id, dataSet); // REFACTOR MAKESORTED makeSorted orders set by date from recent starting
   return sortedArray[0].date;
 }
 
