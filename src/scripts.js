@@ -15,9 +15,6 @@ import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
 
-var sidebarName = document.getElementById('sidebarName');
-var stepGoalCard = document.getElementById('stepGoalCard');
-var headerText = document.getElementById('headerText');
 var userAddress = document.getElementById('userAddress');
 var userEmail = document.getElementById('userEmail');
 var userStridelength = document.getElementById('userStridelength');
@@ -57,21 +54,30 @@ let currentUser;
 window.onload = startApp(); //Starts Here (global variables currentInformation = {})
 
 function startApp() {
-  userRepo = new UserRepo(instantiateUsers());
-  hydrationRepo = new Hydration(hydrationData); // created our hydration class based on (need to get hydration from API)
-  sleepRepo = new Sleep(sleepData); // same as above Sleep
-  activityRepo = new Activity(activityData); // same as above Activity
-  currentUser = newRandomUser(); // now in one helper function
-  let mostRecentDate = getMostCurrentDate(currentUser.id, hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
+  instantiatePageData();
+  let mostRecentDate = getUsersRecentDate(currentUser.id, hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
+  //************remove after getting rid of in other functionality down 2
   let randomHistory = makeRandomDate(userRepo, currentUser.id, hydrationData); // a random date? (do we need this) REMOVE
   historicalWeek.forEach((instance) => instance.insertAdjacentHTML('afterBegin', `Week of ${randomHistory}`)); // remove the random week and historical week placements REMOVE
-  addInfoToSidebar(currentUser, userRepo); // fills out user infor (iteration 1 dashboard)
+
+  document.getElementById('headerText').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function)
+  populateUserWidget(); // fills out user infor (iteration 1 dashboard)
   addHydrationInfo(currentUser.id, hydrationRepo, mostRecentDate, userRepo, randomHistory);
   addSleepInfo(currentUser.id, sleepRepo, mostRecentDate, userRepo, randomHistory);
   let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
   addActivityInfo(currentUser.id, activityRepo, mostRecentDate, userRepo, randomHistory, currentUser, winnerNow);
   addFriendGameInfo(currentUser.id, activityRepo, userRepo, mostRecentDate, randomHistory, currentUser);
 }
+
+function instantiatePageData() {
+  userRepo = new UserRepo(instantiateUsers());
+  hydrationRepo = new Hydration(hydrationData); // created our hydration class based on (need to get hydration from API)
+  sleepRepo = new Sleep(sleepData); // same as above Sleep
+  activityRepo = new Activity(activityData); // same as above Activity
+  currentUser = newRandomUser(); // now in one helper function
+}
+
+function populatePage() {}
 
 function instantiateUsers() {
   const allUsers = userData.map((user) => {
@@ -87,38 +93,34 @@ function newRandomUser() {
   return userRepo.getDataFromID(randomID);
 }
 
-function getMostCurrentDate(id, dataSet) {
-  // refactor
-  var sortedArray = userRepo.makeSortedUserArray(id, dataSet); // REFACTOR MAKESORTED makeSorted orders set by date from recent starting
-  return sortedArray[0].date;
+// function will remove userRepo functionality from the class returns the most current date of a data set for a given user
+function getUsersRecentDate(id, dataSet) {
+  const dataFromID = dataSet.filter((userInstance) => id === userInstance.userID);
+  const sortedByDate = dataFromID.sort((a, b) => new Date(b.date) - new Date(a.date));
+  return sortedByDate[0].date;
 }
 
+//************remove after getting rid of in other functionality
 function makeRandomDate(userStorage, id, dataSet) {
   // gives a random date (used where?)
   var sortedArray = userStorage.makeSortedUserArray(id, dataSet); // sorts data set by date from recent
   return sortedArray[Math.floor(Math.random() * sortedArray.length + 1)].date;
 }
 
-function addInfoToSidebar(user, userStorage) {
-  // populateUserCard
-  sidebarName.innerText = user.name; // docQS should be done here
-  headerText.innerText = `${user.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function)
-  stepGoalCard.innerText = `Your daily step goal is ${user.dailyStepGoal}.`; // docQS done here
-  avStepGoalCard.innerText = `The average daily step goal is ${userStorage.calculateAverageStepGoal()}`; // not a thing need docQS displays averagestepgoal from userRepo
-  userAddress.innerText = user.address; // docQS should be done here
-  userEmail.innerText = user.email; // docQS should be done here
-  userStridelength.innerText = `Your stridelength is ${user.strideLength} meters.`; // docQS should be done here
-  friendList.insertAdjacentHTML(
-    // docQS should be done here
-    'afterBegin',
-    makeFriendHTML(user, userStorage) // rename to userRepo renamed display friendlist
-  );
+function populateUserWidget() {
+  document.getElementById('sidebarName').innerText = currentUser.name;
+  document.getElementById('stepGoalCard').innerText = `Your daily step goal is ${currentUser.dailyStepGoal}.`;
+  document.getElementById('avStepGoalCard').innerText = `The average daily step goal is ${userRepo.calculateAverageStepGoal()}`; // not a thing need docQS displays averagestepgoal from userRepo
+  document.getElementById('userAddress').innerText = currentUser.address;
+  document.getElementById('userEmail').innerText = currentUser.email;
+  document.getElementById('userStridelength').innerText = `Your stridelength is ${currentUser.strideLength} meters.`;
+  document.getElementById('friendList').insertAdjacentHTML('afterBegin', makeFriendHTML()); // rename to userRepo renamed display friendlist
 }
 
-function makeFriendHTML(user, userStorage) {
+function makeFriendHTML() {
   // gets the HTML for the ul that gets put there
-  return user
-    .getFriendsNames(userStorage) // an array of strings that are the friends
+  return currentUser
+    .getFriendsNames(userRepo) // an array of strings that are the friends
     .map((friendName) => `<li class='historical-list-listItem'>${friendName}</li>`)
     .join('');
 }
