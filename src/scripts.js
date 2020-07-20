@@ -53,7 +53,7 @@ function startApp() {
   populateHydrationSection(mostRecentDate);
   populateSleepSection(mostRecentDate);
   let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
-  addActivityInfo(currentUser.id, activityRepo, mostRecentDate, userRepo, randomHistory, currentUser, winnerNow);
+  populateActivitySection(mostRecentDate, winnerNow);
   addFriendGameInfo(currentUser.id, activityRepo, userRepo, mostRecentDate, randomHistory, currentUser);
 }
 
@@ -119,12 +119,8 @@ function makeWinnerID(activityInfo, user, dateString, userStorage) {
 
 function populateHydrationSection(currentDate) {
   // change the adjacentHTML to just mess with the span
-  document
-    .getElementById('hydrationToday')
-    .insertAdjacentHTML('afterBegin', `<p>You drank</p><p><span class="number">${hydrationRepo.calculateDailyOunces(currentUser.id, currentDate)}</span></p><p>oz water today.</p>`);
-  document
-    .getElementById('hydrationAverage')
-    .insertAdjacentHTML('afterBegin', `<p>Your average water intake is</p><p><span class="number">${hydrationRepo.calculateAverageOunces(currentUser.id)}</span></p> <p>oz per day.</p>`);
+  document.getElementById('hydrationToday').insertAdjacentHTML('afterBegin', `<p>You drank</p><p><span class="number">${hydrationRepo.calculateDailyOunces(currentUser.id, currentDate)}</span></p><p>oz water today.</p>`);
+  document.getElementById('hydrationAverage').insertAdjacentHTML('afterBegin', `<p>Your average water intake is</p><p><span class="number">${hydrationRepo.calculateAverageOunces(currentUser.id)}</span></p> <p>oz per day.</p>`);
   document.getElementById('hydrationThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(hydrationRepo.calculateFirstWeekOunces(userRepo, currentUser.id), 'oz'));
 }
 
@@ -135,57 +131,26 @@ function makeArrayIntoHTMLList(array, unit) {
 
 function populateSleepSection(currentDate) {
   // just mess with span
-  document
-    .getElementById('sleepToday')
-    .insertAdjacentHTML('afterBegin', `<p>You slept</p> <p><span class="number">${sleepRepo.calculateDailySleep(currentUser.id, currentDate)}</span></p> <p>hours today.</p>`);
+  document.getElementById('sleepToday').insertAdjacentHTML('afterBegin', `<p>You slept</p> <p><span class="number">${sleepRepo.calculateDailySleep(currentUser.id, currentDate)}</span></p> <p>hours today.</p>`);
   // just mess with span
-  document
-    .getElementById('sleepQualityToday')
-    .insertAdjacentHTML('afterBegin', `<p>Your sleep quality was</p> <p><span class="number">${sleepRepo.calculateDailySleepQuality(currentUser.id, currentDate)}</span></p><p>out of 5.</p>`);
+  document.getElementById('sleepQualityToday').insertAdjacentHTML('afterBegin', `<p>Your sleep quality was</p> <p><span class="number">${sleepRepo.calculateDailySleepQuality(currentUser.id, currentDate)}</span></p><p>out of 5.</p>`);
   // just mess with Span
-  document
-    .getElementById('avUserSleepQuality')
-    .insertAdjacentHTML(
-      'afterBegin',
-      `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepRepo.calculateAllUserSleepQuality() * 100) / 100}</span></p><p>out of 5.</p>`
-    );
+  document.getElementById('avUserSleepQuality').insertAdjacentHTML('afterBegin', `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepRepo.calculateAllUserSleepQuality() * 100) / 100}</span></p><p>out of 5.</p>`);
   document.getElementById('sleepThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(sleepRepo.calculateWeekSleep(currentDate, currentUser.id, userRepo), 'hours'));
 }
 
-function addActivityInfo(id, activityInfo, dateString, userStorage, laterDateString, user, winnerId) {
-  // docQS done here for all of these
-  userStairsToday.insertAdjacentHTML('afterBegin', `<p>Stair Count:</p><p>You</><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'flightsOfStairs')}</span></p>`);
-  avgStairsToday.insertAdjacentHTML(
-    'afterBegin',
-    `<p>Stair Count: </p><p>All Users</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'flightsOfStairs')}</span></p>`
-  );
-  userStepsToday.insertAdjacentHTML('afterBegin', `<p>Step Count:</p><p>You</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'numSteps')}</span></p>`);
-  avgStepsToday.insertAdjacentHTML('afterBegin', `<p>Step Count:</p><p>All Users</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'numSteps')}</span></p>`);
-  userMinutesToday.insertAdjacentHTML(
-    'afterBegin',
-    `<p>Active Minutes:</p><p>You</p><p><span class="number">${activityInfo.userDataForToday(id, dateString, userStorage, 'minutesActive')}</span></p>`
-  );
-  avgMinutesToday.insertAdjacentHTML(
-    'afterBegin',
-    `<p>Active Minutes:</p><p>All Users</p><p><span class="number">${activityInfo.getAllUserAverageForDay(dateString, userStorage, 'minutesActive')}</span></p>`
-  );
-  userStepsThisWeek.insertAdjacentHTML('afterBegin', makeStepsHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, 'numSteps')));
-  userStairsThisWeek.insertAdjacentHTML('afterBegin', makeStairsHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, 'flightsOfStairs')));
-  userMinutesThisWeek.insertAdjacentHTML('afterBegin', makeMinutesHTML(id, activityInfo, userStorage, activityInfo.userDataForWeek(id, dateString, userStorage, 'minutesActive')));
-  bestUserSteps.insertAdjacentHTML('afterBegin', makeStepsHTML(user, activityInfo, userStorage, activityInfo.userDataForWeek(winnerId, dateString, userStorage, 'numSteps')));
-}
-
-// All of these are the same method for HTML listing if we send in units (variable should not be method)
-function makeStepsHTML(id, activityInfo, userStorage, method) {
-  return method.map((activityData) => `<li class="historical-list-listItem">On ${activityData} steps</li>`).join('');
-}
-
-function makeStairsHTML(id, activityInfo, userStorage, method) {
-  return method.map((data) => `<li class="historical-list-listItem">On ${data} flights</li>`).join('');
-}
-
-function makeMinutesHTML(id, activityInfo, userStorage, method) {
-  return method.map((data) => `<li class="historical-list-listItem">On ${data} minutes</li>`).join('');
+function populateActivitySection(currentDate, winnerId) {
+  // UserStairsToday through avgMinutesToday should only affect span
+  document.getElementById('userStairsToday').insertAdjacentHTML('afterBegin', `<p>Stair Count:</p><p>You</><p><span class="number">${activityRepo.userDataForToday(currentUser.id, currentDate, userRepo, 'flightsOfStairs')}</span></p>`);
+  document.getElementById('avgStairsToday').insertAdjacentHTML('afterBegin', `<p>Stair Count: </p><p>All Users</p><p><span class="number">${activityRepo.getAllUserAverageForDay(currentDate, userRepo, 'flightsOfStairs')}</span></p>`);
+  document.getElementById('userStepsToday').insertAdjacentHTML('afterBegin', `<p>Step Count:</p><p>You</p><p><span class="number">${activityRepo.userDataForToday(currentUser.id, currentDate, userRepo, 'numSteps')}</span></p>`);
+  document.getElementById('avgStepsToday').insertAdjacentHTML('afterBegin', `<p>Step Count:</p><p>All Users</p><p><span class="number">${activityRepo.getAllUserAverageForDay(currentDate, userRepo, 'numSteps')}</span></p>`);
+  document.getElementById('userMinutesToday').insertAdjacentHTML('afterBegin', `<p>Active Minutes:</p><p>You</p><p><span class="number">${activityRepo.userDataForToday(currentUser.id, currentDate, userRepo, 'minutesActive')}</span></p>`);
+  document.getElementById('avgMinutesToday').insertAdjacentHTML('afterBegin', `<p>Active Minutes:</p><p>All Users</p><p><span class="number">${activityRepo.getAllUserAverageForDay(currentDate, userRepo, 'minutesActive')}</span></p>`);
+  document.getElementById('userStepsThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.userDataForWeek(currentUser.id, currentDate, userRepo, 'numSteps'), 'steps'));
+  document.getElementById('userStairsThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.userDataForWeek(currentUser.id, currentDate, userRepo, 'flightsOfStairs'), 'flights'));
+  document.getElementById('userMinutesThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.userDataForWeek(currentUser.id, currentDate, userRepo, 'minutesActive'), 'minutes'));
+  document.getElementById('bestUserSteps').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.userDataForWeek(winnerId, currentDate, userRepo, 'numSteps'), 'steps'));
 }
 
 function addFriendGameInfo(id, activityInfo, userStorage, dateString, laterDateString, user) {
