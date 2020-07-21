@@ -5,7 +5,7 @@ import Hydration from '../src/Hydration';
 import hydrationSampleData from './sampleData/hydrationSampleData';
 // import userSampleData from './sampleData/userSampleData';
 
-describe.only('Hydration', function () {
+describe('Hydration', function () {
   let hydrationRepo;
   // let user1, user2, user3, user4, user5, users, userRepo;
   // let hydrationData;
@@ -148,10 +148,10 @@ describe.only('Hydration', function () {
     expect(hydrationRepo.calculateDailyOunces(4, '2019/06/18')).to.equal(93);
   });
 
-  // it('Should return undefined if the date or id does not exist', function () {
-  //   expect(hydrationRepo.calculateDailyOunces(6, '2019/06/15')).to.equal(undefined);
-  //   expect(hydrationRepo.calculateDailyOunces(4, '2020/02/31')).to.equal(undefined);
-  // });
+  it('Should return undefined if the date or id does not exist', function () {
+    expect(hydrationRepo.calculateDailyOunces(6, '2019/06/15')).to.equal(undefined);
+    expect(hydrationRepo.calculateDailyOunces(4, '2020/02/31')).to.equal(undefined);
+  });
 
   it('Should find the water intake for a user for one week based on a final date', () => {
     const weekOfOuncesForUser2 = [
