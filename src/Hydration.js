@@ -28,6 +28,7 @@ class Hydration {
     });
   }
 
+  //*****Secondary Functions Below ******/
   calculateFirstWeekOunces(userRepo, id) {
     return userRepo.getFirstWeek(id, this.hydrationData).map((data) => `${data.date}: ${data.numOunces}`);
   }
