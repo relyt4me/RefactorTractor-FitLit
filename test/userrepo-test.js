@@ -25,30 +25,46 @@ describe('UserRepo', () => {
     expect(userRepo).to.be.an.instanceof(UserRepo);
   });
 
-  it('Should have data of all the users', () => {
-    expect(userRepo.users).to.deep.eql([user1, user2, user3]);
-  });
+  it('Should not require an argument to create a new UserRepo', () => {
+    expect(() => { 
+      new UserRepo() 
+    }).to.not.throw(Error);
+  })
 
-  //Sad path Test Added:
   it('Should be undefined if no arguement is given for the user', () => {
     const noUser = new UserRepo()
     expect(noUser.data).to.eql(undefined);
+  });
+
+  it('Should have data of all the users', () => {
+    expect(userRepo.users).to.deep.eql([user1, user2, user3]);
   });
 
   it('Should have a parameter to take in user data', function() {
     expect(userRepo.users[0].id).to.equal(1);
   });
 
-  it('Should return user data when given user ID', () => {
+  it('Should return a user when given a user ID', () => {
     const data = userRepo.getDataFromID(1);
     expect(data).to.eql(user1);
   });
 
-  //Sad path test added:
   it('Should be undefined if no id is provided for the data', () => {
     const data = userRepo.getDataFromID()
     expect(data).to.eql(undefined)  
   });
+
+  it('Should be undefined if arguement provided is wrong data type', () => {
+    const data = userRepo.getDataFromID("wrong data type")
+    expect(data).to.eql(undefined)  
+  });
+
+  it('Should return the average of all users step goals', () => {
+    const stepGoals = userRepo.calculateAverageStepGoal();
+    expect(stepGoals).to.eql(6667);
+  });
+
+  /// TESTS FROM HERE DOWN: Are not suppose to be part of userRepo! ///
 
   it('Should get a users data from its userID in any data set', () => {
     expect(userRepo.getDataFromUserID(1, hydrationSampleData)).to.eql([
@@ -61,19 +77,6 @@ describe('UserRepo', () => {
       { userID: 1, date: '2019/06/21', numOunces: 50 }
     ]);
   });
-
-  //Sad path:
-  it('Should be undefined if not the correct arguements', () => {
-    const data = userRepo.getDataFromID('string', 1)
-    expect(data).to.eql(undefined)  
-  });
-
-  it('Should return the average of all users step goals', () => {
-    const stepGoals = userRepo.calculateAverageStepGoal();
-    expect(stepGoals).to.eql(6667);
-  });
-
-  //All the tests below are related to grabbing arrays and sorting them. 
 
   describe('Array changes:', () => {
     let user1, user2, user3, user4, user5, users, userRepo;
