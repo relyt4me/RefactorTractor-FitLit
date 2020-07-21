@@ -7,24 +7,27 @@ class Activity { //should probably be renamed
     this.activityData = activityData //
   }
   //// begin uneeded methods
-  // getMilesFromStepsByDate(id, date, userRepo) {
-  //   // THIS IS NEVER USED
-  //    //returns miles walked on a specific date
-  //   let userStepsByDate = this.activityData.find(data => id === data.userID && date === data.date); //user data that corresponds to user and input date
-  //   return parseFloat(((userStepsByDate.numSteps * userRepo.strideLength) / 5280).toFixed(1)); //how is userRepo.strideLength even being accessed?
-  //   // userRepo is array of user objects but how does that have a strideLength property?
-  //   // userRepo is improperly named
-  // }
+  getMilesFromStepsByDate(id, date, user, userRepo) {  //returns miles walked on a specific date
+    // THIS IS NEVER USED needs to be displayed on page
+    let userStepsByDate = this.userDataForToday(id, date, userRepo, 'numSteps');
+    // let userStepsByDate = this.activityData.find(activityData => id === activityData.userID && date === activityData.date); //user data that corresponds to user and input date
+    return parseFloat(((userStepsByDate * user.strideLength) / 5280).toFixed(1)); //how is userRepo.strideLength even being accessed?
+    // userRepo is array of user objects but how does that have a strideLength property?
+    // userRepo is improperly named
+  }
   // // not used
+
+  // replaced
   // getActiveMinutesByDate(id, date) { //return total minues active on a date for a specific user
   //   let userActivityByDate = this.activityData.find(data => id === data.userID && date === data.date);
   //   return userActivityByDate.minutesActive;
   // }
-  // calculateActiveAverageForWeek(id, date, userRepo) { //return average active minutes for all users
-  //   return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => { //acc and elem are terrible names
-  //     return acc += elem.minutesActive;
-  //   }, 0) / 7).toFixed(1));
-  // }
+
+  calculateActiveAverageForWeek(id, date, userRepo) { //return average active minutes for all users
+    return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => { //acc and elem are terrible names
+      return acc += elem.minutesActive;
+    }, 0) / 7).toFixed(1));
+  }
   // accomplishStepGoal(id, date, userRepo) { // returns true if user steps = daily step goal (should be >=)
   //   let userStepsByDate = this.activityData.find(data => id === data.userID && date === data.date);
   //   if (userStepsByDate.numSteps === userRepo.dailyStepGoal) { //>= not ===
@@ -44,11 +47,11 @@ class Activity { //should probably be renamed
     return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[dataType], 0) / selectedDayData.length).toFixed(1));
   }
   userDataForToday(id, date, userRepo, dataType) { //return steps for specific user on specific date
-    let userData = userRepo.getDataFromUserID(id, this.activityData); //userData is actual repo
-    return userData.find(data => data.date === date)[dataType];
+    let userData = userRepo.getDataFromUserID(id, this.activityData); // all activities for user, userRepo is actual repo
+    return userData.find(data => data.date === date)[dataType]; //date probably isn't today
   }
-  userDataForWeek(id, date, userRepo, releventData) { //return steps over a week for specific user on specific date
-    return userRepo.getWeekFromDate(date, id, this.activityData).map((data) => `${data.date}: ${data[releventData]}`); //userRepo is actual repo
+  userDataForWeek(id, date, userRepo, dataType) { //return steps over a week for specific user on specific date
+    return userRepo.getWeekFromDate(date, id, this.activityData).map((data) => `${data.date}: ${data[dataType]}`); //userRepo is actual repo
   }
 
   // Friends
