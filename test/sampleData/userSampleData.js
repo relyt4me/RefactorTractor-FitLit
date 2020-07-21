@@ -9,7 +9,7 @@ const userSampleData = [
     "friends": [
       2,
       4,
-      8
+      3
     ]
   },
   {
