@@ -42,23 +42,86 @@ class Activity { //should probably be renamed
   //   return this.activityData.filter(data => id === data.userID).reduce((acc, elem) => (elem.flightsOfStairs > acc) ? elem.flightsOfStairs : acc, 0);
   // }
   //// end not needed methods
+  getOveralUserAverage(date, dataType) {
+    let dayData = this.activityData.filter(data => data.date === date)
+    console.log(dayData)
+  }
+
   getAllUserAverageForDay(date, userRepo, dataType) { //relevent data is string
-    let selectedDayData = userRepo.chooseDayDataForAllUsers(this.activityData, date); // userRepo is actual repo
+    let selectedDayData = this.activityData.filter(data => data.date === date); // userRepo is actual repo
+
+    // console.log(selectedDayData)
+    // console.log(this.activityData.filter(data => data.date === date))
     return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[dataType], 0) / selectedDayData.length).toFixed(1));
   }
-  userDataForToday(id, date, userRepo, dataType) { //return steps for specific user on specific date
-    // let userData = userRepo.getDataFromUserID(id, this.activityData); // all activities for user, userRepo is actual repo
-    let userData = this.activityData.filter(data => {
-      return data.userID === id
-    })
-    console.log(userData);
-    let test = this.activityData.find(data => data.date === date && data.userID === id)
-    console.log(test)
+
+
+  getUserDataForDay(id, date, dataType) {
+    let todayActivity = this.activityData.find(data => data.date === date && data.userID === id);
+    let thing = {};
+    thing[date] = todayActivity[dataType];
+    return thing
+    // returns { '2019/06/15': 3577 }
+  }
+
+  userDataForToday(id, date, userRepo, dataType) { //return steps for specific user on specific daten
     return this.activityData.find(data => data.date === date && data.userID === id)[dataType];
+    // let userData = userRepo.getDataFromUserID(id, this.activityData); // all activities for user, userRepo is actual repo
+    // let userData = this.activityData.filter(data => {
+    //   return data.userID === id
+    // })
+
+    // let test = this.activityData.find(data => data.date === date && data.userID === id)
+
     //return userData.find(data => data.date === date)[dataType]; //date probably isn't today
   }
+
+  getUserWeekData(id, date, dataType) {
+    let userActivities = this.activityData.filter(data => data.userID === id); //array of only users activities
+    const firstIndex = userActivities.findIndex(x => x.date === date); // index of that date's object
+    const weekData =  userActivities.slice(firstIndex - 6, firstIndex + 1);
+    return result = weekData.reduce((weekList, day) => { //not being used yet
+      let type = dataType;
+      if(dataType === 'numSteps') {
+        type = 'steps'
+      }
+      let dayData = {date: day.date, amount: day[dataType], unit: type}
+      weekList.push(dayData);
+      // if we don't want unit to be numSteps
+      // if statement if(dataType === numSteps)
+      // unit: steps
+      return weekList;
+    }, [])
+    // should return object with date, unit and unit type
+  }
+
+// replace userData with getUserData
   userDataForWeek(id, date, userRepo, dataType) { //return steps over a week for specific user on specific date
-    return userRepo.getWeekFromDate(date, id, this.activityData).map((data) => `${data.date}: ${data[dataType]}`); //userRepo is actual repo
+    let userActivities = this.activityData.filter(data => data.userID === id); //array of only users activities
+    const firstIndex = userActivities.findIndex(x => x.date === date); // index of that date's object
+    const weekData =  userActivities.slice(firstIndex - 6, firstIndex + 1);
+    const result = weekData.reduce((weekList, day) => { //not being used yet
+      let type = dataType;
+      if(dataType === 'numSteps') {
+        type = 'steps'
+      }
+      let dayData = {date: day.date, amount: day[dataType], unit: type}
+      weekList.push(dayData);
+      // if we don't want unit to be numSteps
+      // if statement if(dataType === numSteps)
+      // unit: steps
+
+      return weekList;
+    }, [])
+    // const pastWeek = this.activityData.slice(firstIndex - 6, firstIndex + 1).map(x => x[dataType]);
+
+    return weekData.reduce((week, day) => {
+      let string = `${day.date}: ${day[dataType]}`
+      week.unshift(string)
+      return week
+    }, [])
+
+    //return weekData.map(x => x.date: x[dataType])
   }
 
   // Friends
