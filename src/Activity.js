@@ -47,8 +47,15 @@ class Activity { //should probably be renamed
     return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[dataType], 0) / selectedDayData.length).toFixed(1));
   }
   userDataForToday(id, date, userRepo, dataType) { //return steps for specific user on specific date
-    let userData = userRepo.getDataFromUserID(id, this.activityData); // all activities for user, userRepo is actual repo
-    return userData.find(data => data.date === date)[dataType]; //date probably isn't today
+    // let userData = userRepo.getDataFromUserID(id, this.activityData); // all activities for user, userRepo is actual repo
+    let userData = this.activityData.filter(data => {
+      return data.userID === id
+    })
+    console.log(userData);
+    let test = this.activityData.find(data => data.date === date && data.userID === id)
+    console.log(test)
+    return this.activityData.find(data => data.date === date && data.userID === id)[dataType];
+    //return userData.find(data => data.date === date)[dataType]; //date probably isn't today
   }
   userDataForWeek(id, date, userRepo, dataType) { //return steps over a week for specific user on specific date
     return userRepo.getWeekFromDate(date, id, this.activityData).map((data) => `${data.date}: ${data[dataType]}`); //userRepo is actual repo
