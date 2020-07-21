@@ -43,16 +43,28 @@ class Activity { //should probably be renamed
   // }
   //// end not needed methods
   getOveralUserAverage(date, dataType) {
-    let dayData = this.activityData.filter(data => data.date === date)
-    console.log(dayData)
+    const dayData = this.activityData.filter(data => data.date === date)
+    const average = parseFloat((dayData.reduce((acc, elem) => acc += elem[dataType], 0) / dayData.length).toFixed(1))
+    const overallAverage = {};
+    overallAverage[`${dataType}`] = average
   }
 
   getAllUserAverageForDay(date, userRepo, dataType) { //relevent data is string
-    let selectedDayData = this.activityData.filter(data => data.date === date); // userRepo is actual repo
-
-    // console.log(selectedDayData)
-    // console.log(this.activityData.filter(data => data.date === date))
-    return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[dataType], 0) / selectedDayData.length).toFixed(1));
+    const dayData = this.activityData.filter(data => data.date === date)
+    const average = parseFloat((dayData.reduce((acc, elem) => acc += elem[dataType], 0) / dayData.length).toFixed(1))
+    const overallAverage = {}
+    let type = dataType;
+    if(dataType === 'numSteps') {
+      type = 'steps'
+    }
+    overallAverage[`${type}`] = average // this is a cleaner object than just the value being returned
+    return average;
+    // const selectedDayData = this.activityData.filter(data => data.date === date); // userRepo is actual repo
+    //
+    // // console.log(selectedDayData)
+    // // console.log(this.activityData.filter(data => data.date === date))
+    // console.log(parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[dataType], 0) / selectedDayData.length).toFixed(1)));
+    // return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[dataType], 0) / selectedDayData.length).toFixed(1));
   }
 
 
