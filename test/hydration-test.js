@@ -124,20 +124,19 @@ describe.only('Hydration', function () {
     expect(hydrationRepo).to.be.an.instanceOf(Hydration);
   });
 
-  // it('Should have the data of the hydration objects', () => {
-  //   expect(hydrationRepo.hydrationData[0].userID).to.equal(1);
-  //   expect(hydrationRepo.hydrationData[2].numOunces).to.equal(1);
-  //   expect(hydrationRepo.hydrationData[4].date).to.equal('2018/10/23');
-  // });
+  it('Should have the data of the hydration objects', () => {
+    expect(hydrationRepo.hydrationData[0].userID).to.equal(1);
+    expect(hydrationRepo.hydrationData[2].numOunces).to.equal(47);
+    expect(hydrationRepo.hydrationData[5].date).to.equal('2019/06/16');
+  });
 
-  it('should take in a list of data', function () {
-    expect(hydration.hydrationData[0].userID).to.equal(1);
-    expect(hydration.hydrationData[2].numOunces).to.equal(1);
-    expect(hydration.hydrationData[4].date).to.equal('2018/10/23');
+  it('Should be undefined if no argument is given for the hydration', () => {
+    const noHydrationData = new Hydration();
+    expect(noHydrationData.hydrationData).to.eql(undefined);
   });
 
   it('should find the average water intake per day for a user', function () {
-    expect(hydration.calculateAverageOunces(3)).to.equal(2);
+    expect(hydrationRepo.calculateAverageOunces(3)).to.equal(55.86);
   });
 
   it('should find the water intake for a user on a specified date', function () {

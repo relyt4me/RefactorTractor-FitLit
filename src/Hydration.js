@@ -3,10 +3,12 @@ class Hydration {
     this.hydrationData = hydrationData;
   }
   calculateAverageOunces(id) {
-    let perDayUserHydration = this.hydrationData.filter((data) => id === data.userID);
-    return perDayUserHydration.reduce((sumSoFar, data) => {
-      return sumSoFar += data.numOunces;
-    }, 0) / perDayUserHydration.length;
+    let hydrationForThisUser = this.hydrationData.filter((hydrationInstance) => id === hydrationInstance.userID);
+    const averageOuncesUnrounded =
+      hydrationForThisUser.reduce((sumSoFar, dayHydration) => {
+        return (sumSoFar += dayHydration.numOunces);
+      }, 0) / hydrationForThisUser.length;
+    return parseFloat(averageOuncesUnrounded.toFixed(2));
   }
   calculateDailyOunces(id, date) {
     let findOuncesByDate = this.hydrationData.find((data) => id === data.userID && date === data.date);
@@ -19,6 +21,5 @@ class Hydration {
     return userRepo.getWeekFromDate(date, id, this.hydrationData).map((data) => `${data.date}: ${data.numOunces}`);
   }
 }
-
 
 export default Hydration;
