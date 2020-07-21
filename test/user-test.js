@@ -1,20 +1,14 @@
 import { expect } from 'chai';
 
-import UserRepo from '../src/User-repo';
 import User from '../src/User';
 import userSampleData from './sampleData/userSampleData';
 
 describe('User', () => {
 
-  let user1, user2, user3, user4, users, userRepo;
+  let user1;
 
   beforeEach(() => {
     user1 = new User(userSampleData[0]);
-    user2 = new User(userSampleData[1]);
-    user3 = new User(userSampleData[2]);
-    user4 = new User(userSampleData[3]);
-    users = [user1, user2, user3, user4];
-    userRepo = new UserRepo(users);
   });
 
   it('Should be a function', () => {
@@ -24,6 +18,12 @@ describe('User', () => {
   it('Should be an instance of User', () => {
     expect(user1).to.be.an.instanceof(User);
   });
+
+  it('Should require an argument to create a new User', () => {
+    expect(() => { 
+      new User() 
+    }).to.throw(Error);
+  })
 
   it('Should take a user data object', () => {
     expect(user1.id).to.equal(1);
@@ -40,6 +40,12 @@ describe('User', () => {
   });
 
   it('Should return list of friend names from user repository', () => {
-    expect(user1.getFriendsNames(userRepo)).to.deep.equal(['Jarvis Considine', 'Mae Connelly', 'Herminia Witting']);
+    expect(user1.getFriendsNames(userSampleData)).to.deep.equal(['Jarvis Considine', 'Mae Connelly', 'Herminia Witting']);
+  });
+
+  it('Should throw error if no arguement is used', () => {
+    expect(() => {
+      user1.getFriendsNames() 
+    }).to.throw(Error);
   });
 });
