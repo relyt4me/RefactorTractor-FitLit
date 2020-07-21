@@ -7,19 +7,10 @@ class UserRepo {
   - get user data for a given user ID- getDataFromID()
   - get average step goal for all users- calculateAverageStepGoal()
   */ 
-
-  //This method taked in a id and returns the user object that matches the id
   getDataFromID(id) {
     return this.users.find((user) => id === user.id);
   }
 
-  //Used by activity, hyradtion, and sleep and scripts
-  // it grabs all of the user data from given data set and given an ID 
-  getDataFromUserID(id, dataSet) {
-    return dataSet.filter((userData) => id === userData.userID);
-  }
-
-  //This method wasn't passing the test, changed it to pass using Math.round()
   calculateAverageStepGoal() {
     let totalStepGoal = this.users.reduce((sum, data) => {
       sum += data.dailyStepGoal
@@ -29,10 +20,14 @@ class UserRepo {
   }
 
   /* 
-  Methods below shouldn't really be in the UserRepo, 
-  they are better off in scripts or other files
-  however they used everywhere and aren't easy to move
+  Methods that shouldn't be in userRepo below:
   */
+
+  //Used by activity, hyradtion, and sleep and scripts
+  // it grabs all of the user data from given data set and given an ID 
+  getDataFromUserID(id, dataSet) {
+    return dataSet.filter((userData) => id === userData.userID);
+  }
 
   //given a user id and data set this sorts the data by date
   // sorts most recent to least recent

@@ -69,11 +69,11 @@ function getUsersRecentDate(id, dataSet) {
 }
 
 //************remove after getting rid of in other functionality
-function makeRandomDate(userStorage, id, dataSet) {
-  // gives a random date (used where?)
-  var sortedArray = userStorage.makeSortedUserArray(id, dataSet); // sorts data set by date from recent
-  return sortedArray[Math.floor(Math.random() * sortedArray.length + 1)].date;
-}
+// function makeRandomDate(userStorage, id, dataSet) {
+//   // gives a random date (used where?)
+//   var sortedArray = userStorage.makeSortedUserArray(id, dataSet); // sorts data set by date from recent
+//   return sortedArray[Math.floor(Math.random() * sortedArray.length + 1)].date;
+// }
 
 function populateUserWidget() {
   document.getElementById('sidebarName').innerText = currentUser.name;
@@ -88,7 +88,7 @@ function populateUserWidget() {
 function makeFriendHTML() {
   // gets the HTML for the ul that gets put there
   return currentUser
-    .getFriendsNames(userRepo) // an array of strings that are the friends
+    .getFriendsNames(userData) // an array of strings that are the friends
     .map((friendName) => `<li class='historical-list-listItem'>${friendName}</li>`)
     .join('');
 }
