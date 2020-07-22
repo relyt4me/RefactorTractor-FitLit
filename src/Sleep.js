@@ -71,7 +71,22 @@ class Sleep {
     return parseFloat(averageSleepQuality.toFixed(2)) || undefined;
   }
 
-  // YOU WERE HERE no test made
+  getUsersWithQualityAbove3(endDate) {
+    const uniqueUsers = this.sleepData.reduce((users, sleepInstance) => {
+      if (!users.includes(sleepInstance.userID)) {
+        users.push(sleepInstance.userID);
+      }
+      return users;
+    }, []);
+    return uniqueUsers.filter((user) => {
+      let totalUserSleepQualityForWeek = this.getWeekOfData(user, endDate).reduce((sum, sleepInstance) => {
+        return (sum += sleepInstance.sleepQuality);
+      }, 0);
+      return totalUserSleepQualityForWeek / 7 > 3;
+    });
+  }
+
+  //replaced with above to not use userRepo
   determineBestSleepers(date, userRepo) {
     let timeline = userRepo.chooseWeekDataForAllUsers(this.sleepData, date);
     let userSleepObject = userRepo.isolateUsernameAndRelevantData(this.sleepData, date, 'sleepQuality', timeline);
