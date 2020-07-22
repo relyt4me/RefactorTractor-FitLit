@@ -1,3 +1,8 @@
+@import 'user-card';
+@import 'mixins';
+@import 'main-section';
+
+
 * {
   margin: 0;
 }
@@ -34,57 +39,23 @@ h1 {
   background-color: white;
 }
 
-.sidebars {
-  display: flex;
-  flex-direction: row;
-  width: 35%;
-  height: 100%;
-  padding: 10px;
-}
-
 .left-sidebar,
 .right-sidebar {
-  background-color: rgb(204, 204, 204);
-  border-radius: 10px;
-  border-top: 10px solid black;
-  font-size: 10px;
   box-shadow: 0 10px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.22);
+  font-size: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  
-  // overflow: scroll;
+  @include large-card();
 }
-
-// .sidebar-header-name {
-//   text-align: center;
-// }
 
 .user-name {
   padding-top: 10px;
 }
 
-.sidebar-text {
-  font-family: sans-serif;
-  // font-weight: bold;
-  font-size: 1.2em;
-  margin: .5em .5em .5em .5em;
-  width: inherit;
-}
-
-#step-goal-card,
-#user-stridelength {
-  font-weight: bold;
-}
-
 #av-step-goal-card {
   font-size: 10px;
-}
-
-.sidebar-headers {
-  padding-top:10px;
-  // text-align: left;
 }
 
 hr {
@@ -93,14 +64,6 @@ hr {
   margin: 1em 1em 0 1em;
   height: 0;
   width: 80%;
-}
-
-.daily-goal-card {
-  border: 2px solid black;
-  background-color: white;
-  border-radius: 3vh;
-  padding: 3vh;
-  // box-shadow: 0 10px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.22);
 }
 
 .sidebar-header-userImage {
@@ -123,155 +86,7 @@ hr {
   text-align: left;
 }
 
-.left-friend-card {
-  border: 2px solid black;
-  background-color: white;
-  border-radius: 3vh;
-  padding: 3vh, 0;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-around;
-  margin-top: 1vh;
-  width: 225px;
-  align-self: center;
-  // .sidebar-headers {
-  //   text-align: right;
 
-  // }
-}
-
-.body-main-infoContainter {
-  width: 100%;
-  border: 1px solid black;
-  margin: 0 0 1em;
-  display: flex;
-  flex-direction: column;
-  overflow: scroll;
-}
-
-.main-column-hydration {
-  display: flex;
-  flex-direction: row;
-  height: 25%
-}
-
-.main-column-activity {
-  display: flex;
-  flex-direction: row;
-  height: 50%
-}
-
-.main-column-sleep {
-  display: flex;
-  flex-direction: row;
-  height: 35%
-}
-
-.infoContainer-cardContainer-card-horizontal {
-  width: 100%;
-  background-color: white;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1%;
-  justify-content: space-between;
-}
-
-.horizontalCard-activity-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
-  overflow: scroll;
-}
-
-.infoContainer-cardContainer-card-vertical {
-  width: 100%;
-  background-color: white;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: row;
-  margin: 1%;
-  overflow: scroll;
-}
-
-.card-today-hydration {
-  text-align: center;
-  background-color: #5BC8AC;
-  height: auto;
-  font-size: 1.5em;
-  margin: .5em;
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 80%;
-}
-
-.card-today-sleep {
-  text-align: center;
-  background-color: #EC96A4;
-  height: auto;
-  font-size: 1.5em;
-  margin: .5em;
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 80%;
-}
-
-.card-today-activity {
-  text-align: center;
-  background-color: #DFE166;
-  height: auto;
-  font-size: 1.5em;
-  margin: .3em;
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 40%;
-}
-
-.card-history-hydration {
-  text-align: center;
-  background-color: #5BC8AC;
-  font-size: 1em;
-  margin: .5em;
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 50%;
-}
-
-.card-history-sleep {
-  text-align: center;
-  background-color: #EC96A4;
-  font-size: 1em;
-  margin: .5em;
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 50%;
-}
-
-.card-history-activity {
-  text-align: center;
-  background-color: #DFE166;
-  font-size: 1em;
-  margin: .5em;
-  font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 50%;
-  height: 93%;
-  overflow: scroll;
-}
 
 .number {
   font-size: 2em;
