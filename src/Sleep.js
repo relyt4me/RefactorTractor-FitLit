@@ -52,22 +52,26 @@ class Sleep {
     return sleepForThisUser.slice(firstIndex - 6, firstIndex + 1);
   }
 
+  // replaced
   calculateWeekSleep(date, id, userRepo) {
     return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.hoursSlept}`);
   }
 
+  // replaced
   calculateWeekSleepQuality(date, id, userRepo) {
     return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.sleepQuality}`);
   }
 
   calculateAllUserSleepQuality() {
-    var totalSleepQuality = this.sleepData.reduce(function (sumSoFar, dataItem) {
-      sumSoFar += dataItem.sleepQuality;
+    let totalSleepQuality = this.sleepData.reduce((sumSoFar, sleepInstance) => {
+      sumSoFar += sleepInstance.sleepQuality;
       return sumSoFar;
     }, 0);
-    return totalSleepQuality / sleepData.length;
+    const averageSleepQuality = totalSleepQuality / this.sleepData.length;
+    return parseFloat(averageSleepQuality.toFixed(2)) || undefined;
   }
 
+  // YOU WERE HERE no test made
   determineBestSleepers(date, userRepo) {
     let timeline = userRepo.chooseWeekDataForAllUsers(this.sleepData, date);
     let userSleepObject = userRepo.isolateUsernameAndRelevantData(this.sleepData, date, 'sleepQuality', timeline);

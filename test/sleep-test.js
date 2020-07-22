@@ -363,6 +363,10 @@ describe.only('Sleep', function () {
     expect(sleepRepo.getWeekOfQualitySlept(4, '2019/06/21')).to.deep.eql(weekOfQualityForUser4);
   });
 
+  it('Should get the average quality across all users', () => {
+    expect(sleepRepo.calculateAllUserSleepQuality()).to.eql(3.13);
+  });
+
   // it('should find sleep by day for that days week', function () {
   //   expect(sleep.calculateWeekSleep('2019/06/18', 4, userRepo)[0]).to.eql('2019/06/18: 7.9');
   //   expect(sleep.calculateWeekSleep('2019/06/18', 4, userRepo)[6]).to.eql('2017/06/15: 5.4');
