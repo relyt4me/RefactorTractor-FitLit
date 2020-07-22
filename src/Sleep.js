@@ -127,12 +127,16 @@ class Sleep {
         return this.calculateDailySleep(user, date) === this.calculateDailySleep(sortedUniqueUsers[0], date);
       }, []);
   }
+
+  // not sure where all below are being used, cannot find in scripts
   determineSleepWinnerForWeek(date, userRepo) {
     let timeline = userRepo.chooseWeekDataForAllUsers(this.sleepData, date);
     let sleepRankWithData = userRepo.combineRankedUserIDsAndAveragedData(this.sleepData, date, 'sleepQuality', timeline);
 
     return this.getWinnerNamesFromList(sleepRankWithData, userRepo);
   }
+
+  //(replaced with getSleepWinnerForDay)
   determineSleepHoursWinnerForDay(date, userRepo) {
     let timeline = userRepo.chooseDayDataForAllUsers(this.sleepData, date);
     let sleepRankWithData = userRepo.combineRankedUserIDsAndAveragedData(this.sleepData, date, 'hoursSlept', timeline);
