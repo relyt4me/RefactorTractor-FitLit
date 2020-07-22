@@ -25,15 +25,13 @@ class Activity { //should probably be renamed
 
 
   calculateActiveAverageForWeek(id, date, userRepo) { //return average active minutes for all users
+    console.log()
     return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => { //acc and elem are terrible names
       return acc += elem.minutesActive;
     }, 0) / 7).toFixed(1));
   }
 
   accomplishStepGoal(id, date, user) { // returns true if user steps = daily step goal (should be >=)
-    // const stepGoal = user.dailyStepGoal;
-    // console.log(stepGoal);
-    // let userStepsByDate = this.activityData.find(data => id === data.userID && date === data.date);
     const stepsToday = this.getUserDataForDay(id, date, 'numSteps').steps
     if (stepsToday >= user.dailyStepGoal) { //>= not ===
       return true;
@@ -53,7 +51,7 @@ class Activity { //should probably be renamed
       return (elem.flightsOfStairs > acc) ? elem.flightsOfStairs : acc}, 0);
     // return this.activityData.filter(data => id === data.userID).reduce((acc, elem) => (elem.flightsOfStairs > acc) ? elem.flightsOfStairs : acc, 0);
   }
-  // end not needed methods
+  // end not used methods
   getOveralUserAverage(date, dataType) {
     const dayData = this.activityData.filter(data => data.date === date)
     const average = parseFloat((dayData.reduce((acc, elem) => acc += elem[dataType], 0) / dayData.length).toFixed(1))
@@ -72,10 +70,6 @@ class Activity { //should probably be renamed
     overallAverage[`${type}`] = average // this is a cleaner object than just the value being returned
     return average;
     // const selectedDayData = this.activityData.filter(data => data.date === date); // userRepo is actual repo
-    //
-    // // console.log(selectedDayData)
-    // // console.log(this.activityData.filter(data => data.date === date))
-    // console.log(parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[dataType], 0) / selectedDayData.length).toFixed(1)));
     // return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[dataType], 0) / selectedDayData.length).toFixed(1));
   }
 
@@ -88,15 +82,13 @@ class Activity { //should probably be renamed
   }
 
   userDataForToday(id, date, userRepo, dataType) { //return steps for specific user on specific daten
-    return this.activityData.find(data => data.date === date && data.userID === id)[dataType];
+    return this.activityData.find(data => data.date === date &&
+       data.userID === id)[dataType];
     // let userData = userRepo.getDataFromUserID(id, this.activityData); // all activities for user, userRepo is actual repo
     // let userData = this.activityData.filter(data => {
     //   return data.userID === id
     // })
-
-    // let test = this.activityData.find(data => data.date === date && data.userID === id)
-
-    //return userData.find(data => data.date === date)[dataType]; //date probably isn't today
+    //return userData.find(data => data.date === date)[dataType];
   }
 
   getUserWeekData(id, date, dataType) {
@@ -125,7 +117,7 @@ class Activity { //should probably be renamed
       week.unshift(string)
       return week
     }, [])
-  
+
   }
 
   // Friends
