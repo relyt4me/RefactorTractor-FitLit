@@ -32,7 +32,7 @@ class Activity { //should probably be renamed
     // }, 0) / 7).toFixed(1));
   }
 
-  accomplishStepGoal(id, date, user) { // returns true if user steps = daily step goal (should be >=)
+  accomplishStepGoal(id, date, user, dataType) { // returns true if user steps = daily step goal (should be >=)
     const stepsToday = this.getUserDataForDay(id, date, 'numSteps').steps
     if (stepsToday >= user.dailyStepGoal) { //>= not ===
       return true;
@@ -123,6 +123,26 @@ class Activity { //should probably be renamed
 
   }
 
+
+  getStreak(userRepo, id, dataType) { //return 3-day increasing streak for a users step count or active minutes
+    let userActivities = this.activityData.filter(data => data.userID === id);
+    userActivities = userActivities.sort((a, b) => new Date(a.date) - new Date(b.date));
+    let streaks = userActivities.filter((day, i) => {
+      if (i >= 2) {
+        return userActivities[i - 2][dataType] < userActivities[i - 1][dataType]
+        && userActivities[i - 1][dataType] < userActivities[i][dataType]
+      }
+    });
+    return streaks.map(streak => {
+      return streak.date;
+    })
+    // input (userRepo, 1, 'numSteps')
+    // let data = this.activityData; // this is redundant
+    // let sortedUserArray = (userRepo.makeSortedUserArray(id, data)).reverse(); //just an array of that users data
+  }
+  // needs to be moved into activity test from friends test
+
+
   // Friends
 
   getFriendsActivity(user, userRepo) { // returns array of all friends' activities
@@ -154,18 +174,7 @@ class Activity { //should probably be renamed
     return winner;
   }
 
-  getStreak(userRepo, id, dataType) { //return 3-day increasing streak for a users step count or active minutes
-    let data = this.activityData; // this is redundant
-    let sortedUserArray = (userRepo.makeSortedUserArray(id, data)).reverse();
-    let streaks = sortedUserArray.filter(function(element, index) {
-      if (index >= 2) {
-        return (sortedUserArray[index - 2][dataType] < sortedUserArray[index - 1][dataType] && sortedUserArray[index - 1][dataType] < sortedUserArray[index][dataType])
-      }
-    });
-    return streaks.map(function(streak) {
-      return streak.date;
-    })
-  }
+
   getWinnerId(user, date, userRepo) { // return ID of the winning friend
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
     let keysList = rankedList.map(listItem => Object.keys(listItem));
