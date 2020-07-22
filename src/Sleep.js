@@ -13,12 +13,12 @@ class Sleep {
     return parseFloat(averageSleepHours.toFixed(2)) || undefined;
   }
   calculateAverageSleepQuality(id) {
-    let perDaySleepQuality = this.sleepData.filter((data) => id === data.userID);
-    return (
-      perDaySleepQuality.reduce((sumSoFar, data) => {
-        return (sumSoFar += data.sleepQuality);
-      }, 0) / perDaySleepQuality.length
-    );
+    let sleepForThisUser = this.sleepData.filter((sleep) => id === sleep.userID);
+    const averageSleepQuality =
+      sleepForThisUser.reduce((sumSoFar, sleep) => {
+        return (sumSoFar += sleep.sleepQuality);
+      }, 0) / sleepForThisUser.length;
+    return parseFloat(averageSleepQuality.toFixed(2)) || undefined;
   }
   calculateDailySleep(id, date) {
     let findSleepByDate = this.sleepData.find((data) => id === data.userID && date === data.date);

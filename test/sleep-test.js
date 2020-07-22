@@ -319,6 +319,14 @@ describe.only('Sleep', function () {
     expect(sleepRepo.calculateAverageSleep(12)).to.eql(undefined);
   });
 
+  it('Should find the average sleep quality per day for a user', () => {
+    expect(sleepRepo.calculateAverageSleepQuality(2)).to.eql(3.49);
+  });
+
+  it('Should return undefined when calculateAverageQuality is given a nonExistent user', () => {
+    expect(sleepRepo.calculateAverageSleepQuality(0)).to.eql(undefined);
+  });
+
   // it('should find the average sleep hours per day for a user', function () {
   //   expect(sleep.calculateAverageSleep(3)).to.equal(3);
   // });
