@@ -1,7 +1,8 @@
 import { expect } from 'chai';
 import Activity from '../src/Activity';
-import UserRepo from '../src/User-repo';
+import UserRepo from '../src/User-repo'; //git rid of eventually
 import User from '../src/User';
+import activitySampleData from './sampleData/activitySampleData';
 
 // import test data file carly made
 describe('Activity', function() {
