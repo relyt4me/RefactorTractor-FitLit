@@ -2,16 +2,27 @@
   margin: 0;
 }
 
+html {
+  padding: 5px;
+}
+
 body {
   font-family: 'Open Sans';
   margin: 0;
   background-color: #4d4e4f;
   height: auto;
+  // padding: 5px;
+}
+
+header {
+  height: 70px;
+  border-bottom: 1px solid #4bff90;
 }
 
 h1 {
   text-align: center;
-  color: #ffffff;
+  font-weight: 100;
+  color: #4bff90;
   height: 80px;
   padding-top: 10px;
 }
@@ -20,43 +31,76 @@ h1 {
   display: flex;
   flex-direction: row;
   height: 1500px;
+  background-color: white;
 }
 
-.main-sidebar-body {
+.sidebars {
   display: flex;
   flex-direction: row;
-  width: 25%;
+  width: 35%;
   height: 100%;
+  padding: 10px;
 }
 
-.body-sidebar-sidebarContainer {
-  background-color: #9A9DAB;
-  border: 1px solid black;
+.left-sidebar,
+.right-sidebar {
+  background-color: rgb(204, 204, 204);
+  border-radius: 10px;
+  border-top: 10px solid black;
+  font-size: 10px;
+  box-shadow: 0 10px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.22);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  overflow: scroll;
+  
+  // overflow: scroll;
 }
 
-.sidebar-header-name {
-  text-align: center;
+// .sidebar-header-name {
+//   text-align: center;
+// }
+
+.user-name {
+  padding-top: 10px;
 }
 
-.sidebar-header-userInfo {
+.sidebar-text {
   font-family: sans-serif;
-  font-weight: bold;
+  // font-weight: bold;
   font-size: 1.2em;
   margin: .5em .5em .5em .5em;
   width: inherit;
 }
 
-.sidebar-header-line {
+#step-goal-card,
+#user-stridelength {
+  font-weight: bold;
+}
+
+#av-step-goal-card {
+  font-size: 10px;
+}
+
+.sidebar-headers {
+  padding-top:10px;
+  // text-align: left;
+}
+
+hr {
   color: #ffffff;
-  border: 1px solid black;
+  border: 1px solid gray;
   margin: 1em 1em 0 1em;
   height: 0;
   width: 80%;
+}
+
+.daily-goal-card {
+  border: 2px solid black;
+  background-color: white;
+  border-radius: 3vh;
+  padding: 3vh;
+  // box-shadow: 0 10px 38px rgba(0,0,0,0.10), 0 15px 12px rgba(0,0,0,0.22);
 }
 
 .sidebar-header-userImage {
@@ -77,6 +121,23 @@ h1 {
 
 .sidebar-friendContainer-listItems {
   text-align: left;
+}
+
+.left-friend-card {
+  border: 2px solid black;
+  background-color: white;
+  border-radius: 3vh;
+  padding: 3vh, 0;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  margin-top: 1vh;
+  width: 225px;
+  align-self: center;
+  // .sidebar-headers {
+  //   text-align: right;
+
+  // }
 }
 
 .body-main-infoContainter {
@@ -241,10 +302,12 @@ h1 {
   font-style: italic;
   padding-left: 0;
   font-size: 1em;
+
 }
 
-.historical-list-listItem {
+.friend-list {
   padding: .3em;
   font-weight: bold;
   font-family: sans-serif;
+  text-align: left;
 }
