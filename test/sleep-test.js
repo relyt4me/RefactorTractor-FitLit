@@ -299,12 +299,17 @@ describe.only('Sleep', function () {
     expect(sleepRepo).to.be.an.instanceof(Sleep);
   });
 
-  // it('should take in a list of data', function () {
-  //   expect(sleep.sleepData[1].userID).to.equal(2);
-  //   expect(sleep.sleepData[3].hoursSlept).to.equal(5.4);
-  //   expect(sleep.sleepData[6].sleepQuality).to.equal(3);
-  //   expect(sleep.sleepData[7].date).to.equal('2018/07/23');
-  // });
+  it('Should have the data of they sleep objects', () => {
+    expect(sleepRepo.sleepData[1].userID).to.equal(2);
+    expect(sleepRepo.sleepData[3].hoursSlept).to.equal(5.4);
+    expect(sleepRepo.sleepData[6].sleepQuality).to.equal(3.8);
+    expect(sleepRepo.sleepData[7].date).to.equal('2019/06/16');
+  });
+
+  it('Should be undefined if no argument is given for the user', () => {
+    const noSleepData = new Sleep();
+    expect(noSleepData.data).to.eql(undefined);
+  });
 
   // it('should find the average sleep hours per day for a user', function () {
   //   expect(sleep.calculateAverageSleep(3)).to.equal(3);
