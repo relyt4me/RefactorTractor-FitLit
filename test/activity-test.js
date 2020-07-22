@@ -541,7 +541,7 @@ describe('Friend Activity', function() {
     ]);
   });
 
-  it('should get a users ranked friendslist activity for a chosen week', function() {
+  it.only('should get a users ranked friendslist activity for a chosen week', function() {
     expect(activity.getFriendsAverageStepsForWeek(user4, "2019/06/15", userRepo)).to.eql([{
       '2': 9552
     },

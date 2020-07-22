@@ -162,9 +162,18 @@ class Activity { //should probably be renamed
     // }, []);
   }
   getFriendsAverageStepsForWeek(user, date, userRepo) { //returns array with avg steps for each friend
+    // dataSet.filter(function(dataItem) {
+    //   return (new Date(date)).setDate((new Date(date)).getDate() - 7) <= new Date(dataItem.date) && new Date(dataItem.date) <= new Date(date)
+    // })
+    console.log(this.getUserWeekData(1, date, 'numSteps'))
+    console.log(this.userDataForWeek(1, date, 'userRepo', 'numSteps'))
     let friendsActivity = this.getFriendsActivity(user, userRepo);
     let timeline = userRepo.chooseWeekDataForAllUsers(friendsActivity, date);
+    // console.log(friendsActivity)
+    // console.log(timeline)
+    // console.log(userRepo.combineRankedUserIDsAndAveragedData(friendsActivity, date, 'numSteps', timeline))
     return userRepo.combineRankedUserIDsAndAveragedData(friendsActivity, date, 'numSteps', timeline)
+    //[ { '2': 9552 }, { '1': 7475.5 } ]
   }
   showChallengeListAndWinner(user, date, userRepo) { // returns users ranked friendslist activity for a chosen week with names
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
