@@ -140,19 +140,26 @@ class Activity { //should probably be renamed
     // let data = this.activityData; // this is redundant
     // let sortedUserArray = (userRepo.makeSortedUserArray(id, data)).reverse(); //just an array of that users data
   }
-  // needs to be moved into activity test from friends test
 
+  // needs to be moved into activity test from friends test
 
   // Friends
 
   getFriendsActivity(user, userRepo) { // returns array of all friends' activities
-    let data = this.activityData;
-    let userDatalist = user.friends.map(function(friend) {
-      return userRepo.getDataFromUserID(friend, data)
-    });
-    return userDatalist.reduce(function(arraySoFar, listItem) {
-      return arraySoFar.concat(listItem);
-    }, []);
+    let friendsActivities = []
+    user.friends.forEach(friendID => {
+      friendsActivities.push(...this.activityData.filter(data => {
+        return friendID === data.userID
+      }))
+    })
+    return friendsActivities
+    // let data = this.activityData;
+    // let userDatalist = user.friends.map(function(friend) {
+    //   return userRepo.getDataFromUserID(friend, data)
+    // });
+    // return userDatalist.reduce(function(arraySoFar, listItem) {
+    //   return arraySoFar.concat(listItem);
+    // }, []);
   }
   getFriendsAverageStepsForWeek(user, date, userRepo) { //returns array with avg steps for each friend
     let friendsActivity = this.getFriendsActivity(user, userRepo);
