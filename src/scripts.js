@@ -1,19 +1,20 @@
 import './css/base.scss';
 import './css/style.scss';
-
 import './images/person walking on path.jpg';
 import './images/The Rock.jpg';
-
-import userData from './data/users';
-import hydrationData from './data/hydration';
-import sleepData from './data/sleep';
-import activityData from './data/activity';
-
 import User from './User';
 import Activity from './Activity';
 import Hydration from './Hydration';
 import Sleep from './Sleep';
 import UserRepo from './User-repo';
+import fetchData from './fetchAllData';
+
+const data = {
+  userData: null,
+  sleepData: null,
+  activityData: null,
+  hydrationData: null
+}
 
 let userRepo;
 let hydrationRepo;
@@ -21,23 +22,33 @@ let sleepRepo;
 let activityRepo;
 let currentUser;
 
-window.onload = startApp(); //Starts Here (global variables currentInformation = {})
+window.onload = startApp();
 
 function startApp() {
-  instantiatePageData();
-  populatePage();
+  fetchData() 
+    .then(allData => {
+      data.userData = allData.userData;
+      data.sleepData = allData.sleepData;
+      data.activityData = allData.activityData;
+      data.hydrationData = allData.hydrationData;
+    }) 
+    .then( () => {
+      instantiatePageData();
+      populatePage();
+    })
+    .catch(err => console.log(err.message))
 }
 
 function instantiatePageData() {
   userRepo = new UserRepo(instantiateUsers());
-  hydrationRepo = new Hydration(hydrationData); // created our hydration class based on (need to get hydration from API)
-  sleepRepo = new Sleep(sleepData); // same as above Sleep
-  activityRepo = new Activity(activityData); // same as above Activity
+  hydrationRepo = new Hydration(data.hydrationData); // created our hydration class based on (need to get hydration from API)
+  sleepRepo = new Sleep(data.sleepData); // same as above Sleep
+  activityRepo = new Activity(data.activityData); // same as above Activity
   currentUser = newRandomUser(); // now in one helper function
 }
 
 function populatePage() {
-  let mostRecentDate = getUsersRecentDate(currentUser.id, hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
+  let mostRecentDate = getUsersRecentDate(currentUser.id, data.hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
   document.getElementById('headerText').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function`;
   populateUserWidget(); // fills out user infor (iteration 1 dashboard)
   populateHydrationSection(mostRecentDate);
@@ -48,7 +59,7 @@ function populatePage() {
 }
 
 function instantiateUsers() {
-  const allUsers = userData.map((user) => {
+  const allUsers = data.userData.map((user) => {
     //this is a data file and makes instances of all of the users from the data file in one array
     return new User(user); // need to get data file from the API
   });
@@ -88,7 +99,7 @@ function populateUserWidget() {
 function makeFriendHTML() {
   // gets the HTML for the ul that gets put there
   return currentUser
-    .getFriendsNames(userData) // an array of strings that are the friends
+    .getFriendsNames(data.userData) // an array of strings that are the friends
     .map((friendName) => `<li class='historical-list-listItem'>${friendName}</li>`)
     .join('');
 }
