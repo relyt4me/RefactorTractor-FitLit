@@ -327,23 +327,28 @@ describe.only('Sleep', function () {
     expect(sleepRepo.calculateAverageSleepQuality(0)).to.eql(undefined);
   });
 
-  // it('should find the average sleep hours per day for a user', function () {
-  //   expect(sleep.calculateAverageSleep(3)).to.equal(3);
-  // });
+  it('Should find the sleep hours for a user on a specified date', function () {
+    expect(sleepRepo.calculateDailySleep(2, '2019/06/15')).to.equal(7);
+    expect(sleepRepo.calculateDailySleep(4, '2019/06/21')).to.equal(10.6);
+  });
 
-  // it('should find the average sleep quality per day for a user', function () {
-  //   expect(sleep.calculateAverageSleepQuality(3)).to.equal(2);
-  // });
+  it('Should find the sleep quality for a user on a specified date', function () {
+    expect(sleepRepo.calculateDailySleepQuality(3, '2019/06/15')).to.equal(4.7);
+    expect(sleepRepo.calculateDailySleepQuality(5, '2019/06/21')).to.equal(4.1);
+  });
 
-  // it('should find the sleep hours for a user on a specified date', function () {
-  //   expect(sleep.calculateDailySleep(2, '2017/06/15')).to.equal(7);
-  //   expect(sleep.calculateDailySleep(4, '2019/06/21')).to.equal(6.1);
-  // });
-
-  // it('should find the sleep quality for a user on a specified date', function () {
-  //   expect(sleep.calculateDailySleepQuality(2, '2017/06/15')).to.equal(4.7);
-  //   expect(sleep.calculateDailySleepQuality(4, '2019/06/21')).to.equal(3.5);
-  // });
+  it('Should get the hours slept for a user for one week', () => {
+    const weekOfHoursForUser3 = [
+      { date: '2019/06/15', amount: 10.8, unit: 'hours' },
+      { date: '2019/06/16', amount: 10.7, unit: 'hours' },
+      { date: '2019/06/17', amount: 5.3, unit: 'hours' },
+      { date: '2019/06/18', amount: 9.8, unit: 'hours' },
+      { date: '2019/06/19', amount: 7.2, unit: 'hours' },
+      { date: '2019/06/20', amount: 9.4, unit: 'hours' },
+      { date: '2019/06/21', amount: 8.9, unit: 'hours' },
+    ];
+    expect(sleepRepo.getWeekOfHoursSlept(3, '2019/06/21')).to.deep.eql(weekOfHoursForUser3);
+  });
 
   // it('should find sleep by day for that days week', function () {
   //   expect(sleep.calculateWeekSleep('2019/06/18', 4, userRepo)[0]).to.eql('2019/06/18: 7.9');

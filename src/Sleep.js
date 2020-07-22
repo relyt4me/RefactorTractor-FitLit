@@ -12,6 +12,7 @@ class Sleep {
       }, 0) / sleepForThisUser.length;
     return parseFloat(averageSleepHours.toFixed(2)) || undefined;
   }
+
   calculateAverageSleepQuality(id) {
     let sleepForThisUser = this.sleepData.filter((sleep) => id === sleep.userID);
     const averageSleepQuality =
@@ -20,20 +21,38 @@ class Sleep {
       }, 0) / sleepForThisUser.length;
     return parseFloat(averageSleepQuality.toFixed(2)) || undefined;
   }
+
   calculateDailySleep(id, date) {
     let findSleepByDate = this.sleepData.find((data) => id === data.userID && date === data.date);
     return findSleepByDate.hoursSlept;
   }
+
   calculateDailySleepQuality(id, date) {
     let findSleepQualityByDate = this.sleepData.find((data) => id === data.userID && date === data.date);
     return findSleepQualityByDate.sleepQuality;
   }
+
+  getWeekOfHoursSlept(id, endDate) {
+    return this.getWeekOfData(id, endDate).map((day) => {
+      return { date: day.date, amount: day.hoursSlept, unit: 'hours' };
+    });
+  }
+
+  //helper function for isolating a week
+  getWeekOfData(id, endDate) {
+    const sleepForThisUser = this.sleepData.filter((sleep) => id === sleep.userID);
+    const firstIndex = sleepForThisUser.findIndex((day) => day.date === endDate);
+    return sleepForThisUser.slice(firstIndex - 6, firstIndex + 1);
+  }
+
   calculateWeekSleep(date, id, userRepo) {
     return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.hoursSlept}`);
   }
+
   calculateWeekSleepQuality(date, id, userRepo) {
     return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.sleepQuality}`);
   }
+
   calculateAllUserSleepQuality() {
     var totalSleepQuality = this.sleepData.reduce(function (sumSoFar, dataItem) {
       sumSoFar += dataItem.sleepQuality;
@@ -41,6 +60,7 @@ class Sleep {
     }, 0);
     return totalSleepQuality / sleepData.length;
   }
+
   determineBestSleepers(date, userRepo) {
     let timeline = userRepo.chooseWeekDataForAllUsers(this.sleepData, date);
     let userSleepObject = userRepo.isolateUsernameAndRelevantData(this.sleepData, date, 'sleepQuality', timeline);
