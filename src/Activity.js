@@ -23,25 +23,37 @@ class Activity { //should probably be renamed
   //   return userActivityByDate.minutesActive;
   // }
 
+
   calculateActiveAverageForWeek(id, date, userRepo) { //return average active minutes for all users
     return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => { //acc and elem are terrible names
       return acc += elem.minutesActive;
     }, 0) / 7).toFixed(1));
   }
-  // accomplishStepGoal(id, date, userRepo) { // returns true if user steps = daily step goal (should be >=)
-  //   let userStepsByDate = this.activityData.find(data => id === data.userID && date === data.date);
-  //   if (userStepsByDate.numSteps === userRepo.dailyStepGoal) { //>= not ===
-  //     return true;
-  //   }
-  //   return false
-  // }
-  // getDaysGoalExceeded(id, userRepo) { // returns array of dates user exceeding goal steps
-  //   return this.activityData.filter(data => id === data.userID && data.numSteps > userRepo.dailyStepGoal).map(data => data.date);
-  // }
-  // getStairRecord(id) { // returns highest number of stairs user as ever done on single day
-  //   return this.activityData.filter(data => id === data.userID).reduce((acc, elem) => (elem.flightsOfStairs > acc) ? elem.flightsOfStairs : acc, 0);
-  // }
-  //// end not needed methods
+
+  accomplishStepGoal(id, date, user) { // returns true if user steps = daily step goal (should be >=)
+    // const stepGoal = user.dailyStepGoal;
+    // console.log(stepGoal);
+    // let userStepsByDate = this.activityData.find(data => id === data.userID && date === data.date);
+    const stepsToday = this.getUserDataForDay(id, date, 'numSteps').steps
+    if (stepsToday >= user.dailyStepGoal) { //>= not ===
+      return true;
+    }
+    return false
+  }
+
+  getDaysGoalExceeded(id, user) { // returns array of dates user exceeding goal steps
+    const daysExceeded = this.activityData.filter(data => {
+      return id === data.userID && data.numSteps > user.dailyStepGoal})
+    return daysExceeded.map(data => data.date);
+  }
+
+  getStairRecord(id) { // returns highest number of stairs user as ever done on single day
+    const recordDays = this.activityData.filter(data => id === data.userID);
+    return recordDays.reduce((acc, elem) => {
+      return (elem.flightsOfStairs > acc) ? elem.flightsOfStairs : acc}, 0);
+    // return this.activityData.filter(data => id === data.userID).reduce((acc, elem) => (elem.flightsOfStairs > acc) ? elem.flightsOfStairs : acc, 0);
+  }
+  // end not needed methods
   getOveralUserAverage(date, dataType) {
     const dayData = this.activityData.filter(data => data.date === date)
     const average = parseFloat((dayData.reduce((acc, elem) => acc += elem[dataType], 0) / dayData.length).toFixed(1))
@@ -66,7 +78,6 @@ class Activity { //should probably be renamed
     // console.log(parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[dataType], 0) / selectedDayData.length).toFixed(1)));
     // return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[dataType], 0) / selectedDayData.length).toFixed(1));
   }
-
 
   getUserDataForDay(id, date, dataType) {
     let todayActivity = this.activityData.find(data => data.date === date && data.userID === id);
@@ -99,9 +110,6 @@ class Activity { //should probably be renamed
       }
       let dayData = {date: day.date, amount: day[dataType], unit: type}
       weekList.push(dayData);
-      // if we don't want unit to be numSteps
-      // if statement if(dataType === numSteps)
-      // unit: steps
       return weekList;
     }, [])
     // should return object with date, unit and unit type
@@ -112,28 +120,12 @@ class Activity { //should probably be renamed
     let userActivities = this.activityData.filter(data => data.userID === id); //array of only users activities
     const firstIndex = userActivities.findIndex(x => x.date === date); // index of that date's object
     const weekData =  userActivities.slice(firstIndex - 6, firstIndex + 1);
-    const result = weekData.reduce((weekList, day) => { //not being used yet
-      let type = dataType;
-      if(dataType === 'numSteps') {
-        type = 'steps'
-      }
-      let dayData = {date: day.date, amount: day[dataType], unit: type}
-      weekList.push(dayData);
-      // if we don't want unit to be numSteps
-      // if statement if(dataType === numSteps)
-      // unit: steps
-
-      return weekList;
-    }, [])
-    // const pastWeek = this.activityData.slice(firstIndex - 6, firstIndex + 1).map(x => x[dataType]);
-
     return weekData.reduce((week, day) => {
       let string = `${day.date}: ${day[dataType]}`
       week.unshift(string)
       return week
     }, [])
-
-    //return weekData.map(x => x.date: x[dataType])
+  
   }
 
   // Friends
