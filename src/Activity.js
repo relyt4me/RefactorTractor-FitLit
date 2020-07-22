@@ -1,19 +1,12 @@
-// userRepo is used as parameter for individual user or whole userRepo
-// dataType string which determines which type of date to accesse
-
-
 class Activity { //should probably be renamed
   constructor(activityData) { //constructor sucks but has to stay
     this.activityData = activityData //
   }
-  //// begin uneeded methods
+  //// begin unused methods
   getMilesFromStepsByDate(id, date, user, userRepo) {  //returns miles walked on a specific date
     // THIS IS NEVER USED needs to be displayed on page
-    let userStepsByDate = this.userDataForToday(id, date, userRepo, 'numSteps');
-    // let userStepsByDate = this.activityData.find(activityData => id === activityData.userID && date === activityData.date); //user data that corresponds to user and input date
-    return parseFloat(((userStepsByDate * user.strideLength) / 5280).toFixed(1)); //how is userRepo.strideLength even being accessed?
-    // userRepo is array of user objects but how does that have a strideLength property?
-    // userRepo is improperly named
+    let userStepsByDate = this.getUserDataForDay(id, date, 'numSteps').amount;
+    return parseFloat(((userStepsByDate * user.strideLength) / 5280).toFixed(1));
   }
   // // not used
 
@@ -82,11 +75,13 @@ class Activity { //should probably be renamed
   }
 
   getUserDataForDay(id, date, dataType) {
-    let todayActivity = this.activityData.find(data => data.date === date && data.userID === id);
-    let thing = {};
-    thing[date] = todayActivity[dataType];
-    return thing
-    // returns { '2019/06/15': 3577 }
+    let todayActivities = this.activityData.find(data => data.date === date && data.userID === id);
+    let todayActivity = {};
+    todayActivity.date = date;
+    todayActivity.amount = todayActivities[dataType];
+    todayActivity.type = (dataType === 'numSteps') ? 'steps' : dataType;
+    return todayActivity
+    // returns { date: '2019/06/15', amount: 3577, type: 'steps' }
   }
 
   userDataForToday(id, date, userRepo, dataType) { //return steps for specific user on specific daten
