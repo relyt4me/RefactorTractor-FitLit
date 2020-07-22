@@ -3,7 +3,7 @@ class Activity { //should probably be renamed
     this.activityData = activityData //
   }
   //// begin unused methods
-  getMilesFromStepsByDate(id, date, user, userRepo) {  //returns miles walked on a specific date
+  getMilesByDate(id, date, user, userRepo) {  //returns miles walked on a specific date
     // THIS IS NEVER USED needs to be displayed on page
     let userStepsByDate = this.getUserDataForDay(id, date, 'numSteps').amount;
     return parseFloat(((userStepsByDate * user.strideLength) / 5280).toFixed(1));
