@@ -32,9 +32,16 @@ class Sleep {
     return findSleepQualityByDate.sleepQuality;
   }
 
+  // output for weeks is [{date: yyyy/mm/dd, amount: 00, unit: 'unit'}, ...x7]
   getWeekOfHoursSlept(id, endDate) {
     return this.getWeekOfData(id, endDate).map((day) => {
       return { date: day.date, amount: day.hoursSlept, unit: 'hours' };
+    });
+  }
+
+  getWeekOfQualitySlept(id, endDate) {
+    return this.getWeekOfData(id, endDate).map((day) => {
+      return { date: day.date, amount: day.sleepQuality, unit: 'stars' };
     });
   }
 

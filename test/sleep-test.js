@@ -350,6 +350,19 @@ describe.only('Sleep', function () {
     expect(sleepRepo.getWeekOfHoursSlept(3, '2019/06/21')).to.deep.eql(weekOfHoursForUser3);
   });
 
+  it('Should get the hours slept for a user for one week', () => {
+    const weekOfQualityForUser4 = [
+      { date: '2019/06/15', amount: 3, unit: 'stars' },
+      { date: '2019/06/16', amount: 4.5, unit: 'stars' },
+      { date: '2019/06/17', amount: 1.1, unit: 'stars' },
+      { date: '2019/06/18', amount: 2.5, unit: 'stars' },
+      { date: '2019/06/19', amount: 2.3, unit: 'stars' },
+      { date: '2019/06/20', amount: 1.9, unit: 'stars' },
+      { date: '2019/06/21', amount: 2.7, unit: 'stars' },
+    ];
+    expect(sleepRepo.getWeekOfQualitySlept(4, '2019/06/21')).to.deep.eql(weekOfQualityForUser4);
+  });
+
   // it('should find sleep by day for that days week', function () {
   //   expect(sleep.calculateWeekSleep('2019/06/18', 4, userRepo)[0]).to.eql('2019/06/18: 7.9');
   //   expect(sleep.calculateWeekSleep('2019/06/18', 4, userRepo)[6]).to.eql('2017/06/15: 5.4');
