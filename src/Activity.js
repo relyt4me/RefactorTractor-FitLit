@@ -25,10 +25,18 @@ class Activity { //should probably be renamed
 
 
   calculateActiveAverageForWeek(id, date, userRepo) { //return average active minutes for all users
-    console.log()
-    return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => { //acc and elem are terrible names
-      return acc += elem.minutesActive;
-    }, 0) / 7).toFixed(1));
+    // console.log(userRepo.getWeekFromDate(date, id, this.activityData))
+    // console.log(this.getUserWeekData(id, date, 'minutesActive'))
+    //
+    const weekData = this.getUserWeekData(id, date, 'minutesActive');
+    const weeklyAverage = (weekData.reduce((sum, day) => {
+      return sum += day.amount
+    }, 0) / 7)
+    return parseFloat(weeklyAverage.toFixed(1));
+    // return `{parseFloat(weeklyAverage.toFixed(1))} minutes active`
+    // return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => { //acc and elem are terrible names
+    //   return acc += elem.minutesActive;
+    // }, 0) / 7).toFixed(1));
   }
 
   accomplishStepGoal(id, date, user) { // returns true if user steps = daily step goal (should be >=)
@@ -95,13 +103,13 @@ class Activity { //should probably be renamed
     let userActivities = this.activityData.filter(data => data.userID === id); //array of only users activities
     const firstIndex = userActivities.findIndex(x => x.date === date); // index of that date's object
     const weekData =  userActivities.slice(firstIndex - 6, firstIndex + 1);
-    return result = weekData.reduce((weekList, day) => { //not being used yet
+    return weekData.reduce((weekList, day) => { //not being used yet
       let type = dataType;
       if(dataType === 'numSteps') {
         type = 'steps'
       }
       let dayData = {date: day.date, amount: day[dataType], unit: type}
-      weekList.push(dayData);
+      weekList.unshift(dayData);
       return weekList;
     }, [])
     // should return object with date, unit and unit type
