@@ -72,18 +72,28 @@ class Sleep {
   }
 
   getUsersWithQualityAbove3(endDate) {
-    const uniqueUsers = this.sleepData.reduce((users, sleepInstance) => {
-      if (!users.includes(sleepInstance.userID)) {
-        users.push(sleepInstance.userID);
-      }
-      return users;
-    }, []);
+    const uniqueUsers = this.getUniqueUserIDs();
+    // const uniqueUsers = this.sleepData.reduce((users, sleepInstance) => {
+    //   if (!users.includes(sleepInstance.userID)) {
+    //     users.push(sleepInstance.userID);
+    //   }
+    //   return users;
+    // }, []);
     return uniqueUsers.filter((user) => {
       let totalUserSleepQualityForWeek = this.getWeekOfData(user, endDate).reduce((sum, sleepInstance) => {
         return (sum += sleepInstance.sleepQuality);
       }, 0);
       return totalUserSleepQualityForWeek / 7 > 3;
     });
+  }
+  // Helper function for above
+  getUniqueUserIDs() {
+    return this.sleepData.reduce((users, sleepInstance) => {
+      if (!users.includes(sleepInstance.userID)) {
+        users.push(sleepInstance.userID);
+      }
+      return users;
+    }, []);
   }
 
   //replaced with above to not use userRepo
@@ -105,6 +115,17 @@ class Sleep {
       .map(function (sleeper) {
         return userRepo.getDataFromID(parseInt(sleeper)).name;
       });
+  }
+
+  getSleepWinnerForDay(date) {
+    const uniqueUsers = this.getUniqueUserIDs();
+    return uniqueUsers
+      .sort((userA, userB) => {
+        return this.calculateDailySleep(userB, date) - this.calculateDailySleep(userA, date);
+      })
+      .filter((user, index, sortedUniqueUsers) => {
+        return this.calculateDailySleep(user, date) === this.calculateDailySleep(sortedUniqueUsers[0], date);
+      }, []);
   }
   determineSleepWinnerForWeek(date, userRepo) {
     let timeline = userRepo.chooseWeekDataForAllUsers(this.sleepData, date);
