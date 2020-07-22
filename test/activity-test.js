@@ -212,10 +212,10 @@ describe('Activity', function() {
 
 //// edit test to use dynamic functions, currently failing because commented out methods
   it('should return the miles a given user has walked on a given date', function() {
-    expect(activity.getMilesFromStepsByDate(1, "2019/06/15", userRepo.users[0])).to.eql(2.9);
+    expect(activity.getMilesByDate(1, "2019/06/15", user1, userRepo), 'numSteps').to.eql(2.9);
   });
   it('should return the number of minutes a given user was active for on a given day', function() {
-    expect(activity.getActiveMinutesByDate(1, "2019/06/16")).to.eql(12);
+    expect(activity.userDataForToday(1, "2019/06/16", userRepo, 'minutesActive')).to.eql(12);
   });
   it('should return average active minutes in a given week', function() {
     expect(activity.calculateActiveAverageForWeek(1, "2019/06/21", userRepo)).to.eql(40.4);
@@ -296,7 +296,7 @@ describe('Activity', function() {
   it('should return minutes active for given user on given date', function() {
     expect(activity.userDataForToday(1, "2019/06/18", userRepo, 'minutesActive')).to.eql(62);
   });
-  it('should return a weeks worth steps for a given user', function() {
+  it('should return a weeks worth of steps for a given user', function() {
     expect(activity.userDataForWeek(1, "2019/06/23", userRepo, 'numSteps')[0]).to.eql("2019/06/23: 9000");
     expect(activity.userDataForWeek(1, "2019/06/23", userRepo, 'numSteps')[3]).to.eql("2019/06/20: 9303");
   });
