@@ -6,16 +6,9 @@ import activitySampleData from './sampleData/activitySampleData';
 
 // import test data file carly made
 describe('Activity', function() {
-  let activityData;
-  let user1;
-  let user2;
-  let user3;
-  let user4;
-  let users;
-  let userRepo;
-  let activity;
+  let activityData, user1, user2, user3, user4, users, userRepo, activity;
 
-  beforeEach(function() { // create smaller sample, probably use before
+  before(function() { // create smaller sample, probably use before
     activityData = activitySampleData
     user1 = new User({
       id: 1,
@@ -110,49 +103,11 @@ describe('Activity', function() {
   })
 
   it('should return average steps taken for given date for all users', function() {
-    activityData = activityData.push({
-      "userID": 1,
-      "date": "2019/06/23",
-      "numSteps": 12000,
-      "minutesActive": 13,
-      "flightsOfStairs": 26
-    }, {
-      "userID": 2,
-      "date": "2019/06/23",
-      "numSteps": 9000,
-      "minutesActive": 21,
-      "flightsOfStairs": 14
-    }, {
-      "userID": 3,
-      "date": "2019/06/23",
-      "numSteps": 2000,
-      "minutesActive": 8,
-      "flightsOfStairs": 9
-    });
-    expect(activity.getAllUserAverageForDay("2019/06/23", userRepo, "numSteps")).to.eql(8221.6)
+    expect(activity.getAllUserAverageForDay("2019/06/23", userRepo, "numSteps")).to.eql(8554.6)
   });
 
   it('should return average minutes active given date for all users', function() {
-    activityData = activityData.push({
-      "userID": 1,
-      "date": "2019/06/23",
-      "numSteps": 12000,
-      "minutesActive": 13,
-      "flightsOfStairs": 26
-    }, {
-      "userID": 2,
-      "date": "2019/06/23",
-      "numSteps": 9000,
-      "minutesActive": 21,
-      "flightsOfStairs": 14
-    }, {
-      "userID": 3,
-      "date": "2019/06/23",
-      "numSteps": 2000,
-      "minutesActive": 8,
-      "flightsOfStairs": 9
-    });
-    expect(activity.getAllUserAverageForDay("2019/06/23", userRepo, "minutesActive")).to.eql(86.5)
+    expect(activity.getAllUserAverageForDay("2019/06/23", userRepo, "minutesActive")).to.eql(173.6)
   });
 
   it('should return steps for given user on given date', function() {
@@ -176,124 +131,11 @@ describe('Activity', function() {
 })
 
 describe('Friend Activity', function() {
-  let activityData;
-  let activity;
-  let user1;
-  let user2;
-  let user3;
-  let user4;
-  let user5;
-  let users;
-  let userRepo;
+  let activityData, activity, user1, user2, user3, user4, user5, users,
+  friendsList, userRepo;
 
-  beforeEach(function() {
-    activityData = [{
-      "userID": 1,
-      "date": "2019/06/15",
-      "numSteps": 3577,
-      "minutesActive": 140,
-      "flightsOfStairs": 16
-    },
-    {
-      "userID": 2,
-      "date": "2019/06/14",
-      "numSteps": 4294,
-      "minutesActive": 138,
-      "flightsOfStairs": 10
-    },
-    {
-      "userID": 3,
-      "date": "2019/06/13",
-      "numSteps": 7402,
-      "minutesActive": 116,
-      "flightsOfStairs": 33
-    },
-    {
-      "userID": 4,
-      "date": "2019/06/12",
-      "numSteps": 3486,
-      "minutesActive": 114,
-      "flightsOfStairs": 32
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/14",
-      "numSteps": 11374,
-      "minutesActive": 213,
-      "flightsOfStairs": 13
-    },
-    {
-      "userID": 2,
-      "date": "2019/06/13",
-      "numSteps": 14810,
-      "minutesActive": 287,
-      "flightsOfStairs": 18
-    },
-    {
-      "userID": 3,
-      "date": "2019/06/12",
-      "numSteps": 2634,
-      "minutesActive": 107,
-      "flightsOfStairs": 5
-    },
-    {
-      "userID": 4,
-      "date": "2019/06/11",
-      "numSteps": 10333,
-      "minutesActive": 114,
-      "flightsOfStairs": 31
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/02",
-      "numSteps": 6389,
-      "minutesActive": 41,
-      "flightsOfStairs": 33
-    },
-    {
-      "userID": 2,
-      "date": "2019/06/03",
-      "numSteps": 8015,
-      "minutesActive": 106,
-      "flightsOfStairs": 37
-    },
-    {
-      "userID": 3,
-      "date": "2019/06/19",
-      "numSteps": 11652,
-      "minutesActive": 20,
-      "flightsOfStairs": 24
-    },
-    {
-      "userID": 4,
-      "date": "2019/06/15",
-      "numSteps": 9256,
-      "minutesActive": 108,
-      "flightsOfStairs": 2
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/16",
-      "numSteps": 3578,
-      "minutesActive": 140,
-      "flightsOfStairs": 16
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/17",
-      "numSteps": 3579,
-      "minutesActive": 141,
-      "flightsOfStairs": 16
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/18",
-      "numSteps": 3580,
-      "minutesActive": 142,
-      "flightsOfStairs": 16
-    }
-    ];
-
+  before(function() {
+    activityData = activitySampleData
     activity = new Activity(activityData);
 
     user1 = new User({
@@ -335,99 +177,179 @@ describe('Friend Activity', function() {
       dailyStepGoal: 7000,
       friends: [1, 2]
     });
+
+    friendsList =  [{
+    userID: 1,
+    date: '2019/06/15',
+    numSteps: 3577,
+    minutesActive: 140,
+    flightsOfStairs: 16
+  },
+  {
+    userID: 1,
+    date: '2019/06/16',
+    numSteps: 6637,
+    minutesActive: 175,
+    flightsOfStairs: 36
+  },
+  {
+    userID: 1,
+    date: '2019/06/17',
+    numSteps: 14329,
+    minutesActive: 168,
+    flightsOfStairs: 18
+  },
+  {
+    userID: 1,
+    date: '2019/06/18',
+    numSteps: 4419,
+    minutesActive: 165,
+    flightsOfStairs: 33
+  },
+  {
+    userID: 1,
+    date: '2019/06/19',
+    numSteps: 8429,
+    minutesActive: 275,
+    flightsOfStairs: 2
+  },
+  {
+    userID: 1,
+    date: '2019/06/20',
+    numSteps: 14478,
+    minutesActive: 140,
+    flightsOfStairs: 12
+  },
+  {
+    userID: 1,
+    date: '2019/06/21',
+    numSteps: 6760,
+    minutesActive: 135,
+    flightsOfStairs: 6
+  },
+  {
+    userID: 1,
+    date: '2019/06/22',
+    numSteps: 10289,
+    minutesActive: 119,
+    flightsOfStairs: 6
+  },
+  {
+    userID: 1,
+    date: '2019/06/23',
+    numSteps: 13928,
+    minutesActive: 218,
+    flightsOfStairs: 21
+  },
+  {
+    userID: 1,
+    date: '2019/06/24',
+    numSteps: 7186,
+    minutesActive: 25,
+    flightsOfStairs: 15
+  },
+  {
+    userID: 2,
+    date: '2019/06/15',
+    numSteps: 4294,
+    minutesActive: 138,
+    flightsOfStairs: 10
+  },
+  {
+    userID: 2,
+    date: '2019/06/16',
+    numSteps: 4112,
+    minutesActive: 220,
+    flightsOfStairs: 37
+  },
+  {
+    userID: 2,
+    date: '2019/06/17',
+    numSteps: 13750,
+    minutesActive: 65,
+    flightsOfStairs: 4
+  },
+  {
+    userID: 2,
+    date: '2019/06/18',
+    numSteps: 4662,
+    minutesActive: 181,
+    flightsOfStairs: 31
+  },
+  {
+    userID: 2,
+    date: '2019/06/19',
+    numSteps: 9858,
+    minutesActive: 243,
+    flightsOfStairs: 44
+  },
+  {
+    userID: 2,
+    date: '2019/06/20',
+    numSteps: 8153,
+    minutesActive: 74,
+    flightsOfStairs: 10
+  },
+  {
+    userID: 2,
+    date: '2019/06/21',
+    numSteps: 10225,
+    minutesActive: 174,
+    flightsOfStairs: 26
+  },
+  {
+    userID: 2,
+    date: '2019/06/22',
+    numSteps: 3605,
+    minutesActive: 124,
+    flightsOfStairs: 31
+  },
+  {
+    userID: 2,
+    date: '2019/06/23',
+    numSteps: 4148,
+    minutesActive: 142,
+    flightsOfStairs: 0
+  },
+  {
+    userID: 2,
+    date: '2019/06/24',
+    numSteps: 8568,
+    minutesActive: 81,
+    flightsOfStairs: 31
+  }
+]
     users = [user1, user2, user3, user4];
     userRepo = new UserRepo(users);
+
   });
 
   it('should get a users friend lists activity', function() {
-    expect(activity.getFriendsActivity(user4, userRepo)).to.eql([{
-      "userID": 1,
-      "date": "2019/06/15",
-      "numSteps": 3577,
-      "minutesActive": 140,
-      "flightsOfStairs": 16
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/14",
-      "numSteps": 11374,
-      "minutesActive": 213,
-      "flightsOfStairs": 13
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/02",
-      "numSteps": 6389,
-      "minutesActive": 41,
-      "flightsOfStairs": 33
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/16",
-      "numSteps": 3578,
-      "minutesActive": 140,
-      "flightsOfStairs": 16
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/17",
-      "numSteps": 3579,
-      "minutesActive": 141,
-      "flightsOfStairs": 16
-    },
-    {
-      "userID": 1,
-      "date": "2019/06/18",
-      "numSteps": 3580,
-      "minutesActive": 142,
-      "flightsOfStairs": 16
-    },
-    {
-      "userID": 2,
-      "date": "2019/06/14",
-      "numSteps": 4294,
-      "minutesActive": 138,
-      "flightsOfStairs": 10
-    },
-    {
-      "userID": 2,
-      "date": "2019/06/13",
-      "numSteps": 14810,
-      "minutesActive": 287,
-      "flightsOfStairs": 18
-    },
-    {
-      "userID": 2,
-      "date": "2019/06/03",
-      "numSteps": 8015,
-      "minutesActive": 106,
-      "flightsOfStairs": 37
-    }
-    ]);
+    expect(activity.getFriendsActivity(user4, userRepo)).to.deep.eql(friendsList);
   });
 
   it('should get a users ranked friendslist activity for a chosen week', function() {
     expect(activity.getFriendsAverageStepsForWeek(user4, "2019/06/15", userRepo)).to.eql([{
-      '2': 9552
+      '2': 4294
     },
     {
-      '1': 7475.5
+      '1': 3577
     }
     ]);
   });
 
   it('should get a users ranked friendslist activity for a chosen week with names', function() {
     expect(activity.showChallengeListAndWinner(user4, "2019/06/15", userRepo)).to.eql([
-      'Allie McCarthy: 9552', 'Alex Roth: 7475.5'
+      'Allie McCarthy: 4294', 'Alex Roth: 3577'
     ])
   });
   it('should know the ID of the winning friend', function() {
     expect(activity.getWinnerId(user4, "2019/06/15", userRepo)).to.eql(2)
   })
   it('should show a 3-day increasing streak for a users step count', function() {
-    expect(activity.getStreak(userRepo, 1, 'numSteps')).to.eql(['2019/06/17', '2019/06/18'])
+    expect(activity.getStreak(userRepo, 1, 'numSteps')).to.eql(['2019/06/17', '2019/06/20', '2019/06/23'])
   });
   it('should show a 3-day increasing streak for a users minutes of activity', function() {
-    expect(activity.getStreak(userRepo, 1, 'minutesActive')).to.eql(['2019/06/18'])
+    expect(activity.getStreak(userRepo, 2, 'minutesActive')).to.eql(['2019/06/19'])
   });
 });
