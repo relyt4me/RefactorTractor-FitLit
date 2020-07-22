@@ -1,5 +1,3 @@
-import sleepData from './data/sleep';
-
 class Sleep {
   constructor(sleepData) {
     this.sleepData = sleepData;
@@ -73,12 +71,6 @@ class Sleep {
 
   getUsersWithQualityAbove3(endDate) {
     const uniqueUsers = this.getUniqueUserIDs();
-    // const uniqueUsers = this.sleepData.reduce((users, sleepInstance) => {
-    //   if (!users.includes(sleepInstance.userID)) {
-    //     users.push(sleepInstance.userID);
-    //   }
-    //   return users;
-    // }, []);
     return uniqueUsers.filter((user) => {
       let totalUserSleepQualityForWeek = this.getWeekOfData(user, endDate).reduce((sum, sleepInstance) => {
         return (sum += sleepInstance.sleepQuality);
