@@ -212,7 +212,7 @@ describe('Activity', function() {
 
 //// edit test to use dynamic functions, currently failing because commented out methods
   it('should return the miles a given user has walked on a given date', function() {
-    expect(activity.getMilesFromStepsByDate(1, "2019/06/15", user1, userRepo), 'numSteps').to.eql(2.9);
+    expect(activity.getMilesByDate(1, "2019/06/15", user1, userRepo), 'numSteps').to.eql(2.9);
   });
   it('should return the number of minutes a given user was active for on a given day', function() {
     expect(activity.userDataForToday(1, "2019/06/16", userRepo, 'minutesActive')).to.eql(12);
