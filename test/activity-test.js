@@ -6,7 +6,8 @@ import activitySampleData from './sampleData/activitySampleData';
 
 // import test data file carly made
 describe('Activity', function() {
-  let activityData, user1, user2, user3, user4, users, userRepo, activity;
+  let activityData, user1, user2, user3, user4, users, userRepo, activity,
+  noActivityData;
 
   before(function() { // create smaller sample, probably use before
     activityData = activitySampleData
@@ -52,6 +53,7 @@ describe('Activity', function() {
     users = [user1, user2, user3, user4];
     userRepo = new UserRepo(users);
     activity = new Activity(activityData);
+    noActivityData = new Activity();
   });
   it('should take in data', function() { //what data?
     expect(activity.activityData[0].userID).to.eql(1);
@@ -61,11 +63,16 @@ describe('Activity', function() {
     expect(activity.activityData[10].flightsOfStairs).to.eql(18);
   });
 
+  it('should be undefined if no argument is given for activities', () => {
+    expect(noActivityData.activivityData).to.eql(undefined);
+  });
 
-
-//// edit test to use dynamic functions, currently failing because commented out methods
   it('should return the miles a given user has walked on a given date', function() {
-    expect(activity.getMilesByDate(1, "2019/06/15", user1, userRepo), 'numSteps').to.eql(2.9);
+    expect(activity.getMilesByDate(1, "2019/06/15", user1, userRepo)).to.eql(2.9);
+  });
+
+  it('hould return undefined when getMilesByDate is given for a nonExistant user', () => {
+    expect(activity.getMilesByDate(1, "2019/06/15", 6, userRepo)).to.eql(undefined);
   });
 
   it('should return the number of minutes a given user was active for on a given day', function() {
@@ -75,6 +82,7 @@ describe('Activity', function() {
   it('should return average active minutes in a given week', function() {
     expect(activity.calculateActiveAverageForWeek(1, "2019/06/21", userRepo)).to.eql(171.1);
   });
+
 
   it('should return true/false if the given user met their step goal on a given day', function() {
     expect(activity.accomplishStepGoal(4, "2019/06/15", userRepo.users[3])).to.eql(false);
