@@ -166,7 +166,9 @@ class Activity { //should probably be renamed
         return sum += activity.amount
       }, 0) / 7
       let object = {}
-      object[`${friendID}`] = parseFloat(userAverage.toFixed(1));
+      // object[`${friendID}`] = parseFloat(userAverage.toFixed(1));
+      object.id = friendID;
+      object.avgSteps = parseFloat(userAverage.toFixed(1))
       averages.push(object)
     })
     return averages
@@ -175,23 +177,24 @@ class Activity { //should probably be renamed
     // let timeline = userRepo.chooseWeekDataForAllUsers(friendsActivity, date);
     // return userRepo.combineRankedUserIDsAndAveragedData(friendsActivity, date, 'numSteps', timeline)
 
-    // returns [ { '2': 9552 }, { '1': 7475.5 } ]
+    // returns [ { '1': 9355.6 }, { '2': 7031.3 } ]
   }
+
   showChallengeListAndWinner(user, date, userRepo) { // returns users ranked friendslist activity for a chosen week with names
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
-
-    return rankedList.map(function(listItem) {
-      let userID = Object.keys(listItem)[0];
-      let userName = userRepo.getDataFromID(parseInt(userID)).name;
-      return `${userName}: ${listItem[userID]}`
+    return rankedList.map(friend => {
+      const userName = userRepo.users.find(user => user.id === friend.id).name
+      // let userID = Object.keys(listItem)[0]; // this this is the only way to get key's id
+      // let userName = userRepo.getDataFromID(parseInt(friend.id)).name;
+      return `${userName}: ${friend.avgSteps}`
     })
   }
+
   showcaseWinner(user, date, userRepo) { // not tested returns winner of steps challenge of friends
     let namedList = this.showChallengeListAndWinner(user, date, userRepo);
     let winner = this.showChallengeListAndWinner(user, date, userRepo).shift();
     return winner;
   }
-
 
   getWinnerId(user, date, userRepo) { // return ID of the winning friend
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
