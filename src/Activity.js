@@ -68,9 +68,10 @@ class Activity { //should probably be renamed
   }
 
   getDaysGoalExceeded(id, user) { // returns array of dates user exceeding goal steps
+    if (typeof user !== 'object') {return undefined}
     const daysExceeded = this.activityData.filter(data => {
-      return id === data.userID && data.numSteps > user.dailyStepGoal})
-    return daysExceeded.map(data => data.date);
+      return user.id === data.userID && data.numSteps > user.dailyStepGoal})
+    return daysExceeded.map(data => data.date) || undefined;
   }
 
   getStairRecord(id) { // returns highest number of stairs user as ever done on single day

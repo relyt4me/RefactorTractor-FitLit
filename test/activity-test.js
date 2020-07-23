@@ -95,9 +95,6 @@ describe('Activity', () => {
 
   it('should return undefined when getUserDataForDay is given a nonExistant date', () => {
     expect(activity.getUserDataForDay(1, "202020/06/18", 'minutesActive')).to.eql(undefined);
-  });
-
-  it('should return undefined when getUserDataForDay is given a nonExistant ', () => {
     expect(activity.getUserDataForDay(1, 2020, 'minutesActive')).to.eql(undefined);
   });
 
@@ -128,7 +125,7 @@ describe('Activity', () => {
   });
 
   it('should return all days that a given user exceeded their step goal', () => {
-    expect(activity.getDaysGoalExceeded(1, userRepo.users[0])).to.eql([
+    expect(activity.getDaysGoalExceeded(1, user1)).to.eql([
       "2019/06/16",
       "2019/06/17",
       "2019/06/19",
@@ -139,6 +136,11 @@ describe('Activity', () => {
       "2019/06/24"
     ]);
   });
+
+  it('should return undefined when getDaysGoalExceeded is given a nonexistant user', () => {
+    expect(activity.getDaysGoalExceeded(1, 2)).to.eql(undefined);
+  });
+
   it('should return the highest number of stairs climbed in a day for all time', () => {
     expect(activity.getStairRecord(2)).to.eql(44);
   });
