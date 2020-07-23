@@ -44,19 +44,23 @@ class Activity { //should probably be renamed
   }
 
   calculateActiveAverageForWeek(id, date, userRepo) { //return average active minutes for all users
+    if(id < 1 || typeof id !== 'number' || date.length !== 10 || typeof date !== 'string') {
+      return undefined
+    }
     const weekData = this.getUserWeekData(id, date, 'minutesActive');
     const weeklyAverage = (weekData.reduce((sum, day) => {
       return sum += day.amount
     }, 0) / 7)
-    return parseFloat(weeklyAverage.toFixed(1)) || undefined;
+    return parseFloat(weeklyAverage.toFixed(1));
     // return `{parseFloat(weeklyAverage.toFixed(1))} minutes active`
     // return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => { //acc and elem are terrible names
     //   return acc += elem.minutesActive;
     // }, 0) / 7).toFixed(1));
   }
 
-  accomplishStepGoal(id, date, user, dataType) { // returns true if user steps = daily step goal (should be >=)
-    const stepsToday = this.getUserDataForDay(id, date, 'numSteps').steps
+  accomplishStepGoal(date, user, dataType) { // returns true if user steps = daily step goal (should be >=)
+    // shouldn't need id if we have user
+    const stepsToday = this.getUserDataForDay(user.id, date, 'numSteps').amount
     if (stepsToday >= user.dailyStepGoal) {
       return true;
     }
