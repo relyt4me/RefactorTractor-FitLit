@@ -113,12 +113,19 @@ describe('Activity', () => {
     expect(activity.calculateActiveAverageForWeek(1, "2019/06/21", userRepo)).to.eql(171.1);
   });
 
-
-  it('should return true/false if the given user met their step goal on a given day', () => {
-    expect(activity.accomplishStepGoal(4, "2019/06/15", userRepo.users[3])).to.eql(false);
+  it('should return undefined when alculateActiveAverageForWeek is given a nonExistant userID', () => {
+    expect(activity.calculateActiveAverageForWeek(0, "2019/06/21", userRepo)).to.eql(undefined);
   });
 
-  //doesn't test for true ^
+  it('should return undefined when alculateActiveAverageForWeek is given a nonExistant date', () => {
+    expect(activity.calculateActiveAverageForWeek(0, "201919/06/21", userRepo)).to.eql(undefined);
+    expect(activity.calculateActiveAverageForWeek(0, 201919, userRepo)).to.eql(undefined);
+  });
+
+  it('should return true/false if the given user met their step goal on a given day', () => {
+    expect(activity.accomplishStepGoal("2019/06/15", user3)).to.eql(false);
+    expect(activity.accomplishStepGoal("2019/06/16", user1)).to.eql(true);
+  });
 
   it('should return all days that a given user exceeded their step goal', () => {
     expect(activity.getDaysGoalExceeded(1, userRepo.users[0])).to.eql([
