@@ -41,10 +41,10 @@ function startApp() {
 
 function instantiatePageData() {
   userRepo = new UserRepo(instantiateUsers());
-  hydrationRepo = new Hydration(data.hydrationData); // created our hydration class based on (need to get hydration from API)
-  sleepRepo = new Sleep(data.sleepData); // same as above Sleep
-  activityRepo = new Activity(data.activityData); // same as above Activity
-  currentUser = newRandomUser(); // now in one helper function
+  hydrationRepo = new Hydration(data.hydrationData);
+  sleepRepo = new Sleep(data.sleepData);
+  activityRepo = new Activity(data.activityData);
+  currentUser = newRandomUser();
 }
 
 function populatePage() {
@@ -115,11 +115,6 @@ function populateHydrationSection(currentDate) {
   document.getElementById('hydrationThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(hydrationRepo.getWeekOfOunces(currentUser.id, currentDate), 'oz'));
 }
 
-// ['2019/4/20 32', '2019/4/20 32', '2019/4/20 32', '2019/4/20 32'] - array format for these functions
-function makeArrayIntoHTMLList(arrayData, unit) {
-  return arrayData.map((dateAndAmount) => `<li class="historical-list-listItem">On ${dateAndAmount.date} ${dateAndAmount.amount}${unit}</li>`).join('');
-}
-
 function populateSleepSection(currentDate) {
   // just mess with span
   document.getElementById('sleepToday').insertAdjacentHTML('afterBegin', `<p>You slept</p> <p><span class="number">${sleepRepo.calculateDailySleep(currentUser.id, currentDate)}</span></p> <p>hours today.</p>`);
@@ -127,7 +122,13 @@ function populateSleepSection(currentDate) {
   document.getElementById('sleepQualityToday').insertAdjacentHTML('afterBegin', `<p>Your sleep quality was</p> <p><span class="number">${sleepRepo.calculateDailySleepQuality(currentUser.id, currentDate)}</span></p><p>out of 5.</p>`);
   // just mess with Span
   document.getElementById('avUserSleepQuality').insertAdjacentHTML('afterBegin', `<p>The average user's sleep quality is</p> <p><span class="number">${Math.round(sleepRepo.calculateAllUserSleepQuality() * 100) / 100}</span></p><p>out of 5.</p>`);
-  document.getElementById('sleepThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(sleepRepo.calculateWeekSleep(currentDate, currentUser.id, userRepo), 'hours'));
+  document.getElementById('sleepThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(sleepRepo.getWeekOfHoursSlept(currentUser.id, currentDate), 'hours'));
+  document.getElementById('sleep-quality-week').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(sleepRepo.getWeekOfQualitySlept(currentUser.id, currentDate), 'out of 5'));
+}
+
+// ['2019/4/20 32', '2019/4/20 32', '2019/4/20 32', '2019/4/20 32'] - array format for these functions
+function makeArrayIntoHTMLList(arrayData, unit) {
+  return arrayData.map((dateAndAmount) => `<li class="historical-list-listItem">On ${dateAndAmount.date} ${dateAndAmount.amount} ${unit}</li>`).join('');
 }
 
 function populateActivitySection(currentDate, winnerId) {
@@ -138,10 +139,10 @@ function populateActivitySection(currentDate, winnerId) {
   document.getElementById('avgStepsToday').insertAdjacentHTML('afterBegin', `<p>Step Count:</p><p>All Users</p><p><span class="number">${activityRepo.getAllUserAverageForDay(currentDate, userRepo, 'numSteps')}</span></p>`);
   document.getElementById('userMinutesToday').insertAdjacentHTML('afterBegin', `<p>Active Minutes:</p><p>You</p><p><span class="number">${activityRepo.userDataForToday(currentUser.id, currentDate, userRepo, 'minutesActive')}</span></p>`);
   document.getElementById('avgMinutesToday').insertAdjacentHTML('afterBegin', `<p>Active Minutes:</p><p>All Users</p><p><span class="number">${activityRepo.getAllUserAverageForDay(currentDate, userRepo, 'minutesActive')}</span></p>`);
-  document.getElementById('userStepsThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.userDataForWeek(currentUser.id, currentDate, userRepo, 'numSteps'), 'steps'));
-  document.getElementById('userStairsThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.userDataForWeek(currentUser.id, currentDate, userRepo, 'flightsOfStairs'), 'flights'));
-  document.getElementById('userMinutesThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.userDataForWeek(currentUser.id, currentDate, userRepo, 'minutesActive'), 'minutes'));
-  document.getElementById('bestUserSteps').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.userDataForWeek(winnerId, currentDate, userRepo, 'numSteps'), 'steps'));
+  document.getElementById('userStepsThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.getUserWeekData(currentUser.id, currentDate, 'numSteps'), 'steps'));
+  document.getElementById('userStairsThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.getUserWeekData(currentUser.id, currentDate, 'flightsOfStairs'), 'flights'));
+  document.getElementById('userMinutesThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.getUserWeekData(currentUser.id, currentDate, 'minutesActive'), 'minutes'));
+  document.getElementById('bestUserSteps').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(activityRepo.getUserWeekData(winnerId, currentDate, 'numSteps'), 'steps'));
 }
 
 function populateFriendsSection(currentDate) {
