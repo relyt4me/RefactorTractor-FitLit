@@ -115,18 +115,18 @@ If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to g
 
 <br />
 <p align="center">
-  <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS">
+  <a href="https://github.com/relyt4me/RefactorTractor-FitLit">
     <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.pngio.com%2Fchef-cooking-logo-clip-art-cook-free-transparent-png-clipart-cook-png-black-and-white-840_1015.png&f=1&nofb=1" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">What's Cookin</h3>
+  <h3 align="center">FitLit</h3>
 
   <p align="center">
     <br />
-    <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/relyt4me/RefactorTractor-FitLit"><strong>Explore the docs »</strong></a>
     <br />
-    <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS/issues">Report Bug</a>
+    <a href="https://github.com/relyt4me/RefactorTractor-FitLit/issues">Report Bug</a>
     ·
-    <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS/issues">Request Feature</a>
+    <a href="https://github.com/relyt4me/RefactorTractor-FitLit/issues">Request Feature</a>
   </p>
 </p>
