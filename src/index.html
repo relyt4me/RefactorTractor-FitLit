@@ -27,28 +27,46 @@
       </section>
     </aside>
     <main>
-      <section>
+      <section class="today-info-sec">
         <h2>Today at a glance</h2>
         <div class="card-wrapper">
-          <article>Water</article>
-          <article>StepCount</article>
-          <article>TotalMinutesActive</article>
-          <article>StairCount</article>
-          <article>Sleep</article>
+          <article id="hydration-today">Water<p id="hydration-average"></p></article>
+          <article id="user-steps-today">StepCount</article>
+          <article id="user-minutes-today">TotalMinutesActive</article>
+          <article id="user-stairs-today">StairCount</article>
+          <article id="sleep-this-week">Sleep</article>
         </div>
       </section>
-      <section>
+      <section class="week-info-sec">
         <h2>Your week at a glance</h2>
         <div class="card-wrapper">
-          <article>Water</article>
-          <article>StepCount</article>
-          <article>TotalMinutesActive</article>
-          <article>StairCount</article>
-          <article>Sleep</article>
+          <article id="hydration-this-week">Water</article>
+          <article id="user-steps-this-week">StepCount</article>
+          <article id="user-minutes-this-week">TotalMinutesActive</article>
+          <article id="user-stairs-this-week">StairCount</article>
+          <article>Sleep<p id="sleep-today"></p><p id="sleep-quality-today"></p><p id="av-user-sleep-quality"></p></article>
         </div>
       </section>
     </main>
-    <aside class="right-sidebar">HOWYOU STACK UP</aside>
+    <aside class="right-sidebar">
+      <img src="./images/person walking on path.jpg" class="sidebar-header-userImage"></img>
+      <div class="sidebar-header-line"></div>
+      <p class="sidebar-text" id="big-winner"></p>
+      <div class="sidebar-header-line"></div>
+      <p class="sidebar-text" id="step-goal-card"></p>
+      <p class="sidebar-text" id="av-step-goal-card">
+      <p>
+      <section class="sidebar-body-friendContainer">
+        <section class="sidebar-friendContainer-listItems">
+          <p class="thisWeek">Rank this week</p>
+          <ul class="card-vertical-list" id="friend-challenge-list-today">
+            <!-- friend list goes here -->
+            </ul>
+      <p id="avg-steps-today"></p>
+      <p id="avg-stairs-today"></p>
+      <p id="avg-minutes-today"></p>
+
+    </aside>
 
     <!-- <section class="main">
     <aside class="sidebars">
