@@ -112,12 +112,12 @@ function populateHydrationSection(currentDate) {
   // change the adjacentHTML to just mess with the span
   document.getElementById('hydrationToday').insertAdjacentHTML('afterBegin', `<p>You drank</p><p><span class="number">${hydrationRepo.calculateDailyOunces(currentUser.id, currentDate)}</span></p><p>oz water today.</p>`);
   document.getElementById('hydrationAverage').insertAdjacentHTML('afterBegin', `<p>Your average water intake is</p><p><span class="number">${hydrationRepo.calculateAverageOunces(currentUser.id)}</span></p> <p>oz per day.</p>`);
-  document.getElementById('hydrationThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(hydrationRepo.calculateFirstWeekOunces(userRepo, currentUser.id), 'oz'));
+  document.getElementById('hydrationThisWeek').insertAdjacentHTML('afterBegin', makeArrayIntoHTMLList(hydrationRepo.getWeekOfOunces(currentUser.id, currentDate), 'oz'));
 }
 
 // ['2019/4/20 32', '2019/4/20 32', '2019/4/20 32', '2019/4/20 32'] - array format for these functions
 function makeArrayIntoHTMLList(arrayData, unit) {
-  return arrayData.map((dateAndAmount) => `<li class="historical-list-listItem">On ${dateAndAmount}${unit}</li>`).join('');
+  return arrayData.map((dateAndAmount) => `<li class="historical-list-listItem">On ${dateAndAmount.date} ${dateAndAmount.amount}${unit}</li>`).join('');
 }
 
 function populateSleepSection(currentDate) {
