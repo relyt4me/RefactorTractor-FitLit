@@ -331,21 +331,28 @@ describe('Friend Activity', function() {
     expect(activity.getFriendsActivity(user4, userRepo)).to.deep.eql(friendsList);
   });
 
-  it.only('should get a users ranked friendslist activity for a chosen week', function() {
+  it('should get a users ranked friendslist activity for a chosen week', function() {
     expect(activity.getFriendsAverageStepsForWeek(user4, "2019/06/24", userRepo)).to.eql([{
-      '1': 9977.25
+      id: 1,
+      avgSteps: 9355.6
     },
     {
-      '2': 7871.125
+      id: 2,
+      avgSteps: 7031.3
     }
     ]);
   });
 
   it('should get a users ranked friendslist activity for a chosen week with names', function() {
     expect(activity.showChallengeListAndWinner(user4, "2019/06/24", userRepo)).to.eql([
-      'Alex Roth: 9977.25', 'Allie McCarthy: 7871.125'
+      'Alex Roth: 9355.6', 'Allie McCarthy: 7031.3'
     ])
   });
+
+  it.only('should show the friend with most average steps over the previous week', function () {
+    expect(activity.showcaseWinner(user1, "2019/06/24", userRepo)).to.eql('Rainbow Dash: 8294.4')
+    expect(activity.showcaseWinner(user3, "2019/06/24", userRepo)).to.eql('Alex Roth: 9355.6')
+  })
 
   it('should know the ID of the winning friend', function() {
     expect(activity.getWinnerId(user4, "2019/06/24", userRepo)).to.eql(1)
