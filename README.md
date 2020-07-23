@@ -218,12 +218,12 @@ Contributions are what make the open source community such an amazing place to b
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/jordy1611/whats-cookin-JS-JS-KS.svg?style=flat-square
-[contributors-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/jordy1611/whats-cookin-JS-JS-KS.svg?style=flat-square
+[contributors-shield]: https://img.shields.io/github/contributors/relyt4me/RefactorTractor-FitLit.svg?style=flat-square
+[contributors-url]: https://github.com/relyt4me/RefactorTractor-FitLit/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/relyt4me/RefactorTractor-FitLit.svg?style=flat-square
 [forks-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/network/members
-[stars-shield]: https://img.shields.io/github/stars/jordy1611/whats-cookin-JS-JS-KS.svg?style=flat-square
+[stars-shield]: https://img.shields.io/github/stars/relyt4me/RefactorTractor-FitLit.svg?style=flat-square
 [stars-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/stargazers
-[issues-shield]: https://img.shields.io/github/issues/jordy1611/whats-cookin-JS-JS-KS.svg?style=flat-square
-[issues-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/issuesÂ
+[issues-shield]: https://img.shields.io/github/issues/relyt4me/RefactorTractor-FitLit.svg?style=flat-square
+[issues-url]: https://github.com/relyt4me/RefactorTractor-FitLit/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
