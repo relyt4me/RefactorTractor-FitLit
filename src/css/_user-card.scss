@@ -1,21 +1,54 @@
 .left-sidebar {
-  background-color: blue;
-  height: $column-height;
-  // @include background-cards();
+  height: calc(100vh - 115px);
+  @include background-cards();
+  margin: 8px;
+  display: grid;
+  justify-items: center;
+  padding: 0 5px;
+  hr {
+    margin: 0;
+  }
 }
 
-// .left-friend-card {
-//   border: 2px solid black;
-//   background-color: white;
-//   border-radius: 3vh;
-//   padding: 3vh, 0;
-//   display: flex;
-//   flex-direction: row-reverse;
-//   justify-content: space-around;
-//   margin-top: 1vh;
-//   width: 225px;
-//   align-self: center;
-// }
+.user-image {
+  @include round-image(150px);
+}
+
+address {
+  justify-self: left;
+  font-size: 0.6em;
+}
+
+.daily-goal-card {
+  font-size: 0.88em;
+  @include small-card();
+  text-align: center;
+  line-height: 1.8em;
+  padding-top: 3px;
+  #av-step-goal-card {
+    font-size: 0.7em;
+  }
+}
+
+.left-friend-card {
+  @include small-card();
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+  width: 225px;
+  align-self: center;
+  font-size: 0.82em;
+  ul {
+    padding: 0 1vw;
+  }
+  li {
+    list-style-type: none;
+  }
+  h2 {
+    padding-right: 4px;
+    text-align: center;
+  }
+}
 
 // .sidebars {
 //   display: flex;
@@ -39,11 +72,4 @@
 
 // .sidebar-headers {
 //   padding-top: 10px;
-// }
-
-// .daily-goal-card {
-//   border: 2px solid black;
-//   background-color: white;
-//   border-radius: 3vh;
-//   padding: 3vh;
 // }

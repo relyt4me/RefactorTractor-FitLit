@@ -1,6 +1,9 @@
 main {
-  background-color: green;
   height: $column-height;
+  section {
+    @include background-cards();
+    margin: 8px;
+  }
 }
 // .today-info-sec,
 // .week-info-sec {
