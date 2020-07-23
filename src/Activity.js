@@ -3,10 +3,12 @@ class Activity { //should probably be renamed
     this.activityData = activityData //
   }
   //// begin unused methods
-  getMilesByDate(id, date, user, userRepo) {  //returns miles walked on a specific date
+  getMilesByDate(id, date, user = undefined, userRepo) {  //returns miles walked on a specific date
     // THIS IS NEVER USED needs to be displayed on page
     let userStepsByDate = this.getUserDataForDay(id, date, 'numSteps').amount;
-    return parseFloat(((userStepsByDate * user.strideLength) / 5280).toFixed(1));
+    let miles = parseFloat(((userStepsByDate * user.strideLength) / 5280).toFixed(1))
+    return miles || undefined;
+
   }
   // // not used
 
@@ -22,7 +24,7 @@ class Activity { //should probably be renamed
     const weeklyAverage = (weekData.reduce((sum, day) => {
       return sum += day.amount
     }, 0) / 7)
-    return parseFloat(weeklyAverage.toFixed(1));
+    return parseFloat(weeklyAverage.toFixed(1)) || undefined;
     // return `{parseFloat(weeklyAverage.toFixed(1))} minutes active`
     // return parseFloat((userRepo.getWeekFromDate(date, id, this.activityData).reduce((acc, elem) => { //acc and elem are terrible names
     //   return acc += elem.minutesActive;
@@ -31,7 +33,7 @@ class Activity { //should probably be renamed
 
   accomplishStepGoal(id, date, user, dataType) { // returns true if user steps = daily step goal (should be >=)
     const stepsToday = this.getUserDataForDay(id, date, 'numSteps').steps
-    if (stepsToday >= user.dailyStepGoal) { //>= not ===
+    if (stepsToday >= user.dailyStepGoal) {
       return true;
     }
     return false
@@ -206,15 +208,9 @@ class Activity { //should probably be renamed
   }
 
   getWinnerId(user, date, userRepo) { // return ID of the winning friend
-    let winner = this.getFriendsAverageStepsForWeek(user, date, userRepo);
-    console.log('winner', winner)
-    let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
-    console.log('rankedList', rankedList)
-    let keysList = rankedList.map(listItem => Object.keys(listItem));
-    return parseInt(keysList[0].join(''))
+    let friends = this.getFriendsAverageStepsForWeek(user, date, userRepo)
+    return friends.shift().id
   }
 }
-
-
 
 export default Activity;
