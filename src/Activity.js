@@ -18,6 +18,30 @@ class Activity { //should probably be renamed
   //   return userActivityByDate.minutesActive;
   // }
 
+  getUserDataForDay(id, date, dataType) {// should take user instead of id
+    // console.log('typeof', typeof id)
+    if(id < 1 || typeof id !== 'number' || date.length !== 10 || typeof date !== 'string'
+    || !['numSteps', 'minutesActive', 'flightsOfStairs'].includes(dataType)) {
+      return undefined
+    }
+    let todayActivities = this.activityData.find(data => data.date === date && data.userID === id);
+    let todayActivity = {};
+    todayActivity.date = date;
+    todayActivity.amount = todayActivities[dataType];
+    todayActivity.type = (dataType === 'numSteps') ? 'steps' : dataType;
+    return todayActivity
+    // returns { date: '2019/06/15', amount: 3577, type: 'steps' }
+  }
+
+  userDataForToday(id, date, userRepo, dataType) { //return steps for specific user on specific daten
+    return this.activityData.find(data => data.date === date &&
+       data.userID === id)[dataType] || undefined
+    // let userData = userRepo.getDataFromUserID(id, this.activityData); // all activities for user, userRepo is actual repo
+    // let userData = this.activityData.filter(data => {
+    //   return data.userID === id
+    // })
+    //return userData.find(data => data.date === date)[dataType];
+  }
 
   calculateActiveAverageForWeek(id, date, userRepo) { //return average active minutes for all users
     const weekData = this.getUserWeekData(id, date, 'minutesActive');
@@ -71,26 +95,6 @@ class Activity { //should probably be renamed
     return average;
     // const selectedDayData = this.activityData.filter(data => data.date === date); // userRepo is actual repo
     // return parseFloat((selectedDayData.reduce((acc, elem) => acc += elem[dataType], 0) / selectedDayData.length).toFixed(1));
-  }
-
-  getUserDataForDay(id, date, dataType) {
-    let todayActivities = this.activityData.find(data => data.date === date && data.userID === id);
-    let todayActivity = {};
-    todayActivity.date = date;
-    todayActivity.amount = todayActivities[dataType];
-    todayActivity.type = (dataType === 'numSteps') ? 'steps' : dataType;
-    return todayActivity
-    // returns { date: '2019/06/15', amount: 3577, type: 'steps' }
-  }
-
-  userDataForToday(id, date, userRepo, dataType) { //return steps for specific user on specific daten
-    return this.activityData.find(data => data.date === date &&
-       data.userID === id)[dataType];
-    // let userData = userRepo.getDataFromUserID(id, this.activityData); // all activities for user, userRepo is actual repo
-    // let userData = this.activityData.filter(data => {
-    //   return data.userID === id
-    // })
-    //return userData.find(data => data.date === date)[dataType];
   }
 
   getUserWeekData(id, date, dataType) {
