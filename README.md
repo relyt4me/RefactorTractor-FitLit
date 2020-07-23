@@ -111,7 +111,6 @@ If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to g
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
 <br />
@@ -202,7 +201,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- MAIN CONTRIBUTIONS -->
 ## Main Contributors
 
-* Jordy Shryock - jordy1611@gmail.com
+* Jordan Shryock - jordan.m.shryock@gmail.com ![Jordan's Linkedin](https://www.linkedin.com/in/jordan-shryock-6a48b9113/)
 * Carly Clift - 
 * Tyler Haglund - 
 
@@ -221,9 +220,8 @@ Contributions are what make the open source community such an amazing place to b
 [contributors-shield]: https://img.shields.io/github/contributors/relyt4me/RefactorTractor-FitLit.svg?style=flat-square
 [contributors-url]: https://github.com/relyt4me/RefactorTractor-FitLit/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/relyt4me/RefactorTractor-FitLit.svg?style=flat-square
-[forks-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/network/members
+[forks-url]: https://github.com/relyt4me/RefactorTractor-FitLit/network/members
 [stars-shield]: https://img.shields.io/github/stars/relyt4me/RefactorTractor-FitLit.svg?style=flat-square
-[stars-url]: https://github.com/jordy1611/whats-cookin-JS-JS-KS/stargazers
+[stars-url]: https://github.com/relyt4me/RefactorTractor-FitLit/stargazers
 [issues-shield]: https://img.shields.io/github/issues/relyt4me/RefactorTractor-FitLit.svg?style=flat-square
 [issues-url]: https://github.com/relyt4me/RefactorTractor-FitLit/issues
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
