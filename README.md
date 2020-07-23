@@ -201,9 +201,11 @@ Contributions are what make the open source community such an amazing place to b
 <!-- MAIN CONTRIBUTIONS -->
 ## Main Contributors
 
-* Jordan Shryock - jordan.m.shryock@gmail.com [Jordan's Linkedin](https://www.linkedin.com/in/jordan-shryock-6a48b9113/)
-* Carly Clift - 
-* Tyler Haglund - 
+* Jordan Shryock 
+  * jordan.m.shryock@gmail.com 
+  * [Jordan's Linkedin](https://www.linkedin.com/in/jordan-shryock-6a48b9113/)
+* Carly Clift 
+* Tyler Haglund
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
