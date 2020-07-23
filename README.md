@@ -103,3 +103,30 @@ _If you are finished with the functionality and testing of your project_, then y
 [GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
 
 If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
+
+# Final README
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+
+<br />
+<p align="center">
+  <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS">
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.pngio.com%2Fchef-cooking-logo-clip-art-cook-free-transparent-png-clipart-cook-png-black-and-white-840_1015.png&f=1&nofb=1" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">What's Cookin</h3>
+
+  <p align="center">
+    <br />
+    <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/jordy1611/whats-cookin-JS-JS-KS/issues">Request Feature</a>
+  </p>
+</p>
