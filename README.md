@@ -199,7 +199,8 @@ Contributions are what make the open source community such an amazing place to b
 
 * Open a Pull Request
 
-## Contact
+<!-- MAIN CONTRIBUTIONS -->
+## Main Contributors
 
 * Jordy Shryock - jordy1611@gmail.com
 * Carly Clift - 
