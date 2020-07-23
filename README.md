@@ -201,7 +201,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- MAIN CONTRIBUTIONS -->
 ## Main Contributors
 
-* Jordan Shryock - jordan.m.shryock@gmail.com ![Jordan's Linkedin](https://www.linkedin.com/in/jordan-shryock-6a48b9113)
+* Jordan Shryock - jordan.m.shryock@gmail.com [Jordan's Linkedin](https://www.linkedin.com/in/jordan-shryock-6a48b9113/)
 * Carly Clift - 
 * Tyler Haglund - 
 
@@ -225,3 +225,4 @@ Contributions are what make the open source community such an amazing place to b
 [stars-url]: https://github.com/relyt4me/RefactorTractor-FitLit/stargazers
 [issues-shield]: https://img.shields.io/github/issues/relyt4me/RefactorTractor-FitLit.svg?style=flat-square
 [issues-url]: https://github.com/relyt4me/RefactorTractor-FitLit/issues
+[jordy-linkedin]: https://www.linkedin.com/in/jordan-shryock-6a48b9113/
