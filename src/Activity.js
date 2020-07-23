@@ -170,7 +170,8 @@ class Activity { //should probably be renamed
       object.avgSteps = parseFloat(userAverage.toFixed(1))
       averages.push(object)
     })
-    return averages
+
+    return averages.sort((a, b) => b.avgSteps - a.avgSteps)
 
     // let friendsActivity = this.getFriendsActivity(user, userRepo);
     // let timeline = userRepo.chooseWeekDataForAllUsers(friendsActivity, date);
@@ -181,7 +182,6 @@ class Activity { //should probably be renamed
 
   showChallengeListAndWinner(user, date, userRepo) { // returns users ranked friendslist activity for a chosen week with names
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
-    rankedList = rankedList.sort((a, b) => b.avgSteps - a.avgSteps)
     return rankedList.map(friend => {
       const userName = userRepo.users.find(user => user.id === friend.id).name
       // let userID = Object.keys(listItem)[0]; // this this is the only way to get key's id
@@ -200,26 +200,17 @@ class Activity { //should probably be renamed
   // }
 
   showcaseWinner(user, date, userRepo) { // not tested returns winner of steps challenge of friends
-    // let namedList = this.showChallengeListAndWinner(user, date, userRepo);
     let friendsAverages = this.showChallengeListAndWinner(user, date, userRepo);
-    // console.log('before', friendsAverages);
-    // friendsAverages = friendsAverages.sort((a, b) => b.avgSteps - a.avgSteps)
-    // console.log('after', friendsAverages);
-    // console.log(this.showChallengeListAndWinner(user, date, userRepo))
-    // console.log(this.showChallengeListAndWinner(user, date, userRepo))
-    // namedList.forEach(person => console.log(parseFloat(person)))
-    // let orderedlist = namedList.sort((a, b) => a)
     let winner = friendsAverages.shift();
-    console.log('end', winner)
-    // console.log(winner);
     return winner;
-    // returns the winner, aka first item from showChallengeListAndWinner
   }
 
   getWinnerId(user, date, userRepo) { // return ID of the winning friend
+    let winner = this.getFriendsAverageStepsForWeek(user, date, userRepo);
+    console.log('winner', winner)
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
+    console.log('rankedList', rankedList)
     let keysList = rankedList.map(listItem => Object.keys(listItem));
-    // console.log(this.showcaseWinner(user, date, userRepo))
     return parseInt(keysList[0].join(''))
   }
 }
