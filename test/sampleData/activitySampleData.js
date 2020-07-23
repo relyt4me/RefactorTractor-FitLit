@@ -243,6 +243,111 @@ const activitySampleData = [
     "numSteps": 2177,
     "minutesActive": 142,
     "flightsOfStairs": 21
+  },
+  {
+    "userID": 1,
+    "date": "2019/06/22",
+    "numSteps": 10289,
+    "minutesActive": 119,
+    "flightsOfStairs": 6
+  },
+  {
+    "userID": 2,
+    "date": "2019/06/22",
+    "numSteps": 3605,
+    "minutesActive": 124,
+    "flightsOfStairs": 31
+  },
+  {
+    "userID": 3,
+    "date": "2019/06/22",
+    "numSteps": 11342,
+    "minutesActive": 53,
+    "flightsOfStairs": 17
+  },
+  {
+    "userID": 4,
+    "date": "2019/06/22",
+    "numSteps": 3595,
+    "minutesActive": 243,
+    "flightsOfStairs": 19
+  },
+  {
+    "userID": 5,
+    "date": "2019/06/22",
+    "numSteps": 10643,
+    "minutesActive": 213,
+    "flightsOfStairs": 37
+  },
+  {
+    "userID": 1,
+    "date": "2019/06/23",
+    "numSteps": 13928,
+    "minutesActive": 218,
+    "flightsOfStairs": 21
+  },
+  {
+    "userID": 2,
+    "date": "2019/06/23",
+    "numSteps": 4148,
+    "minutesActive": 142,
+    "flightsOfStairs": 0
+  },
+  {
+    "userID": 3,
+    "date": "2019/06/23",
+    "numSteps": 4665,
+    "minutesActive": 219,
+    "flightsOfStairs": 9
+  },
+  {
+    "userID": 4,
+    "date": "2019/06/23",
+    "numSteps": 12134,
+    "minutesActive": 99,
+    "flightsOfStairs": 3
+  },
+  {
+    "userID": 5,
+    "date": "2019/06/23",
+    "numSteps": 7898,
+    "minutesActive": 190,
+    "flightsOfStairs": 23
+  },
+  {
+    "userID": 1,
+    "date": "2019/06/24",
+    "numSteps": 7186,
+    "minutesActive": 25,
+    "flightsOfStairs": 15
+  },
+  {
+    "userID": 2,
+    "date": "2019/06/24",
+    "numSteps": 8568,
+    "minutesActive": 81,
+    "flightsOfStairs": 31
+  },
+  {
+    "userID": 3,
+    "date": "2019/06/24",
+    "numSteps": 10142,
+    "minutesActive": 269,
+    "flightsOfStairs": 45
+  },
+  {
+    "userID": 4,
+    "date": "2019/06/24",
+    "numSteps": 3704,
+    "minutesActive": 118,
+    "flightsOfStairs": 10
+  },
+  {
+    "userID": 5,
+    "date": "2019/06/24",
+    "numSteps": 4283,
+    "minutesActive": 123,
+    "flightsOfStairs": 2
   }
 ]
 
