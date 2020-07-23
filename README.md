@@ -116,7 +116,6 @@ If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to g
 <br />
 <p align="center">
   <a href="https://github.com/relyt4me/RefactorTractor-FitLit">
-    <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Ficon-library.com%2Ficon%2Fexercise-icon-1.html&psig=AOvVaw1R6GyJlq0j2dhCX3O0vFz_&ust=1595628518840000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJj_i82x5OoCFQAAAAAdAAAAABAD" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">FitLit</h3>
