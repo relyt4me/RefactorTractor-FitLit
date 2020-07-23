@@ -18,9 +18,6 @@ class Activity { //should probably be renamed
 
 
   calculateActiveAverageForWeek(id, date, userRepo) { //return average active minutes for all users
-    // console.log(userRepo.getWeekFromDate(date, id, this.activityData))
-    // console.log(this.getUserWeekData(id, date, 'minutesActive'))
-    //
     const weekData = this.getUserWeekData(id, date, 'minutesActive');
     const weeklyAverage = (weekData.reduce((sum, day) => {
       return sum += day.amount
@@ -162,18 +159,23 @@ class Activity { //should probably be renamed
     // }, []);
   }
   getFriendsAverageStepsForWeek(user, date, userRepo) { //returns array with avg steps for each friend
-    // dataSet.filter(function(dataItem) {
-    //   return (new Date(date)).setDate((new Date(date)).getDate() - 7) <= new Date(dataItem.date) && new Date(dataItem.date) <= new Date(date)
-    // })
-    console.log(this.getUserWeekData(1, date, 'numSteps'))
-    console.log(this.userDataForWeek(1, date, 'userRepo', 'numSteps'))
-    let friendsActivity = this.getFriendsActivity(user, userRepo);
-    let timeline = userRepo.chooseWeekDataForAllUsers(friendsActivity, date);
-    // console.log(friendsActivity)
-    // console.log(timeline)
-    // console.log(userRepo.combineRankedUserIDsAndAveragedData(friendsActivity, date, 'numSteps', timeline))
-    return userRepo.combineRankedUserIDsAndAveragedData(friendsActivity, date, 'numSteps', timeline)
-    //[ { '2': 9552 }, { '1': 7475.5 } ]
+    let averages = []
+    user.friends.forEach((friendID) => {
+      const friendsActivities = this.getUserWeekData(friendID, date, 'numSteps')
+      const userAverage = friendsActivities.reduce((sum, activity) => {
+        return sum += activity.amount
+      }, 0) / 7
+      let object = {}
+      object[`${friendID}`] = parseFloat(userAverage.toFixed(1));
+      averages.push(object)
+    })
+    return averages
+
+    // let friendsActivity = this.getFriendsActivity(user, userRepo);
+    // let timeline = userRepo.chooseWeekDataForAllUsers(friendsActivity, date);
+    // return userRepo.combineRankedUserIDsAndAveragedData(friendsActivity, date, 'numSteps', timeline)
+
+    // returns [ { '2': 9552 }, { '1': 7475.5 } ]
   }
   showChallengeListAndWinner(user, date, userRepo) { // returns users ranked friendslist activity for a chosen week with names
     let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
