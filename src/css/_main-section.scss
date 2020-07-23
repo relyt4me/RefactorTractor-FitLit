@@ -1,36 +1,32 @@
-.today-info-sec,
-.week-info-sec {
-    background-color: rgb(165, 190, 190);
-    height: 42vh;
-    width: 60vw;
-    border: 1px solid black;
-    @include large-card();
-    margin: 10px;
-
-    h2 {
-        text-align: center;
-    }
-    article {
-        border: 1px solid red;
-        width: 10vw;
-        height: 30vh;
-        margin-top: 1vh;
-        padding: .25vh;
-    }
+main {
+  background-color: green;
+  height: $column-height;
 }
+// .today-info-sec,
+// .week-info-sec {
+//   background-color: rgb(165, 190, 190);
+//   height: 42vh;
+//   width: 60vw;
+//   border: 1px solid black;
+//   @include background-cards();
+//   margin: 10px;
 
-.card-wrapper {
-    display: flex;
-    justify-content: space-around;
-}
+//   h2 {
+//     text-align: center;
+//   }
+//   article {
+//     border: 1px solid red;
+//     width: 10vw;
+//     height: 30vh;
+//     margin-top: 1vh;
+//     padding: 0.25vh;
+//   }
+// }
 
-
-
-
-
-
-
-
+// .card-wrapper {
+//   display: flex;
+//   justify-content: space-around;
+// }
 
 // .body-main-infoContainter {
 //     width: 100%;
@@ -40,25 +36,25 @@
 //     flex-direction: column;
 //     overflow: scroll;
 //   }
-  
+
 //   .main-column-hydration {
 //     display: flex;
 //     flex-direction: row;
 //     height: 25%
 //   }
-  
+
 //   .main-column-activity {
 //     display: flex;
 //     flex-direction: row;
 //     height: 50%
 //   }
-  
+
 //   .main-column-sleep {
 //     display: flex;
 //     flex-direction: row;
 //     height: 35%
 //   }
-  
+
 //   .infoContainer-cardContainer-card-horizontal {
 //     width: 100%;
 //     background-color: white;
@@ -69,7 +65,7 @@
 //     margin: 1%;
 //     justify-content: space-between;
 //   }
-  
+
 //   .horizontalCard-activity-container {
 //     display: flex;
 //     flex-direction: row;
@@ -77,7 +73,7 @@
 //     width: 100%;
 //     overflow: scroll;
 //   }
-  
+
 //   .infoContainer-cardContainer-card-vertical {
 //     width: 100%;
 //     background-color: white;
@@ -87,7 +83,7 @@
 //     margin: 1%;
 //     overflow: scroll;
 //   }
-  
+
 //   .card-today-hydration {
 //     text-align: center;
 //     background-color: #5BC8AC;
@@ -100,7 +96,7 @@
 //     justify-content: space-between;
 //     width: 80%;
 //   }
-  
+
 //   .card-today-sleep {
 //     text-align: center;
 //     background-color: #EC96A4;
@@ -113,7 +109,7 @@
 //     justify-content: space-between;
 //     width: 80%;
 //   }
-  
+
 //   .card-today-activity {
 //     text-align: center;
 //     background-color: #DFE166;
@@ -126,7 +122,7 @@
 //     justify-content: space-between;
 //     width: 40%;
 //   }
-  
+
 //   .card-history-hydration {
 //     text-align: center;
 //     background-color: #5BC8AC;
@@ -138,7 +134,7 @@
 //     justify-content: flex-start;
 //     width: 50%;
 //   }
-  
+
 //   .card-history-sleep {
 //     text-align: center;
 //     background-color: #EC96A4;
@@ -150,7 +146,7 @@
 //     justify-content: flex-start;
 //     width: 50%;
 //   }
-  
+
 //   .card-history-activity {
 //     text-align: center;
 //     background-color: #DFE166;
