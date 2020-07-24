@@ -9,13 +9,14 @@
     @include round-image(100px);
   }
   h2 {
-    font-size: 1em;
+    font-size: 1.2em;
     text-align: center;
+    padding: 4% 0;
   }
   section {
     @include small-card();
     width: 80%;
-    height: 175px;
+    height: 190px;
   }
 }
 
