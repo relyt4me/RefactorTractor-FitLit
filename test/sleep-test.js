@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import sleepSampleData from './sampleData/sleepSampleData';
 import Sleep from '../src/Sleep';
 
-describe.only('Sleep', function () {
+describe('Sleep', function () {
   let sleepRepo;
 
   beforeEach(function () {

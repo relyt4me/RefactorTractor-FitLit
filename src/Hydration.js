@@ -2,6 +2,7 @@ class Hydration {
   constructor(hydrationData) {
     this.hydrationData = hydrationData;
   }
+  
   calculateAverageOunces(id) {
     let hydrationForThisUser = this.hydrationData.filter((hydrationInstance) => id === hydrationInstance.userID);
     const averageOuncesUnrounded =
@@ -18,7 +19,6 @@ class Hydration {
     }
   }
 
-  //New function for the week of ounces
   getWeekOfOunces(id, endDate) {
     let hydrationForThisUser = this.hydrationData.filter((hydrationInstance) => id === hydrationInstance.userID);
     const firstIndex = hydrationForThisUser.findIndex((day) => day.date === endDate);
@@ -26,15 +26,6 @@ class Hydration {
     return pastWeek.map((day) => {
       return { date: day.date, amount: day.numOunces, unit: 'oz' };
     });
-  }
-
-  //*****Secondary Functions Below ******/
-  calculateFirstWeekOunces(userRepo, id) {
-    return userRepo.getFirstWeek(id, this.hydrationData).map((data) => `${data.date}: ${data.numOunces}`);
-  }
-
-  calculateRandomWeekOunces(date, id, userRepo) {
-    return userRepo.getWeekFromDate(date, id, this.hydrationData).map((data) => `${data.date}: ${data.numOunces}`);
   }
 }
 
