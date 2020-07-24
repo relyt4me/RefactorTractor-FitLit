@@ -1,11 +1,16 @@
 class DomUpdates {
-
-  populateUserWidget(currentUser, data, userRepo) {
-    document.getElementById('sidebarName').innerText = currentUser.name;
+  populateUserWidget(currentUser, data, userRepo, sleepRepo, activityRepo) {
+    document.getElementById('user-name-header').innerText = currentUser.name;
+    document.getElementById('user-address').innerText = currentUser.address;
+    document.getElementById('user-email').innerText = currentUser.email;
+    document.getElementById('user-stride-length').innerText = currentUser.strideLength;
+    document.getElementById('user-step-goal').innerText = currentUser.dailyStepGoal;
+    //JORDY reached Step Goal
+    //JORDY days exceeded
+    document.getElementById('user-avg-hr-sleep').innerText = sleepRepo.calculateAverageSleep(currentUser.id);
+    document.getElementById('user-avg-qlty-sleep').innerText = sleepRepo.calculateAverageSleepQuality(currentUser.id);
     document.getElementById('stepGoalCard').innerText = `Your daily step goal is ${currentUser.dailyStepGoal}.`;
     document.getElementById('avStepGoalCard').innerText = `The average daily step goal is ${userRepo.calculateAverageStepGoal()}`; // not a thing need docQS displays averagestepgoal from userRepo
-    document.getElementById('userAddress').innerText = currentUser.address;
-    document.getElementById('userEmail').innerText = currentUser.email;
     document.getElementById('userStridelength').innerText = `Your stridelength is ${currentUser.strideLength} meters.`;
     document.getElementById('friendList').insertAdjacentHTML('afterBegin', this.makeFriendHTML(currentUser, data)); // rename to userRepo renamed display friendlist
   }
@@ -60,11 +65,11 @@ class DomUpdates {
     document.getElementById('streakListMinutes').insertAdjacentHTML('afterBegin', this.makeStepStreakHTML(activityRepo.getStreak(userRepo, currentUser.id, 'minutesActive')));
     document.getElementById('bigWinner').insertAdjacentHTML('afterBegin', `THIS WEEK'S WINNER! ${activityRepo.showcaseWinner(currentUser, currentDate, userRepo)} steps`);
   }
-  
+
   makeFriendChallengeHTML(arrayData) {
     return arrayData.map((friendChallengeData) => `<li class="historical-list-listItem">Your friend ${friendChallengeData} average steps.</li>`).join('');
   }
-  
+
   makeStepStreakHTML(arrayData) {
     return arrayData.map((streakData) => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
   }

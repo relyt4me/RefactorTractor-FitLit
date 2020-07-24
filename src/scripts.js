@@ -14,26 +14,26 @@ const data = {
   userData: null,
   sleepData: null,
   activityData: null,
-  hydrationData: null
-}
+  hydrationData: null,
+};
 
-let userRepo, hydrationRepo, sleepRepo, activityRepo, currentUser, domUpdate
+let userRepo, hydrationRepo, sleepRepo, activityRepo, currentUser, domUpdate;
 
 window.onload = startApp();
 
 function startApp() {
-  fetchData() 
-    .then(allData => {
+  fetchData()
+    .then((allData) => {
       data.userData = allData.userData;
       data.sleepData = allData.sleepData;
       data.activityData = allData.activityData;
       data.hydrationData = allData.hydrationData;
-    }) 
-    .then( () => {
+    })
+    .then(() => {
       instantiatePageData();
       populatePage();
     })
-    .catch(err => console.log(err.message))
+    .catch((err) => console.log(err.message));
 }
 
 function instantiatePageData() {
@@ -60,15 +60,14 @@ function newRandomUser() {
 
 function populatePage() {
   let mostRecentDate = getUsersRecentDate(currentUser.id, data.hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
-  document.getElementById('headerText').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function`;
-  domUpdate.populateUserWidget(currentUser, data, userRepo); // fills out user infor (iteration 1 dashboard)
+  document.getElementById('greet-user-text').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function`;
+  domUpdate.populateUserWidget(currentUser, data, userRepo, sleepRepo, activityRepo); // fills out user infor (iteration 1 dashboard)
   domUpdate.populateHydrationSection(mostRecentDate, hydrationRepo, currentUser);
   domUpdate.populateSleepSection(mostRecentDate, currentUser, sleepRepo);
   let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
   domUpdate.populateActivitySection(mostRecentDate, winnerNow, currentUser, activityRepo, userRepo);
   domUpdate.populateFriendsSection(mostRecentDate, currentUser, activityRepo, userRepo);
 }
-
 
 // function will remove userRepo functionality from the class returns the most current date of a data set for a given user
 function getUsersRecentDate(id, dataSet) {

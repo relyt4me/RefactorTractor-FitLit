@@ -8,7 +8,7 @@ class Sleep {
       sleepForThisUser.reduce((sumSoFar, sleepDay) => {
         return (sumSoFar += sleepDay.hoursSlept);
       }, 0) / sleepForThisUser.length;
-    return parseFloat(averageSleepHours.toFixed(2)) || undefined;
+    return parseFloat(averageSleepHours.toFixed(1)) || undefined;
   }
 
   calculateAverageSleepQuality(id) {
@@ -17,7 +17,7 @@ class Sleep {
       sleepForThisUser.reduce((sumSoFar, sleep) => {
         return (sumSoFar += sleep.sleepQuality);
       }, 0) / sleepForThisUser.length;
-    return parseFloat(averageSleepQuality.toFixed(2)) || undefined;
+    return parseFloat(averageSleepQuality.toFixed(1)) || undefined;
   }
 
   calculateDailySleep(id, date) {
@@ -135,7 +135,7 @@ class Sleep {
 
   //   return this.getWinnerNamesFromList(sleepRankWithData, userRepo);
   // }
-  
+
   getWinnerNamesFromList(sortedArray, userRepo) {
     let bestSleepers = sortedArray.filter(function (element) {
       return element[Object.keys(element)] === Object.values(sortedArray[0])[0];

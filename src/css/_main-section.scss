@@ -14,15 +14,16 @@ main {
     @include small-card();
     margin-top: 1vh;
     padding: 1em;
-    width: 9vw;
-    height: 16vh;
+    width: 8vw;
+    height: min-max(3vh, 14vh);
     text-align: center;
     h2 {
-      font-size: 2em;
+      font-size: 4vh;
       padding-bottom: 5%;
     }
     p {
       font-weight: bold;
+      font-size: 2vh;
     }
   }
 }

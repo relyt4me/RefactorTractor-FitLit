@@ -31,7 +31,7 @@ describe('Sleep', function () {
   });
 
   it('Should find the average sleep hours per day for a user', () => {
-    expect(sleepRepo.calculateAverageSleep(1)).to.eql(8.06);
+    expect(sleepRepo.calculateAverageSleep(1)).to.eql(8.1);
   });
 
   it('Should return undefined when calculateAverageSleep is given a nonExistent user', () => {
@@ -39,7 +39,7 @@ describe('Sleep', function () {
   });
 
   it('Should find the average sleep quality per day for a user', () => {
-    expect(sleepRepo.calculateAverageSleepQuality(2)).to.eql(3.49);
+    expect(sleepRepo.calculateAverageSleepQuality(2)).to.eql(3.5);
   });
 
   it('Should return undefined when calculateAverageQuality is given a nonExistent user', () => {
