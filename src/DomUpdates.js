@@ -1,18 +1,30 @@
 class DomUpdates {
-  populateUserWidget(currentUser, data, userRepo, sleepRepo, activityRepo) {
-    document.getElementById('user-name-header').innerText = currentUser.name;
-    document.getElementById('user-address').innerText = currentUser.address;
-    document.getElementById('user-email').innerText = currentUser.email;
-    document.getElementById('user-stride-length').innerText = currentUser.strideLength;
-    document.getElementById('user-step-goal').innerText = currentUser.dailyStepGoal;
-    //JORDY reached Step Goal
-    //JORDY days exceeded
-    document.getElementById('user-avg-hr-sleep').innerText = sleepRepo.calculateAverageSleep(currentUser.id);
-    document.getElementById('user-avg-qlty-sleep').innerText = sleepRepo.calculateAverageSleepQuality(currentUser.id);
-    document.getElementById('stepGoalCard').innerText = `Your daily step goal is ${currentUser.dailyStepGoal}.`;
-    document.getElementById('avStepGoalCard').innerText = `The average daily step goal is ${userRepo.calculateAverageStepGoal()}`; // not a thing need docQS displays averagestepgoal from userRepo
-    document.getElementById('userStridelength').innerText = `Your stridelength is ${currentUser.strideLength} meters.`;
-    document.getElementById('friendList').insertAdjacentHTML('afterBegin', this.makeFriendHTML(currentUser, data)); // rename to userRepo renamed display friendlist
+  changeInnerTextID(id, text) {
+    document.getElementById(id).innerText = text;
+  }
+
+  populateUserWidget(currentUser, data, userRepo, sleepRepo, activityRepo, mostRecentDate) {
+    this.changeInnerTextID('user-name-header', currentUser.name);
+    this.changeInnerTextID('user-address', currentUser.address);
+    this.changeInnerTextID('user-email', currentUser.email);
+    this.changeInnerTextID('user-stride-length', currentUser.strideLength);
+    this.changeInnerTextID('user-step-goal', currentUser.dailyStepGoal);
+    if (activityRepo.accomplishStepGoal(mostRecentDate, currentUser)) {
+      this.changeInnerTextID('step-goal-complete', '✅');
+    } else {
+      this.changeInnerTextID('step-goal-complete', '🚫');
+    }
+    // NEED TO CHECK ON THIS FURTHER ****
+    this.changeInnerTextID('days-exceeded-step-goal', activityRepo.getDaysGoalExceeded(currentUser.id, currentUser).length);
+    this.changeInnerTextID('user-avg-hr-sleep', sleepRepo.calculateAverageSleep(currentUser.id));
+    this.changeInnerTextID('user-avg-qlty-sleep', sleepRepo.calculateAverageSleepQuality(currentUser.id));
+    // NEED TO CHECK ON THIS FURTHER *****
+    this.changeInnerTextID('user-record-stairs', activityRepo.getStairRecord(currentUser.id));
+
+    // document.getElementById('stepGoalCard').innerText = `Your daily step goal is ${currentUser.dailyStepGoal}.`;
+    // document.getElementById('avStepGoalCard').innerText = `The average daily step goal is ${userRepo.calculateAverageStepGoal()}`; // not a thing need docQS displays averagestepgoal from userRepo
+    // document.getElementById('userStridelength').innerText = `Your stridelength is ${currentUser.strideLength} meters.`;
+    // document.getElementById('friendList').insertAdjacentHTML('afterBegin', this.makeFriendHTML(currentUser, data)); // rename to userRepo renamed display friendlist
   }
 
   makeFriendHTML(currentUser, data) {

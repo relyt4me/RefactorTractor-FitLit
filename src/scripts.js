@@ -41,8 +41,8 @@ function instantiatePageData() {
   hydrationRepo = new Hydration(data.hydrationData);
   sleepRepo = new Sleep(data.sleepData);
   activityRepo = new Activity(data.activityData);
-  domUpdate = new DomUpdates();
   currentUser = newRandomUser();
+  domUpdate = new DomUpdates();
 }
 
 function instantiateUsers() {
@@ -61,7 +61,7 @@ function newRandomUser() {
 function populatePage() {
   let mostRecentDate = getUsersRecentDate(currentUser.id, data.hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
   document.getElementById('greet-user-text').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function`;
-  domUpdate.populateUserWidget(currentUser, data, userRepo, sleepRepo, activityRepo); // fills out user infor (iteration 1 dashboard)
+  domUpdate.populateUserWidget(currentUser, data, userRepo, sleepRepo, activityRepo, mostRecentDate); // fills out user infor (iteration 1 dashboard)
   domUpdate.populateHydrationSection(mostRecentDate, hydrationRepo, currentUser);
   domUpdate.populateSleepSection(mostRecentDate, currentUser, sleepRepo);
   let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
