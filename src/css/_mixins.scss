@@ -7,14 +7,14 @@
 
 @mixin round-image($size) {
   border-radius: 50%;
-  border: 1px solid black;
+  border: 1px solid $border-color;
   height: $size;
   width: $size;
   justify-content: center;
 }
 
 @mixin small-card() {
-  border: 1.3px solid black;
+  border: 1.3px solid $border-color;
   background-color: $small-card-background;
   border-radius: 1.2vw;
   padding: 0 1.2vw;

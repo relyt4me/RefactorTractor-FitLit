@@ -33,11 +33,18 @@ address {
 form {
   @include small-card();
   width: 80%;
-  font-size: 0.7em;
+  font-size: 0.8em;
+  padding-bottom: 1em;
+  line-height: 1.8em;
   h2 {
     text-align: center;
   }
-  padding-bottom: 1em;
+  input {
+    width: 3em;
+  }
+  #date {
+    width: 8em;
+  }
 }
 
 // .sidebars {
