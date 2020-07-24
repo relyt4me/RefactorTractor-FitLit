@@ -1,0 +1,72 @@
+.left-sidebar {
+  grid-area: left;
+  height: calc(100vh - 28px);
+  @include background-cards();
+  margin: 8px;
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  padding: 0 5px;
+  hr {
+    margin: 0;
+  }
+}
+
+.user-image {
+  @include round-image(150px);
+}
+
+address {
+  justify-self: left;
+  font-size: 0.6em;
+}
+
+.about-me-card {
+  font-size: 0.88em;
+  @include small-card();
+  text-align: center;
+  line-height: 1.6em;
+  padding-top: 3px;
+  width: 80%;
+}
+
+form {
+  @include small-card();
+  width: 80%;
+  font-size: 0.8em;
+  padding-bottom: 1em;
+  line-height: 1.8em;
+  h2 {
+    text-align: center;
+  }
+  input {
+    width: 3em;
+  }
+  #date {
+    width: 8em;
+  }
+}
+
+// .sidebars {
+//   display: flex;
+//   flex-direction: row;
+//   width: 35%;
+//   height: 84vh;
+//   padding: 10px;
+// }
+
+// .sidebar-text {
+//   font-family: sans-serif;
+//   font-size: 1.2em;
+//   margin: 0.5em 0.5em 0.5em 0.5em;
+//   width: inherit;
+// }
+
+// #step-goal-card,
+// #user-stridelength {
+//   font-weight: bold;
+// }
+
+// .sidebar-headers {
+//   padding-top: 10px;
+// }
