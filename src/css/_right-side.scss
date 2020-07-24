@@ -1,5 +1,44 @@
 .right-sidebar {
-  height: calc(100vh - 115px);
+  grid-area: right;
+  height: calc(100vh- 28px);
   @include background-cards();
   margin: 8px;
+  display: grid;
+  justify-items: center;
+  img {
+    @include round-image(100px);
+  }
+  h2 {
+    font-size: 1em;
+    text-align: center;
+  }
+  section {
+    @include small-card();
+    width: 80%;
+    height: 175px;
+  }
+}
+
+.friend-card {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-beteen;
+  align-self: center;
+  font-size: 0.82em;
+  ul {
+    padding: 1vw 0;
+    display: grid;
+  }
+  li {
+    list-style-type: none;
+    font-size: 0.75em;
+  }
+  h2 {
+    padding-right: 0;
+    text-align: center;
+    font-size: 1.3em;
+  }
+  .friends-emoji {
+    font-size: 3em;
+  }
 }

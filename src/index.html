@@ -8,49 +8,171 @@
 
   <body>
     <header class="header-sec">
-      <h1 id="greet-user-text">Activity Tracker</h1>
+      <h1 id="greet-user-text"></h1>
     </header>
     <aside class="left-sidebar">
-      <h2 class="user-name" id="user-name-header">User Name</h2>
-      <hr><img src="./images/The Rock.jpg" class="user-image"></img><hr>
+      <h2 class="user-name" id="user-name-header"></h2>
+      <img src="./images/The Rock.jpg" class="user-image"></img>
       <address><span id="user-address"></span><br><span id="user-email"></span></address>
-      <section class="daily-goal-card">
-        <h2 class="sidebar-headers">Your Step Goal</h2>
-        <p id="step-goal-card"></p>
-        <p id="av-step-goal-card"></p>
-        <p id="user-stridelength"></p>
+      <section class="about-me-card">
+        <h2 class="sidebar-headers">About Me</h2>
+        <p>Stride Length: <span id="user-stride-length">4.4</span> ft</p>
+        <p>Step Goal: <span id="user-step-goal">8000</span> <span id="step-goal-complete">✅</span></p>
+        <p>Days Exceeded: <span id="days-exceeded-step-goal"></span>43</p>
+        <p>Average Nights Sleep: <br><span id="user-avg-hr-sleep">8.1</span> hrs, <span id="user-avg-qlty-sleep">2.3</span> ⭐'s</p>
+        <p>My Record Stairs Climbed: <span id="user-record-stairs"></span>108</p>
       </section>
-      <section class="left-friend-card">
-        <h2>Friends<br>👟👟</h2>
-        <ul id="friend-list">
-        </ul>
-      </section>
+      <form action="">
+        <h2>Log Your Day</h2>
+        <label for="date">Date:</label>
+        <input type="date" name="date" id="date"><br>
+        Sleep: <br>
+        <input type="number" name="sleep-input-hrs" id="sleep-input-hrs" min="0">
+        <label for="sleep-input-hrs">Hrs</label>
+        <input type="number" name="sleep-input-qlty" id="sleep-input-qlty" max="5" min="0">
+        <label for="sleep-input-qlty">Stars</label>
+        <label for="hydration-input">Oz of Water</label>
+        <input type="number" name="hydration-input" id="hydration-input" min="0">
+        <br>Activity<br>
+        <input type="number" name="activity-input-min" id="activity-input-min" min="0">
+        <label for="activity-input-min">Min</label>
+        <input type="number" name="activity-input-stairs" id="activity-input-stairs" min="0">
+        <label for="activity-input-stairs">Stairs</label>
+        <input type="number" name="activity-input-steps" id="activity-input-steps" min="0">
+        <label for="activity-input-steps">Steps</label>
+      </form>
     </aside>
     <main>
       <section class="today-info-sec">
-        <h2>Today at a glance</h2>
+        <h2>Today at a Glance</h2>
         <div class="card-wrapper">
-          <article id="hydration-today">Water<p id="hydration-average"></p></article>
-          <article id="user-steps-today">StepCount</article>
-          <article id="user-minutes-today">TotalMinutesActive</article>
-          <article id="user-stairs-today">StairCount</article>
-          <article id="sleep-this-week">Sleep</article>
+          <article>
+            <h2>💧</h2>
+            <p><span id="user-hydration-today">55</span> oz</p>
+          </article>
+          <article>
+            <h2>Stairs</h2>
+            <p><span id="user-stairs-today">3</span> stairs</p>
+          </article>
+          <article>
+            <h2>👟👟</h2>
+            <p><span id="user-steps-today">10025</span> steps</p>
+            <p>OR</p>
+            <p><span id="user-miles-today">8.36</span> miles</p>
+          </article>
+          <article>
+            <h2>Minutes</h2>
+            <p><span id="user-minutes-today">201</span> minutes</p>
+          </article>
+          <article >
+            <h2>😴</h2>
+            <p><span id="user-sleep-hours-today">6.9</span> hrs</p>
+            <p><span id="user-sleep-qlty-today">4.1</span> ⭐'s</p>
+          </article>
         </div>
       </section>
       <section class="week-info-sec">
-        <h2>Your week at a glance</h2>
-        <div class="card-wrapper">
-          <article id="hydration-this-week">Water</article>
-          <article id="user-steps-this-week">StepCount</article>
-          <article id="user-minutes-this-week">TotalMinutesActive</article>
-          <article id="user-stairs-this-week">StairCount</article>
-          <article>Sleep<p id="sleep-today"></p><p id="sleep-quality-today"></p><p id="av-user-sleep-quality"></p></article>
-        </div>
+        <table>
+          <caption>Your Week at a Glance</caption>
+          <colgroup>
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+            <col />
+          </colgroup>
+          <thead>
+            <tr>
+              <th></th>
+              <th><span>💧OZ of Water</span></th>
+              <th><span>Stairs</span></th>
+              <th><span>👟Steps👟</span></th>
+              <th><span>Minutes</span></th>
+              <th><span>😴Sleep😴</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th id="day-0">Monday</th>
+              <td id="h-0">55 oz</td>
+              <td id="u-0">18 stairs</td>
+              <td id="s-0">20000 steps</td>
+              <td id="m-0">340 min</td>
+              <td id="z-0">10.2 hrs at 3.6 **</td>
+            </tr>
+            <tr>
+              <th id="day-1">Tuesday</th>
+              <td id="h-1">55 oz</td>
+              <td id="u-1">18 stairs</td>
+              <td id="s-1">20000 steps</td>
+              <td id="m-1">340 min</td>
+              <td id="z-1">10.2 hrs at 3.6 **</td>
+            </tr>
+            <tr>
+              <th id="day-2">Wednesday</th>
+              <td id="h-2">55 oz</td>
+              <td id="u-2">18 stairs</td>
+              <td id="s-2">20000 steps</td>
+              <td id="m-2">340 min</td>
+              <td id="z-2">10.2 hrs at 3.6 **</td>
+            </tr>
+            <tr>
+              <th id="day-3">Thursday</th>
+              <td id="h-3">55 oz</td>
+              <td id="u-3">18 stairs</td>
+              <td id="s-3">20000 steps</td>
+              <td id="m-3">340 min</td>
+              <td id="z-3">10.2 hrs at 3.6 **</td>
+            </tr>
+            <tr>
+              <th id="day-4">Friday</th>
+              <td id="h-4">55 oz</td>
+              <td id="u-4">18 stairs</td>
+              <td id="s-4">20000 steps</td>
+              <td id="m-4">340 min</td>
+              <td id="z-4">10.2 hrs at 3.6 **</td>
+            </tr>
+            <tr>
+              <th id="day-5">Saturday</th>
+              <td id="h-5">55 oz</td>
+              <td id="u-5">18 stairs</td>
+              <td id="s-5">20000 steps</td>
+              <td id="m-5">340 min</td>
+              <td id="z-5">10.2 hrs at 3.6 **</td>
+            </tr>
+            <tr>
+              <th id="day-6">Sunday</th>
+              <td id="h-6">55 oz</td>
+              <td id="u-6">18 stairs</td>
+              <td id="s-6">20000 steps</td>
+              <td id="m-6">340 min</td>
+              <td id="z-6">10.2 hrs at 3.6 **</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </main>
     <aside class="right-sidebar">
-      <img src="./images/person walking on path.jpg" class="sidebar-header-userImage"></img>
-      <div class="sidebar-header-line"></div>
+      <section class="friend-card">
+        <h2><br>Friends<br><span class="friends-emoji">👥</span></h2>
+        <ul id="friend-list">
+        </ul>
+      </section>
+      <h2>Leaderboard</h2>
+      <section class="user-average-card">
+        <h2>User Averages</h2>
+        <p>Step Goal: <span id="avg-step-goal">6500</span> steps</p>
+        <p>Hours of Sleep: <span id="avg-sleep-hours">3.33</span> hrs</p>
+        <p>Sleep Quality: <span id="avg-sleep-qlty">4.2</span> ⭐'s</p>
+        <p>Steps Made: <span id="avg-steps-made">7000</span> steps</p>
+        <p>Stairs Taken: <span id="avg-stairs">300</span> stairs</p>
+        <p>Active Minutes: <span id="avg-minutes">112</span> minutes</p>
+      </section>
+      <section class="week-records-card">
+        <h2>This Weeks Records</h2>
+      </section>
+      <!-- <div class="sidebar-header-line"></div>
       <p class="sidebar-text" id="big-winner"></p>
       <div class="sidebar-header-line"></div>
       <p class="sidebar-text" id="step-goal-card"></p>
@@ -60,12 +182,11 @@
         <section class="sidebar-friendContainer-listItems">
           <p class="thisWeek">Rank this week</p>
           <ul class="card-vertical-list" id="friend-challenge-list-today">
-            <!-- friend list goes here -->
-            </ul>
-      <p id="avg-steps-today"></p>
-      <p id="avg-stairs-today"></p>
-      <p id="avg-minutes-today"></p>
-
+          </ul>
+        </section>   
+      
+      
+      <p id="avg-minutes-today"></p> -->
     </aside>
 
     <!-- <section class="main">

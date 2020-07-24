@@ -1,8 +1,10 @@
 .left-sidebar {
-  height: calc(100vh - 115px);
+  grid-area: left;
+  height: calc(100vh - 28px);
   @include background-cards();
   margin: 8px;
   display: grid;
+  align-items: start;
   justify-items: center;
   padding: 0 5px;
   hr {
@@ -19,35 +21,23 @@ address {
   font-size: 0.6em;
 }
 
-.daily-goal-card {
+.about-me-card {
   font-size: 0.88em;
   @include small-card();
   text-align: center;
-  line-height: 1.8em;
+  line-height: 1.6em;
   padding-top: 3px;
-  #av-step-goal-card {
-    font-size: 0.7em;
-  }
+  width: 80%;
 }
 
-.left-friend-card {
+form {
   @include small-card();
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-around;
-  width: 225px;
-  align-self: center;
-  font-size: 0.82em;
-  ul {
-    padding: 0 1vw;
-  }
-  li {
-    list-style-type: none;
-  }
+  width: 80%;
+  font-size: 0.7em;
   h2 {
-    padding-right: 4px;
     text-align: center;
   }
+  padding-bottom: 1em;
 }
 
 // .sidebars {

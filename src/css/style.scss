@@ -14,7 +14,7 @@ body {
   grid-template-columns: 1fr 3fr 1fr;
   margin: 0 auto;
   grid-template-areas:
-    'head head head'
+    'left head right'
     'left main right';
   // padding: 5px;
 }
@@ -27,12 +27,25 @@ header {
   height: 71px;
   padding-top: 17px;
   color: $standout-text-color;
-  border-bottom: 1px solid $standout-text-color;
+  border-bottom: 2px solid $standout-text-color;
   background-color: $header-background-color;
+  border-radius: 0 0 8px 8px;
   h1 {
     height: inherit;
     vertical-align: bottom;
   }
+}
+
+hr {
+  color: #ffffff;
+  border: 1px solid gray;
+  margin: 1em 1em 0 1em;
+  height: 0;
+  width: 80%;
+}
+
+li {
+  list-style-type: none;
 }
 
 // // .main {
@@ -45,15 +58,6 @@ header {
 // #av-step-goal-card {
 //   font-size: 10px;
 // }
-
-hr {
-  color: #ffffff;
-  border: 1px solid gray;
-  margin: 1em 1em 0 1em;
-  height: 0;
-  width: 80%;
-}
-
 // .sidebar-header-userImage {
 //   border-radius: 50%;
 //   border-color: black;
