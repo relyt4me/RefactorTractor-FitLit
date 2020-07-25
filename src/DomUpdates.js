@@ -83,6 +83,11 @@ class DomUpdates {
     // document.getElementById('bigWinner').insertAdjacentHTML('afterBegin', `THIS WEEK'S WINNER! ${activityRepo.showcaseWinner(currentUser, currentDate, userRepo)} steps`);
   }
 
+  populateLeaderBoard(userRepo, sleepRepo, hydrationRepo, activityRepo, mostRecentDate) {
+    this.changeInnerTextID('avg-step-goal', userRepo.calculateAverageStepGoal());
+    this.changeInnerTextID('avg-sleep-hours', sleepRepo.calculateAllUserAvgSleepMetric('hoursSlept'));
+  }
+
   // makeFriendHTML(currentUser, data) {
   //   // gets the HTML for the ul that gets put there
   //   return currentUser
@@ -127,13 +132,13 @@ class DomUpdates {
   //   return arrayData.map((dateAndAmount) => `<li class="historical-list-listItem">On ${dateAndAmount.date} ${dateAndAmount.amount} ${unit}</li>`).join('');
   // }
 
-  makeFriendChallengeHTML(arrayData) {
-    return arrayData.map((friendChallengeData) => `<li class="historical-list-listItem">Your friend ${friendChallengeData} average steps.</li>`).join('');
-  }
+  // makeFriendChallengeHTML(arrayData) {
+  //   return arrayData.map((friendChallengeData) => `<li class="historical-list-listItem">Your friend ${friendChallengeData} average steps.</li>`).join('');
+  // }
 
-  makeStepStreakHTML(arrayData) {
-    return arrayData.map((streakData) => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
-  }
+  // makeStepStreakHTML(arrayData) {
+  //   return arrayData.map((streakData) => `<li class="historical-list-listItem">${streakData}!</li>`).join('');
+  // }
 }
 
 export default DomUpdates;

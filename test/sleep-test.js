@@ -83,7 +83,7 @@ describe('Sleep', function () {
   });
 
   it('Should get the average quality across all users', () => {
-    expect(sleepRepo.calculateAllUserSleepQuality()).to.eql(3.13);
+    expect(sleepRepo.calculateAllUserAvgSleepMetric('sleepQuality')).to.eql(3.13);
   });
 
   it('Should get an array of all users who sleep average above 3 for a week', () => {

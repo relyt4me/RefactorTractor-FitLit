@@ -60,13 +60,13 @@ class Sleep {
   //   return userRepo.getWeekFromDate(date, id, this.sleepData).map((data) => `${data.date}: ${data.sleepQuality}`);
   // }
 
-  calculateAllUserSleepQuality() {
-    let totalSleepQuality = this.sleepData.reduce((sumSoFar, sleepInstance) => {
-      sumSoFar += sleepInstance.sleepQuality;
+  calculateAllUserAvgSleepMetric(metric) {
+    let totalSleepMetric = this.sleepData.reduce((sumSoFar, sleepInstance) => {
+      sumSoFar += sleepInstance[metric];
       return sumSoFar;
     }, 0);
-    const averageSleepQuality = totalSleepQuality / this.sleepData.length;
-    return parseFloat(averageSleepQuality.toFixed(2)) || undefined;
+    const averageSleepMetric = totalSleepMetric / this.sleepData.length;
+    return parseFloat(averageSleepMetric.toFixed(2)) || undefined;
   }
 
   getUsersWithQualityAbove3(endDate) {
