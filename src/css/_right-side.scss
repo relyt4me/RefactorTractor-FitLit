@@ -23,16 +23,17 @@
 .friend-card {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-beteen;
+  justify-content: space-between;
   align-self: center;
   font-size: 0.82em;
   ul {
     padding: 1vw 0;
     display: grid;
+    justify-items: left;
   }
   li {
     list-style-type: none;
-    font-size: 0.75em;
+    font-size: 0.85em;
   }
   h2 {
     padding-right: 0;

@@ -5,8 +5,7 @@ const spies = require('chai-spies');
 // const domUpdates = require('../src/DomUpdates')
 chai.use(spies);
 
-describe.only('DomUpdates', () => {
-
+describe('DomUpdates', () => {
   let domUpdates, currentUser, data, userRepo;
 
   beforeEach(() => {
