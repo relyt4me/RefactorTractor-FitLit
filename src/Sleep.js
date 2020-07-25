@@ -66,7 +66,7 @@ class Sleep {
       return sumSoFar;
     }, 0);
     const averageSleepMetric = totalSleepMetric / this.sleepData.length;
-    return parseFloat(averageSleepMetric.toFixed(2)) || undefined;
+    return parseFloat(averageSleepMetric.toFixed(1)) || undefined;
   }
 
   getUsersWithQualityAbove3(endDate) {

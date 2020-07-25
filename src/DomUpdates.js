@@ -86,7 +86,20 @@ class DomUpdates {
   populateLeaderBoard(userRepo, sleepRepo, hydrationRepo, activityRepo, mostRecentDate) {
     this.changeInnerTextID('avg-step-goal', userRepo.calculateAverageStepGoal());
     this.changeInnerTextID('avg-sleep-hours', sleepRepo.calculateAllUserAvgSleepMetric('hoursSlept'));
+    this.changeInnerTextID('avg-sleep-qlty', sleepRepo.calculateAllUserAvgSleepMetric('sleepQuality'));
+    //JORDY is method getOveralUserAverage(data, dataType) incomplete
+    // When the data is getting into my getSleepWinners for day at some point in the loops a userID does not match the repo or something
+    // this.changeInnerTextID('most-sleep-today', this.changeIDsToNames(userRepo, sleepRepo.getSleepWinnerForDay(mostRecentDate)));
   }
+
+  // changeIDsToNames(userRepo, ids) {
+  //   console.log(ids);
+  //   // return ids
+  //   //   .map((id) => {
+  //   //     return userRepo.getDataFromID(id).name;
+  //   //   })
+  //   //   .join(' ');
+  // }
 
   // makeFriendHTML(currentUser, data) {
   //   // gets the HTML for the ul that gets put there
