@@ -27,6 +27,17 @@ class DomUpdates {
     // document.getElementById('friendList').insertAdjacentHTML('afterBegin', this.makeFriendHTML(currentUser, data)); // rename to userRepo renamed display friendlist
   }
 
+  populateTodayInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate) {
+    this.changeInnerTextID('user-hydration-today', hydrationRepo.calculateDailyOunces(currentUser.id, mostRecentDate));
+    // Need to make this steps maybe or it can be flights check with JOSH
+    this.changeInnerTextID('user-stairs-today', activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'flightsOfStairs').amount);
+    this.changeInnerTextID('user-steps-today', activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'numSteps').amount);
+    this.changeInnerTextID('user-miles-today', activityRepo.getMilesByDate(currentUser.id, mostRecentDate, currentUser));
+    this.changeInnerTextID('user-minutes-today', activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'minutesActive').amount);
+    this.changeInnerTextID('user-sleep-hours-today', sleepRepo.calculateDailySleep(currentUser.id, mostRecentDate));
+    this.changeInnerTextID('user-sleep-qlty-today', sleepRepo.calculateDailySleepQuality(currentUser.id, mostRecentDate));
+  }
+
   makeFriendHTML(currentUser, data) {
     // gets the HTML for the ul that gets put there
     return currentUser
