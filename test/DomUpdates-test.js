@@ -112,4 +112,10 @@ describe.only('DomUpdates', () => {
     expect(document.getElementById).to.have.been.called(1);
     expect(document.getElementById).to.have.been.called.with('friend-list');
   });
+
+  it('Should call call getElementById each time changeInnerTextID is called with populateLeaderBoard', () => {
+    domUpdates.populateLeaderBoard(userRepo, sleepRepo, activityRepo, mostRecentDate, sleepRepo.sleepData);
+
+    expect(document.getElementById).to.have.been.called(7);
+  });
 });
