@@ -82,10 +82,11 @@ class Activity { //should probably be renamed
   }
   // end not used methods
   getOveralUserAverage(date, dataType) {
-    const dayData = this.activityData.filter(data => data.date === date)
+    const dayData = this.activityData.filter(data => data.date === date) // array of only info from this date
     const average = parseFloat((dayData.reduce((acc, elem) => acc += elem[dataType], 0) / dayData.length).toFixed(1))
     const overallAverage = {};
     overallAverage[`${dataType}`] = average
+    return overallAverage
   }
 
   getAllUserAverageForDay(date, userRepo, dataType) { //relevent data is string

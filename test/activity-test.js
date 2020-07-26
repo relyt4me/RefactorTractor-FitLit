@@ -145,6 +145,18 @@ describe('Activity', () => {
     expect(activity.getStairRecord(2)).to.eql(44);
   });
 
+  it('should return overall user average for an activity type', () => {
+    expect(activity.getOveralUserAverage('2019/06/23', 'numSteps')).to.eql({numSteps: 8554.6})
+  })
+
+  it('should return overall user average for an activity type', () => {
+    expect(activity.getOveralUserAverage('2019/06/23', 'minutesActive')).to.eql({ minutesActive: 173.6})
+  })
+
+  it('should return overall user average for an activity type', () => {
+    expect(activity.getOveralUserAverage('2019/06/23', 'flightsOfStairs')).to.eql({flightsOfStairs: 11.2})
+  })
+
   it('should return the average flight of stairs for all users on given day', () => {
     expect(activity.getAllUserAverageForDay("2019/06/15", userRepo, "flightsOfStairs")).to.eql(20.8)
   })
