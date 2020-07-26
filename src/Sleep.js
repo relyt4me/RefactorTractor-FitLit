@@ -79,30 +79,30 @@ class Sleep {
   }
 
   getSleepWinnerForDay(date, givenData, users) {
-    const filterDate = givenData.filter(dataPt => {
+    const filterDate = givenData.filter((dataPt) => {
       return dataPt.date === date;
-    })
+    });
     const sortedSleepers = filterDate.sort((a, b) => b.hoursSlept - a.hoursSlept);
-    const userName = users.users.find(user => {
+    const userName = users.users.find((user) => {
       return user.id === sortedSleepers[0].userID;
     }).name;
-    let user = { user: userName, hoursSlept: sortedSleepers[0].hoursSlept }
-    return user
+    let user = { user: userName, hoursSlept: sortedSleepers[0].hoursSlept };
+    return user;
   }
 
-  getWinnerNamesFromList(sortedArray, userRepo) {
-    let bestSleepers = sortedArray.filter(function (element) {
-      return element[Object.keys(element)] === Object.values(sortedArray[0])[0];
-    });
+  // getWinnerNamesFromList(sortedArray, userRepo) {
+  //   let bestSleepers = sortedArray.filter(function (element) {
+  //     return element[Object.keys(element)] === Object.values(sortedArray[0])[0];
+  //   });
 
-    let bestSleeperIds = bestSleepers.map(function (bestSleeper) {
-      return Object.keys(bestSleeper);
-    });
+  //   let bestSleeperIds = bestSleepers.map(function (bestSleeper) {
+  //     return Object.keys(bestSleeper);
+  //   });
 
-    return bestSleeperIds.map(function (sleepNumber) {
-      return userRepo.getDataFromID(parseInt(sleepNumber)).name;
-    });
-  }
+  //   return bestSleeperIds.map(function (sleepNumber) {
+  //     return userRepo.getDataFromID(parseInt(sleepNumber)).name;
+  //   });
+  // }
 }
 
 export default Sleep;
