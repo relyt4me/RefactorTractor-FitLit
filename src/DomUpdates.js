@@ -83,22 +83,23 @@ class DomUpdates {
     // document.getElementById('bigWinner').insertAdjacentHTML('afterBegin', `THIS WEEK'S WINNER! ${activityRepo.showcaseWinner(currentUser, currentDate, userRepo)} steps`);
   }
 
-  populateLeaderBoard(userRepo, sleepRepo, hydrationRepo, activityRepo, mostRecentDate) {
+  populateLeaderBoard(userRepo, sleepRepo, hydrationRepo, activityRepo, mostRecentDate, sleepData) {
     this.changeInnerTextID('avg-step-goal', userRepo.calculateAverageStepGoal());
     this.changeInnerTextID('avg-sleep-hours', sleepRepo.calculateAllUserAvgSleepMetric('hoursSlept'));
     this.changeInnerTextID('avg-sleep-qlty', sleepRepo.calculateAllUserAvgSleepMetric('sleepQuality'));
     //JORDY is method getOveralUserAverage(data, dataType) incomplete
-    // When the data is getting into my getSleepWinners for day at some point in the loops a userID does not match the repo or something
-    // this.changeInnerTextID('most-sleep-today', this.changeIDsToNames(userRepo, sleepRepo.getSleepWinnerForDay(mostRecentDate)));
+    let sleepiestUser = sleepRepo.getSleepWinnerForDay(mostRecentDate, sleepData, userRepo)
+    document.getElementById('most-sleep-today').innerText = `${sleepiestUser.user} with ${sleepiestUser.hoursSlept}hrs of sleep`;
+    
   }
 
   // changeIDsToNames(userRepo, ids) {
   //   console.log(ids);
-  //   // return ids
-  //   //   .map((id) => {
-  //   //     return userRepo.getDataFromID(id).name;
-  //   //   })
-  //   //   .join(' ');
+  //   return ids
+  //     .map((id) => {
+  //       return userRepo.getDataFromID(id).name;
+  //     })
+  //     .join(' ');
   // }
 
   // makeFriendHTML(currentUser, data) {
