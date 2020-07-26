@@ -9,7 +9,9 @@ import Sleep from './Sleep';
 import UserRepo from './User-repo';
 import fetchData from './fetchAllData';
 import DomUpdates from './DomUpdates';
+import postAllUserData from './postAllUserData';
 
+const postButton = document.getElementById('post-button');
 const data = {
   userData: null,
   sleepData: null,
@@ -17,9 +19,11 @@ const data = {
   hydrationData: null,
 };
 
+
 let userRepo, hydrationRepo, sleepRepo, activityRepo, currentUser, domUpdate;
 
 window.onload = startApp();
+postButton.addEventListener('click', postUserInputs)
 
 function startApp() {
   fetchData()
@@ -81,4 +85,47 @@ function getUsersRecentDate(id, dataSet) {
 
 function makeWinnerID(activityInfo, user, dateString, userStorage) {
   return activityInfo.getWinnerId(user, dateString, userStorage);
+}
+
+function postUserInputs(event) {
+  event.preventDefault();
+  let userDate = document.getElementById('date').value || "1941/12/07";
+  userDate = userDate.replace(/-/g, '/')
+  const userSleepData = getUserSleepData(userDate);
+  const userActivityData = getUserActivityData(userDate);
+  const userHydrationData = getUserHydrationData(userDate);
+  // console.log(userSleepData, userActivityData, userHydrationData)
+  // postAllUserData posts information to servers, make sure everything looks good
+  // before uncommenting function and posting
+  // postAllUserData(userSleepData, userActivityData, userHydrationData)
+}
+
+function getUserSleepData(userDate) {
+  const userSleepHours = document.getElementById('sleep-input-hrs').value || 0;
+  const userSleepQuality = document.getElementById('sleep-input-qlty').value || 0;
+  return { "userID": currentUser.id,
+    "date": userDate,
+    "hoursSlept": parseFloat(userSleepHours),
+    "sleepQuality": parseFloat(userSleepQuality)
+  }
+}
+
+function getUserActivityData(userDate) {
+  const userNumSteps = document.getElementById('activity-input-steps').value || 0;
+  const userActiveMins = document.getElementById('activity-input-min').value || 0;
+  const userFlightsStairs = document.getElementById('activity-input-stairs').value || 0;
+  return { "userID": currentUser.id,
+    "date": userDate,
+    "numSteps": parseFloat(userNumSteps),
+    "minutesActive": parseFloat(userActiveMins),
+    "flightsOfStairs": parseFloat(userFlightsStairs)
+  }
+}
+
+function getUserHydrationData(userDate) {
+  const userHydration = document.getElementById('hydration-input').value || 0;
+  return { "userID": currentUser.id,
+    "date": userDate,
+    "numOunces": parseFloat(userHydration)
+  }
 }
