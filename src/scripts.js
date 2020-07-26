@@ -61,7 +61,7 @@ function newRandomUser() {
 function populatePage() {
   let mostRecentDate = getUsersRecentDate(currentUser.id, data.hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
   document.getElementById('greet-user-text').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function`;
-  domUpdate.populateUserWidget(currentUser, data, userRepo, sleepRepo, activityRepo, mostRecentDate); // fills out user infor (iteration 1 dashboard)
+  domUpdate.populateUserWidget(currentUser, sleepRepo, activityRepo, mostRecentDate); // fills out user infor (iteration 1 dashboard)
   domUpdate.populateTodayInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate);
   domUpdate.populateWeekInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate);
   // domUpdate.populateHydrationSection(mostRecentDate, hydrationRepo, currentUser);
@@ -69,7 +69,7 @@ function populatePage() {
   // let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
   // domUpdate.populateActivitySection(mostRecentDate, winnerNow, currentUser, activityRepo, userRepo);
   domUpdate.populateFriendsCard(currentUser, userRepo);
-  domUpdate.populateLeaderBoard(userRepo, sleepRepo, hydrationRepo, activityRepo, mostRecentDate, data.sleepData);
+  domUpdate.populateLeaderBoard(userRepo, sleepRepo, activityRepo, mostRecentDate, data.sleepData);
 }
 
 // function will remove userRepo functionality from the class returns the most current date of a data set for a given user
