@@ -89,21 +89,20 @@ function makeWinnerID(activityInfo, user, dateString, userStorage) {
 
 function postUserInputs(event) {
   event.preventDefault();
-  let allDataGood;
   let userDate = document.getElementById('date').value || "1941/12/07";
   userDate = userDate.replace(/-/g, '/')
   const userSleepData = getUserSleepData(userDate);
   const userActivityData = getUserActivityData(userDate);
   const userHydrationData = getUserHydrationData(userDate);
-  console.log(userSleepData, userActivityData, userHydrationData)
+  // console.log(userSleepData, userActivityData, userHydrationData)
+  // postAllUserData posts information to servers, make sure everything looks good
+  // before uncommenting function and posting
   // postAllUserData(userSleepData, userActivityData, userHydrationData)
 }
 
 function getUserSleepData(userDate) {
   const userSleepHours = document.getElementById('sleep-input-hrs').value || 0;
   const userSleepQuality = document.getElementById('sleep-input-qlty').value || 0;
-  // if(typeof parseFloat(userSleepHours) === 'number')
-  // console.log(typeof parseFloat(userSleepHours))
   return { "userID": currentUser.id,
     "date": userDate,
     "hoursSlept": parseFloat(userSleepHours),
@@ -130,13 +129,3 @@ function getUserHydrationData(userDate) {
     "numOunces": parseFloat(userHydration)
   }
 }
-
-// function filterInputData(userDate, inputs) {
-//   let isGoodData = false
-//   inputs.forEach(input => {
-//     if(typeof parseFloat(input) === 'number' && typeof userDate === 'string' && userDate.length === 10) {
-//       isGoodData = true
-//     }
-//   })
-//   return isGoodData
-// }
