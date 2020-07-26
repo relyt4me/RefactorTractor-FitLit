@@ -10,9 +10,9 @@ class DomUpdates {
     this.changeInnerTextID('user-stride-length', currentUser.strideLength);
     this.changeInnerTextID('user-step-goal', currentUser.dailyStepGoal);
     if (activityRepo.accomplishStepGoal(mostRecentDate, currentUser)) {
-      this.changeInnerTextID('step-goal-complete', '✅');
+      this.changeInnerTextID('step-goal-complete', 'Step goal reached today: ✅');
     } else {
-      this.changeInnerTextID('step-goal-complete', '🚫');
+      this.changeInnerTextID('step-goal-complete', 'Step goal reached today: 🚫');
     }
     // NEED TO CHECK ON THIS FURTHER ****
     this.changeInnerTextID('days-exceeded-step-goal', activityRepo.getDaysGoalExceeded(currentUser.id, currentUser).length);
