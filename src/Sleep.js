@@ -136,6 +136,7 @@ class Sleep {
   //   return this.getWinnerNamesFromList(sleepRankWithData, userRepo);
   // }
 
+  //
   getWinnerNamesFromList(sortedArray, userRepo) {
     let bestSleepers = sortedArray.filter(function (element) {
       return element[Object.keys(element)] === Object.values(sortedArray[0])[0];
