@@ -72,7 +72,7 @@ class DomUpdates {
     document.getElementById('friend-list').innerHTML = friendsListHTML;
   }
 
-  populateLeaderBoard(userRepo, sleepRepo, hydrationRepo, activityRepo, mostRecentDate, sleepData) {
+  populateLeaderBoard(userRepo, sleepRepo, activityRepo, mostRecentDate, sleepData) {
     this.changeInnerTextID('avg-step-goal', userRepo.calculateAverageStepGoal());
     this.changeInnerTextID('avg-sleep-hours', sleepRepo.calculateAllUserAvgSleepMetric('hoursSlept'));
     this.changeInnerTextID('avg-sleep-qlty', sleepRepo.calculateAllUserAvgSleepMetric('sleepQuality'));

@@ -69,7 +69,7 @@ function populatePage() {
   // let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
   // domUpdate.populateActivitySection(mostRecentDate, winnerNow, currentUser, activityRepo, userRepo);
   domUpdate.populateFriendsCard(currentUser, userRepo);
-  domUpdate.populateLeaderBoard(userRepo, sleepRepo, hydrationRepo, activityRepo, mostRecentDate, data.sleepData);
+  domUpdate.populateLeaderBoard(userRepo, sleepRepo, activityRepo, mostRecentDate, data.sleepData);
 }
 
 // function will remove userRepo functionality from the class returns the most current date of a data set for a given user
