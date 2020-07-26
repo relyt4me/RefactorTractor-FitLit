@@ -9,6 +9,7 @@ import Sleep from './Sleep';
 import UserRepo from './User-repo';
 import fetchData from './fetchAllData';
 import DomUpdates from './DomUpdates';
+import postAllUserData from './postAllUserData';
 
 const postButton = document.getElementById('post-button');
 const data = {
@@ -88,45 +89,54 @@ function makeWinnerID(activityInfo, user, dateString, userStorage) {
 
 function postUserInputs(event) {
   event.preventDefault();
-  const userDate = document.getElementById('date').value;
+  let allDataGood;
+  let userDate = document.getElementById('date').value || "1941/12/07";
+  userDate = userDate.replace(/-/g, '/')
   const userSleepData = getUserSleepData(userDate);
   const userActivityData = getUserActivityData(userDate);
   const userHydrationData = getUserHydrationData(userDate);
-  // const userSleepHours = document.getElementById('sleep-input-hrs').value;
-  // const userSleepQuality = document.getElementById('sleep-input-qlty').value;
-  // const userHydration = document.getElementById('hydration-input').value;
-  // const userActiveMins = document.getElementById('activity-input-min').value;
-  // const userFlightsStairs = document.getElementById('activity-input-stairs').value;
-  // const userNumSteps = document.getElementById('activity-input-steps').value;
-  console.log(userSleepData, userHydrationData, userActivityData);
+  console.log(userSleepData, userActivityData, userHydrationData)
+  // postAllUserData(userSleepData, userActivityData, userHydrationData)
 }
 
 function getUserSleepData(userDate) {
-  const userSleepHours = document.getElementById('sleep-input-hrs').value;
-  const userSleepQuality = document.getElementById('sleep-input-qlty').value;
-  return {"userID": currentUser.id,
-  "date": userDate,
-  "hoursSlept": parseFloat(userSleepHours),
-  "sleepQuality": parseFloat(userSleepQuality)
+  const userSleepHours = document.getElementById('sleep-input-hrs').value || 0;
+  const userSleepQuality = document.getElementById('sleep-input-qlty').value || 0;
+  // if(typeof parseFloat(userSleepHours) === 'number')
+  // console.log(typeof parseFloat(userSleepHours))
+  return { "userID": currentUser.id,
+    "date": userDate,
+    "hoursSlept": parseFloat(userSleepHours),
+    "sleepQuality": parseFloat(userSleepQuality)
   }
 }
 
 function getUserActivityData(userDate) {
-  const userNumSteps = document.getElementById('activity-input-steps').value;
-  const userActiveMins = document.getElementById('activity-input-min').value;
-  const userFlightsStairs = document.getElementById('activity-input-stairs').value;
-  return {"userID": currentUser.id,
-  "date": userDate,
-  "numSteps": parseFloat(userNumSteps),
-  "minutesActive": parseFloat(userActiveMins),
-  "flightsOfStairs": parseFloat(userFlightsStairs)
+  const userNumSteps = document.getElementById('activity-input-steps').value || 0;
+  const userActiveMins = document.getElementById('activity-input-min').value || 0;
+  const userFlightsStairs = document.getElementById('activity-input-stairs').value || 0;
+  return { "userID": currentUser.id,
+    "date": userDate,
+    "numSteps": parseFloat(userNumSteps),
+    "minutesActive": parseFloat(userActiveMins),
+    "flightsOfStairs": parseFloat(userFlightsStairs)
   }
 }
 
 function getUserHydrationData(userDate) {
-  const userHydration = document.getElementById('hydration-input').value;
-  return {"userID": currentUser.id,
-  "date": userDate,
-  "numOunces": parseFloat(userHydration)
+  const userHydration = document.getElementById('hydration-input').value || 0;
+  return { "userID": currentUser.id,
+    "date": userDate,
+    "numOunces": parseFloat(userHydration)
   }
 }
+
+// function filterInputData(userDate, inputs) {
+//   let isGoodData = false
+//   inputs.forEach(input => {
+//     if(typeof parseFloat(input) === 'number' && typeof userDate === 'string' && userDate.length === 10) {
+//       isGoodData = true
+//     }
+//   })
+//   return isGoodData
+// }
