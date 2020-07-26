@@ -86,13 +86,47 @@ function makeWinnerID(activityInfo, user, dateString, userStorage) {
   return activityInfo.getWinnerId(user, dateString, userStorage);
 }
 
-function postUserInputs () {
+function postUserInputs(event) {
+  event.preventDefault();
   const userDate = document.getElementById('date').value;
+  const userSleepData = getUserSleepData(userDate);
+  const userActivityData = getUserActivityData(userDate);
+  const userHydrationData = getUserHydrationData(userDate);
+  // const userSleepHours = document.getElementById('sleep-input-hrs').value;
+  // const userSleepQuality = document.getElementById('sleep-input-qlty').value;
+  // const userHydration = document.getElementById('hydration-input').value;
+  // const userActiveMins = document.getElementById('activity-input-min').value;
+  // const userFlightsStairs = document.getElementById('activity-input-stairs').value;
+  // const userNumSteps = document.getElementById('activity-input-steps').value;
+  console.log(userSleepData, userHydrationData, userActivityData);
+}
+
+function getUserSleepData(userDate) {
   const userSleepHours = document.getElementById('sleep-input-hrs').value;
   const userSleepQuality = document.getElementById('sleep-input-qlty').value;
-  const userHydration = document.getElementById('hydration-input').value;
+  return {"userID": currentUser.id,
+  "date": userDate,
+  "hoursSlept": parseFloat(userSleepHours),
+  "sleepQuality": parseFloat(userSleepQuality)
+  }
+}
+
+function getUserActivityData(userDate) {
+  const userNumSteps = document.getElementById('activity-input-steps').value;
   const userActiveMins = document.getElementById('activity-input-min').value;
   const userFlightsStairs = document.getElementById('activity-input-stairs').value;
-  const userNumSteps = document.getElementById('activity-input-steps').value;
-  console.log(userDate, userSleepHours, userSleepQuality, userHydration, userActiveMins, userFlightsStairs, userNumSteps);
+  return {"userID": currentUser.id,
+  "date": userDate,
+  "numSteps": parseFloat(userNumSteps),
+  "minutesActive": parseFloat(userActiveMins),
+  "flightsOfStairs": parseFloat(userFlightsStairs)
+  }
+}
+
+function getUserHydrationData(userDate) {
+  const userHydration = document.getElementById('hydration-input').value;
+  return {"userID": currentUser.id,
+  "date": userDate,
+  "numOunces": parseFloat(userHydration)
+  }
 }
