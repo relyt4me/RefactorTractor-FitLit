@@ -5,6 +5,7 @@ import Sleep from '../src/Sleep';
 import Activity from '../src/Activity';
 import Hydration from '../src/Hydration';
 import UserRepo from '../src/User-repo';
+import User from '../src/User';
 const spies = require('chai-spies');
 chai.use(spies);
 
@@ -19,7 +20,7 @@ describe.only('DomUpdates', () => {
         numOunces: 37,
       },
     ]);
-    currentUser = {
+    currentUser = new User({
       id: 1,
       name: 'Luisa Hane',
       address: '15195 Nakia Tunnel, Erdmanport VA 19901-1697',
@@ -27,7 +28,7 @@ describe.only('DomUpdates', () => {
       strideLength: 4.3,
       dailyStepGoal: 10000,
       friends: [1],
-    };
+    });
     userRepo = new UserRepo([currentUser]);
     sleepRepo = new Sleep([
       {
@@ -106,7 +107,7 @@ describe.only('DomUpdates', () => {
   });
 
   it('Should call getElementById correctly once to create the friend-card', () => {
-    userRepo;
+    domUpdates.populateFriendsCard(currentUser, userRepo);
 
     expect(document.getElementById).to.have.been.called(1);
     expect(document.getElementById).to.have.been.called.with('friend-list');
