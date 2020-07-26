@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 
 import sleepSampleData from './sampleData/sleepSampleData';
+import userSampleData from './sampleData/userSampleData';
 import Sleep from '../src/Sleep';
 
 describe('Sleep', function () {
@@ -91,6 +92,12 @@ describe('Sleep', function () {
   });
 
   it('Should give the user IDs of all users with the highest Hours of Sleep', () => {
-    expect(sleepRepo.getSleepWinnerForDay('2019/06/18')).to.eql([2]);
+    let users = {
+      'users': [
+        { "id": 1, "name": "Luisa Hane" }, 
+        { "id": 2, "name": "Jarvis Consideine" }
+      ]};
+    expect(sleepRepo.getSleepWinnerForDay('2019/06/18', sleepSampleData, users))
+      .to.eql({ "hoursSlept": 10.8, "user": "Jarvis Consideine" });
   });
 });
