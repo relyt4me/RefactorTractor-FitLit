@@ -10,6 +10,7 @@ import UserRepo from './User-repo';
 import fetchData from './fetchAllData';
 import DomUpdates from './DomUpdates';
 
+const postButton = document.getElementById('post-button');
 const data = {
   userData: null,
   sleepData: null,
@@ -17,9 +18,11 @@ const data = {
   hydrationData: null,
 };
 
+
 let userRepo, hydrationRepo, sleepRepo, activityRepo, currentUser, domUpdate;
 
 window.onload = startApp();
+postButton.addEventListener('click', postUserInputs)
 
 function startApp() {
   fetchData()
@@ -81,4 +84,15 @@ function getUsersRecentDate(id, dataSet) {
 
 function makeWinnerID(activityInfo, user, dateString, userStorage) {
   return activityInfo.getWinnerId(user, dateString, userStorage);
+}
+
+function postUserInputs () {
+  const userDate = document.getElementById('date').value;
+  const userSleepHours = document.getElementById('sleep-input-hrs').value;
+  const userSleepQuality = document.getElementById('sleep-input-qlty').value;
+  const userHydration = document.getElementById('hydration-input').value;
+  const userActiveMins = document.getElementById('activity-input-min').value;
+  const userFlightsStairs = document.getElementById('activity-input-stairs').value;
+  const userNumSteps = document.getElementById('activity-input-steps').value;
+  console.log(userDate, userSleepHours, userSleepQuality, userHydration, userActiveMins, userFlightsStairs, userNumSteps);
 }
