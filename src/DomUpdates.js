@@ -90,6 +90,8 @@ class DomUpdates {
     this.changeInnerTextID('avg-steps-made', activityRepo.getOveralUserAverage(mostRecentDate, 'numSteps').numSteps);
     this.changeInnerTextID('avg-stairs', activityRepo.getOveralUserAverage(mostRecentDate, 'flightsOfStairs').flightsOfStairs);
     this.changeInnerTextID('avg-minutes', activityRepo.getOveralUserAverage(mostRecentDate, 'minutesActive').minutesActive);
+    this.changeInnerTextID('most-sleep-today', sleepRepo.getWinnerNamesFromList(sleepRepo));
+    // Tyler I'm not sure what should be being passed in here
     // It's not returning anything
     //JORDY is method getOveralUserAverage(data, dataType) incomplete
     // When the data is getting into my getSleepWinners for day at some point in the loops a userID does not match the repo or something
