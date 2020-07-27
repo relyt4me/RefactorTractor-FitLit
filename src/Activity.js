@@ -3,12 +3,6 @@ class Activity {
     this.activityData = activityData
   }
 
-  getMilesByDate(id, date, user = undefined, userRepo) {
-    let userStepsByDate = this.getUserDataForDay(id, date, 'numSteps').amount;
-    let miles = ((userStepsByDate * user.strideLength) / 5280).toFixed(1)
-    return parseFloat(miles) || undefined;
-  }
-
   getUserDataForDay(id, date, dataType) {
     if(id < 1 || typeof id !== 'number' || date.length !== 10 || typeof date !== 'string'
     || !['numSteps', 'minutesActive', 'flightsOfStairs'].includes(dataType)) {
@@ -16,12 +10,34 @@ class Activity {
     }
     let todayActivities = this.activityData.find(data => data.date === date
       && data.userID === id);
-    let todayActivity = {};
-    todayActivity.date = date;
-    todayActivity.amount = todayActivities[dataType];
-    todayActivity.type = (dataType === 'numSteps') ? 'steps' : dataType;
-    return todayActivity
+      let todayActivity = {};
+      todayActivity.date = date;
+      todayActivity.amount = todayActivities[dataType];
+      todayActivity.type = (dataType === 'numSteps') ? 'steps' : dataType;
+      return todayActivity
+    }
+
+  getUserWeekData(id, date, dataType) {
+    let userActivities = this.activityData.filter(data => data.userID === id);
+    const firstIndex = userActivities.findIndex(x => x.date === date);
+    const weekData =  userActivities.slice(firstIndex - 6, firstIndex + 1);
+    return weekData.reduce((weekList, day) => {
+      let type = dataType;
+      if(dataType === 'numSteps') {
+        type = 'steps'
+      }
+      let dayData = {date: day.date, amount: day[dataType], unit: type}
+      weekList.unshift(dayData);
+      return weekList;
+    }, [])
   }
+
+  getMilesByDate(id, date, user = undefined, userRepo) {
+    let userStepsByDate = this.getUserDataForDay(id, date, 'numSteps').amount;
+    let miles = ((userStepsByDate * user.strideLength) / 5280).toFixed(1)
+    return parseFloat(miles) || undefined;
+  }
+
 
   calculateActiveAverageForWeek(id, date, userRepo) {
     if(id < 1 || typeof id !== 'number' || date.length !== 10
@@ -78,21 +94,6 @@ class Activity {
     return average;
   }
 
-  getUserWeekData(id, date, dataType) {
-    let userActivities = this.activityData.filter(data => data.userID === id);
-    const firstIndex = userActivities.findIndex(x => x.date === date);
-    const weekData =  userActivities.slice(firstIndex - 6, firstIndex + 1);
-    return weekData.reduce((weekList, day) => {
-      let type = dataType;
-      if(dataType === 'numSteps') {
-        type = 'steps'
-      }
-      let dayData = {date: day.date, amount: day[dataType], unit: type}
-      weekList.unshift(dayData);
-      return weekList;
-    }, [])
-  }
-
   getStreak(userRepo, id, dataType) {
     let userActivities = this.activityData.filter(data => data.userID === id);
     userActivities = userActivities.sort((a, b) => {
@@ -141,15 +142,15 @@ class Activity {
     })
   }
 
+  getWinnerId(user, date, userRepo) {
+    let friends = this.getFriendsAverageStepsForWeek(user, date, userRepo)
+    return friends.shift().id
+  }
+
   showcaseWinner(user, date, userRepo) {
     let friendsAverages = this.showChallengeListAndWinner(user, date, userRepo);
     let winner = friendsAverages.shift();
     return winner;
-  }
-
-  getWinnerId(user, date, userRepo) {
-    let friends = this.getFriendsAverageStepsForWeek(user, date, userRepo)
-    return friends.shift().id
   }
 }
 
