@@ -38,7 +38,7 @@ describe('UserRepo', () => {
     expect(userRepo.users).to.deep.eql([user1, user2, user3]);
   });
 
-  it('Should have a parameter to take in user data', function() {
+  it('Should have a parameter to take in user data', () => {
     expect(userRepo.users[0].id).to.equal(1);
   });
 

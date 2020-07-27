@@ -428,7 +428,7 @@ describe('Friend Activity', () => {
     expect(activity.getWinnerId(user4, "2019/06/24", userRepo)).to.eql(1)
   })
 
-  it('should show the friend with most average steps over the previous week', function () {
+  it('should show the friend with most average steps over the previous week', () => {
     expect(activity.showcaseWinner(user1, "2019/06/24", userRepo)).to.eql('Rainbow Dash: 8294.4')
     expect(activity.showcaseWinner(user3, "2019/06/24", userRepo)).to.eql('Alex Roth: 9355.6')
   })

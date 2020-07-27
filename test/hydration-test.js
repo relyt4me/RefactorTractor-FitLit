@@ -2,10 +2,10 @@ import { expect } from 'chai';
 import Hydration from '../src/Hydration';
 import hydrationSampleData from './sampleData/hydrationSampleData';
 
-describe('Hydration', function () {
+describe('Hydration', () => {
   let hydrationRepo;
 
-  before(function () {
+  before(() => {
     hydrationRepo = new Hydration(hydrationSampleData);
   });
 
@@ -28,7 +28,7 @@ describe('Hydration', function () {
     expect(noHydrationData.hydrationData).to.eql(undefined);
   });
 
-  it('Should find the average water intake per day for a user', function () {
+  it('Should find the average water intake per day for a user', () => {
     expect(hydrationRepo.calculateAverageOunces(3)).to.equal(55.86);
   });
 
@@ -36,12 +36,12 @@ describe('Hydration', function () {
     expect(hydrationRepo.calculateAverageOunces(6)).to.eql(undefined);
   });
 
-  it('Should find the water intake for a user on a specified date', function () {
+  it('Should find the water intake for a user on a specified date', () => {
     expect(hydrationRepo.calculateDailyOunces(1, '2019/06/15')).to.equal(37);
     expect(hydrationRepo.calculateDailyOunces(4, '2019/06/18')).to.equal(93);
   });
 
-  it('Should return undefined if the date or id does not exist', function () {
+  it('Should return undefined if the date or id does not exist', () => {
     expect(hydrationRepo.calculateDailyOunces(6, '2019/06/15')).to.equal(undefined);
     expect(hydrationRepo.calculateDailyOunces(4, '2020/02/31')).to.equal(undefined);
   });
