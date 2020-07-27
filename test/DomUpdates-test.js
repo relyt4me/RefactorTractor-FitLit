@@ -9,7 +9,7 @@ import User from '../src/User';
 const spies = require('chai-spies');
 chai.use(spies);
 
-describe.only('DomUpdates', () => {
+describe('DomUpdates', () => {
   let domUpdates, currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate, userRepo;
 
   before(() => {

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>Activity Tracker</title>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet" />
+    <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet" /> -->
   </head>
 
   <body>
     <header class="header-sec">
-      <h1 id="greet-user-text"></h1>
+      <h1 tabindex=0 id="greet-user-text"></h1>
     </header>
     <aside class="left-sidebar">
       <h2 class="user-name" id="user-name-header"></h2>
-      <img src="./images/The Rock.jpg" class="user-image"></img>
+      <img tabindex=0 src="./images/The Rock.jpg" alt="Image of Dwayne Johnson smiling" class="user-image"></img>
       <address><span id="user-address"></span><br><span id="user-email"></span></address>
-      <section class="about-me-card">
+      <section tabindex=0 class="about-me-card">
         <h2 class="sidebar-headers">About Me</h2>
         <p>Stride Length: <span id="user-stride-length"></span> ft</p>
         <p>Step Goal: <span id="user-step-goal"></span><br><span id="step-goal-complete"></span></p>
@@ -22,7 +22,7 @@
         <p>Average Nights Sleep: <br><span id="user-avg-hr-sleep"></span> hrs, <span id="user-avg-qlty-sleep"></span> ⭐'s</p>
         <p>My Record Stairs Climbed: <span id="user-record-stairs"></span></p>
       </section>
-      <form action="">
+      <form tabindex=0 rule="Logging daily activity" action="">
         <h2>Log Your Day</h2>
         <label for="date">Date:</label>
         <input type="date" name="date" id="date"><br>
@@ -40,41 +40,41 @@
         <input type="number" name="activity-input-stairs" id="activity-input-stairs" min="0"><br>
         <label for="activity-input-steps">Steps-</label>
         <input type="number" name="activity-input-steps" id="activity-input-steps" min="0">
-        <button id="post-button" alt="post user info button">Post</button>
+        <button id="post-button" aria-label="Submit daily activity form" alt="post user info button">Post</button>
       </form>
     </aside>
     <main>
       <section class="today-info-sec">
-        <h2>Today at a Glance</h2>
+        <h2 tabindex=0>Today at a Glance</h2>
         <div class="card-wrapper">
           <article>
             <h2>💧</h2>
-            <p><span id="user-hydration-today"></span> oz</p>
+            <p tabindex=0><span id="user-hydration-today"></span> oz</p>
           </article>
           <article>
             <h2>Stairs</h2>
-            <p><span id="user-stairs-today"></span> flights of Stairs</p>
+            <p tabindex=0><span id="user-stairs-today"></span> flights of Stairs</p>
           </article>
           <article>
             <h2>👟👟</h2>
-            <p><span id="user-steps-today"></span> steps</p>
+            <p tabindex=0><span id="user-steps-today"></span> steps</p>
             <p>OR</p>
-            <p><span id="user-miles-today"></span> miles</p>
+            <p tabindex=0><span id="user-miles-today"></span> miles</p>
           </article>
           <article>
             <h2>Minutes</h2>
-            <p><span id="user-minutes-today"></span> minutes</p>
+            <p tabindex=0><span id="user-minutes-today"></span> minutes</p>
           </article>
           <article >
             <h2>😴</h2>
-            <p><span id="user-sleep-hours-today"></span> hrs</p>
-            <p><span id="user-sleep-qlty-today"></span> ⭐'s</p>
+            <p tabindex=0><span id="user-sleep-hours-today"></span> hrs</p>
+            <p tabindex=0><span id="user-sleep-qlty-today"></span> ⭐'s</p>
           </article>
         </div>
       </section>
       <section class="week-info-sec">
         <table>
-          <caption>Your Week at a Glance</caption>
+          <caption tabindex=0>Your Week at a Glance</caption>
           <colgroup>
             <col />
             <col />
@@ -95,60 +95,60 @@
           </thead>
           <tbody>
             <tr>
-              <th id="day-0"></th>
-              <td id="h-0"></td>
-              <td id="u-0"></td>
-              <td id="s-0"></td>
-              <td id="m-0"></td>
-              <td id="z-0"></td>
+              <th tabindex=0 id="day-0"></th>
+              <td tabindex=0 id="h-0"></td>
+              <td tabindex=0 id="u-0"></td>
+              <td tabindex=0 id="s-0"></td>
+              <td tabindex=0 id="m-0"></td>
+              <td tabindex=0 id="z-0"></td>
             </tr>
             <tr>
-              <th id="day-1"></th>
-              <td id="h-1"></td>
-              <td id="u-1"></td>
-              <td id="s-1"></td>
-              <td id="m-1"></td>
-              <td id="z-1"></td>
+              <th tabindex=0 id="day-1"></th>
+              <td tabindex=0 id="h-1"></td>
+              <td tabindex=0 id="u-1"></td>
+              <td tabindex=0 id="s-1"></td>
+              <td tabindex=0 id="m-1"></td>
+              <td tabindex=0 id="z-1"></td>
             </tr>
             <tr>
-              <th id="day-2"></th>
-              <td id="h-2"></td>
-              <td id="u-2"></td>
-              <td id="s-2"></td>
-              <td id="m-2"></td>
-              <td id="z-2"></td>
+              <th tabindex=0 id="day-2"></th>
+              <td tabindex=0 id="h-2"></td>
+              <td tabindex=0 id="u-2"></td>
+              <td tabindex=0 id="s-2"></td>
+              <td tabindex=0 id="m-2"></td>
+              <td tabindex=0 id="z-2"></td>
             </tr>
             <tr>
-              <th id="day-3"></th>
-              <td id="h-3"></td>
-              <td id="u-3"></td>
-              <td id="s-3"></td>
-              <td id="m-3"></td>
-              <td id="z-3"></td>
+              <th tabindex=0 id="day-3"></th>
+              <td tabindex=0 id="h-3"></td>
+              <td tabindex=0 id="u-3"></td>
+              <td tabindex=0 id="s-3"></td>
+              <td tabindex=0 id="m-3"></td>
+              <td tabindex=0 id="z-3"></td>
             </tr>
             <tr>
-              <th id="day-4"></th>
-              <td id="h-4"></td>
-              <td id="u-4"></td>
-              <td id="s-4"></td>
-              <td id="m-4"></td>
-              <td id="z-4"></td>
+              <th tabindex=0 id="day-4"></th>
+              <td tabindex=0 id="h-4"></td>
+              <td tabindex=0 id="u-4"></td>
+              <td tabindex=0 id="s-4"></td>
+              <td tabindex=0 id="m-4"></td>
+              <td tabindex=0 id="z-4"></td>
             </tr>
             <tr>
-              <th id="day-5"></th>
-              <td id="h-5"></td>
-              <td id="u-5"></td>
-              <td id="s-5"></td>
-              <td id="m-5"></td>
-              <td id="z-5"></td>
+              <th tabindex=0 id="day-5"></th>
+              <td tabindex=0 id="h-5"></td>
+              <td tabindex=0 id="u-5"></td>
+              <td tabindex=0 id="s-5"></td>
+              <td tabindex=0 id="m-5"></td>
+              <td tabindex=0 id="z-5"></td>
             </tr>
             <tr>
-              <th id="day-6"></th>
-              <td id="h-6"></td>
-              <td id="u-6"></td>
-              <td id="s-6"></td>
-              <td id="m-6"></td>
-              <td id="z-6"></td>
+              <th tabindex=0 id="day-6"></th>
+              <td tabindex=0 id="h-6"></td>
+              <td tabindex=0 id="u-6"></td>
+              <td tabindex=0 id="s-6"></td>
+              <td tabindex=0 id="m-6"></td>
+              <td tabindex=0 id="z-6"></td>
             </tr>
           </tbody>
         </table>
@@ -156,23 +156,23 @@
     </main>
     <aside class="right-sidebar">
       <section class="friend-card">
-        <h2><br>Friends<br><span class="friends-emoji">👥</span></h2>
-        <ul id="friend-list">
+        <h2 tabindex=0><br>Friends<br><span class="friends-emoji">👥</span></h2>
+        <ul tabindex=0 id="friend-list">
         </ul>
       </section>
-      <h2>Leaderboard</h2>
+      <h2 tabindex=0>Leaderboard</h2>
       <section class="user-average-card">
-        <h2>User Averages</h2>
-        <p>Step Goal: <span id="avg-step-goal"></span> steps</p>
-        <p>Hours of Sleep: <span id="avg-sleep-hours"></span> hrs</p>
-        <p>Sleep Quality: <span id="avg-sleep-qlty"></span> ⭐'s</p>
-        <p>Steps Made: <span id="avg-steps-made"></span> steps</p>
-        <p>Stairs Taken: <span id="avg-stairs"></span> stairs</p>
-        <p>Active Minutes: <span id="avg-minutes"></span> minutes</p>
+        <h2 tabindex=0>User Averages</h2>
+        <p tabindex=0>Step Goal: <span id="avg-step-goal"></span> steps</p>
+        <p tabindex=0>Hours of Sleep: <span id="avg-sleep-hours"></span> hrs</p>
+        <p tabindex=0>Sleep Quality: <span id="avg-sleep-qlty"></span> ⭐'s</p>
+        <p tabindex=0>Steps Made: <span id="avg-steps-made"></span> steps</p>
+        <p tabindex=0>Stairs Taken: <span id="avg-stairs"></span> stairs</p>
+        <p tabindex=0>Active Minutes: <span id="avg-minutes"></span> minutes</p>
       </section>
       <section class="week-records-card">
-        <h2>Current Leaders</h2>
-        <p><strong>Most Sleep Today:</strong><br><span id="most-sleep-today"></span></p>
+        <h2 tabindex=0>Current Leaders</h2>
+        <p tabindex=0><strong>Most Sleep Today:</strong><br><span id="most-sleep-today"></span></p>
         <!-- <p><strong>Best Sleep This Week:</strong><br><span id="most-sleep-today">Carly, Jordy, Tyler</span></p> -->
       </section>
     </aside>

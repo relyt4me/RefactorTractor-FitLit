@@ -205,6 +205,8 @@ Contributions are what make the open source community such an amazing place to b
   * jordan.m.shryock@gmail.com 
   * [Jordan's Linkedin](https://www.linkedin.com/in/jordan-shryock-6a48b9113/)
 * Carly Clift 
+  * carlymclift@gmail.com 
+  * [Carly's Linkedin](https://www.linkedin.com/in/carly-clift-8795491a4/)
 * Tyler Haglund
 
 <!-- ACKNOWLEDGEMENTS -->

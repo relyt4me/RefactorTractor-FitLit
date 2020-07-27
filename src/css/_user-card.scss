@@ -1,6 +1,7 @@
 .left-sidebar {
   grid-area: left;
-  height: calc(100vh - 28px);
+  height: auto;
+  // height: calc(100vh - 28px);
   @include background-cards();
   margin: 8px;
   display: grid;

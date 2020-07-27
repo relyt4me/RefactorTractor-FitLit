@@ -3,12 +3,13 @@
 @import 'user-card';
 @import 'main-section';
 @import 'right-side';
+
 * {
   margin: 0;
 }
 
 body {
-  font-family: 'Open Sans';
+  font-family: 'Comic Sans';
   color: $remaining-text-color;
   background-color: $main-background-color;
   display: grid;
@@ -17,7 +18,6 @@ body {
   grid-template-areas:
     'left head right'
     'left main right';
-  // padding: 5px;
 }
 
 header {
