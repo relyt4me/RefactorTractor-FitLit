@@ -67,14 +67,6 @@ describe('Activity', () => {
     expect(noActivityData.activivityData).to.eql(undefined);
   });
 
-  it('should return the miles a given user has walked on a given date', () => {
-    expect(activity.getMilesByDate(1, "2019/06/15", user1, userRepo)).to.eql(2.9);
-  });
-
-  it('should return undefined when getMilesByDate is given for a nonExistant user', () => {
-    expect(activity.getMilesByDate(1, "2019/06/15", 6, userRepo)).to.eql(undefined);
-  });
-
   it('should return steps for given user on given date', () => {
     expect(activity.getUserDataForDay(2, "2019/06/15", 'numSteps')).to.eql({
       date: '2019/06/15',
@@ -101,6 +93,16 @@ describe('Activity', () => {
   it('should return undefined when getUserDataForDay is given a nonExistant dataType', () => {
     expect(activity.getUserDataForDay(1, "2019/06/18", 'timeSleeping')).to.eql(undefined);
   });
+
+  it('should return the miles a given user has walked on a given date', () => {
+    expect(activity.getMilesByDate(1, "2019/06/15", user1, userRepo)).to.eql(2.9);
+  });
+
+  it('should return undefined when getMilesByDate is given for a nonExistant user', () => {
+    expect(activity.getMilesByDate(1, "2019/06/15", 6, userRepo)).to.eql(undefined);
+  });
+
+
 
   // it('should return the number of minutes a given user was active for on a given day', () => {
   //   expect(activity.userDataForToday(1, "2019/06/16", userRepo, 'minutesActive')).to.eql(175);
