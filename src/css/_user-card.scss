@@ -1,7 +1,6 @@
 .left-sidebar {
   grid-area: left;
   height: auto;
-  // height: calc(100vh - 28px);
   @include background-cards();
   margin: 8px;
   display: grid;
@@ -47,27 +46,3 @@ form {
     width: 11em;
   }
 }
-
-// .sidebars {
-//   display: flex;
-//   flex-direction: row;
-//   width: 35%;
-//   height: 84vh;
-//   padding: 10px;
-// }
-
-// .sidebar-text {
-//   font-family: sans-serif;
-//   font-size: 1.2em;
-//   margin: 0.5em 0.5em 0.5em 0.5em;
-//   width: inherit;
-// }
-
-// #step-goal-card,
-// #user-stridelength {
-//   font-weight: bold;
-// }
-
-// .sidebar-headers {
-//   padding-top: 10px;
-// }
