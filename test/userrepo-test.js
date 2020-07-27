@@ -7,7 +7,7 @@ import userSampleData from './sampleData/userSampleData';
 describe('UserRepo', () => {
   let user1, user2, user3, users, userRepo;
 
-  beforeEach(() => {
+  before(() => {
     user1 = new User(userSampleData[0]);
     user2 = new User(userSampleData[1]);
     user3 = new User(userSampleData[2]);
@@ -18,14 +18,14 @@ describe('UserRepo', () => {
   it('Should be a function', () => {
     expect(UserRepo).to.be.a('function');
   });
-  
+
   it('Should be an instance of UserRepository', () => {
     expect(userRepo).to.be.an.instanceof(UserRepo);
   });
 
   it('Should not require an argument to create a new UserRepo', () => {
-    expect(() => { 
-      new UserRepo() 
+    expect(() => {
+      new UserRepo()
     }).to.not.throw(Error);
   })
 
@@ -49,12 +49,12 @@ describe('UserRepo', () => {
 
   it('Should be undefined if no id is provided for the data', () => {
     const data = userRepo.getDataFromID()
-    expect(data).to.eql(undefined)  
+    expect(data).to.eql(undefined)
   });
 
   it('Should be undefined if arguement provided is wrong data type', () => {
     const data = userRepo.getDataFromID("wrong data type")
-    expect(data).to.eql(undefined)  
+    expect(data).to.eql(undefined)
   });
 
   it('Should return the average of all users step goals', () => {
