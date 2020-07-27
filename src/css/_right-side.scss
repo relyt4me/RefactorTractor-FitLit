@@ -1,6 +1,7 @@
 .right-sidebar {
   grid-area: right;
-  height: calc(100vh- 28px);
+  height: auto;
+  // height: calc(100vh- 28px);
   @include background-cards();
   margin: 8px;
   display: grid;
@@ -18,6 +19,10 @@
     width: 80%;
     height: 190px;
   }
+}
+
+.user-average-card {
+  font-size: 15px;
 }
 
 .friend-card {

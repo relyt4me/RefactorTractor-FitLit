@@ -2,6 +2,7 @@ class Sleep {
   constructor(sleepData) {
     this.sleepData = sleepData;
   }
+
   calculateAverageSleep(id) {
     let sleepForThisUser = this.sleepData.filter((sleep) => id === sleep.userID);
     const averageSleepHours =
@@ -30,7 +31,6 @@ class Sleep {
     return findSleepQualityByDate.sleepQuality;
   }
 
-  // output for weeks is [{date: yyyy/mm/dd, amount: 00, unit: 'unit'}, ...x7]
   getWeekOfHoursSlept(id, endDate) {
     return this.getWeekOfData(id, endDate).map((day) => {
       return { date: day.date, amount: day.hoursSlept, unit: 'hours' };
@@ -43,7 +43,6 @@ class Sleep {
     });
   }
 
-  //helper function for isolating a week
   getWeekOfData(id, endDate) {
     const sleepForThisUser = this.sleepData.filter((sleep) => id === sleep.userID);
     const firstIndex = sleepForThisUser.findIndex((day) => day.date === endDate);

@@ -19,7 +19,6 @@ const data = {
   hydrationData: null,
 };
 
-
 let userRepo, hydrationRepo, sleepRepo, activityRepo, currentUser, domUpdate;
 
 window.onload = startApp();
@@ -56,33 +55,28 @@ function instantiateUsers() {
   return allUsers;
 }
 
-// grabs a random instatiated user from the userRepo global variable
 function newRandomUser() {
   const randomID = Math.floor(Math.random() * userRepo.users.length);
   return userRepo.getDataFromID(randomID);
 }
 
 function populatePage() {
-  let mostRecentDate = getUsersRecentDate(currentUser.id, data.hydrationData); // rename mostRecentDate and assign to '2020/01/22' for now and possibly use a method later to get the most recent date
-  document.getElementById('greet-user-text').innerText = `${currentUser.getFirstName()}'s Activity Tracker`; // is not manipulating sidebar (move elsewhere or rename function`;
-  domUpdate.populateUserWidget(currentUser, sleepRepo, activityRepo, mostRecentDate); // fills out user infor (iteration 1 dashboard)
+  let mostRecentDate = getUsersRecentDate(currentUser.id, data.hydrationData);
+  document.getElementById('greet-user-text').innerText = `${currentUser.getFirstName()}'s Activity Tracker`;
+  domUpdate.populateUserWidget(currentUser, sleepRepo, activityRepo, mostRecentDate); 
   domUpdate.populateTodayInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate);
   domUpdate.populateWeekInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate);
-  // domUpdate.populateHydrationSection(mostRecentDate, hydrationRepo, currentUser);
-  // domUpdate.populateSleepSection(mostRecentDate, currentUser, sleepRepo);
-  // let winnerNow = makeWinnerID(activityRepo, currentUser, mostRecentDate, userRepo);
-  // domUpdate.populateActivitySection(mostRecentDate, winnerNow, currentUser, activityRepo, userRepo);
   domUpdate.populateFriendsCard(currentUser, userRepo);
   domUpdate.populateLeaderBoard(userRepo, sleepRepo, activityRepo, mostRecentDate, data.sleepData);
 }
 
-// function will remove userRepo functionality from the class returns the most current date of a data set for a given user
 function getUsersRecentDate(id, dataSet) {
   const dataFromID = dataSet.filter((userInstance) => id === userInstance.userID);
   const sortedByDate = dataFromID.sort((a, b) => new Date(b.date) - new Date(a.date));
   return sortedByDate[0].date;
 }
 
+// What is this function currently doing?
 function makeWinnerID(activityInfo, user, dateString, userStorage) {
   return activityInfo.getWinnerId(user, dateString, userStorage);
 }

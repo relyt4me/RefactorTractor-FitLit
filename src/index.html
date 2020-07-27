@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Activity Tracker</title>
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet" />
+    <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&display=swap" rel="stylesheet" /> -->
   </head>
 
   <body>
@@ -22,7 +22,7 @@
         <p>Average Nights Sleep: <br><span id="user-avg-hr-sleep"></span> hrs, <span id="user-avg-qlty-sleep"></span> ⭐'s</p>
         <p>My Record Stairs Climbed: <span id="user-record-stairs"></span></p>
       </section>
-      <form tabindex=0 action="">
+      <form tabindex=0 rule="Logging daily activity" action="">
         <h2>Log Your Day</h2>
         <label for="date">Date:</label>
         <input type="date" name="date" id="date"><br>
@@ -40,7 +40,7 @@
         <input type="number" name="activity-input-stairs" id="activity-input-stairs" min="0"><br>
         <label for="activity-input-steps">Steps-</label>
         <input type="number" name="activity-input-steps" id="activity-input-steps" min="0">
-        <button id="post-button" alt="post user info button">Post</button>
+        <button id="post-button" aria-label="Submit daily activity form" alt="post user info button">Post</button>
       </form>
     </aside>
     <main>
