@@ -48,6 +48,8 @@ class DomUpdates {
     this.changeInnerTextID('avg-minutes', activityRepo.getOveralUserAverage(mostRecentDate, 'minutesActive').minutesActive);
     let sleepiestUser = sleepRepo.getSleepWinnerForDay(mostRecentDate, sleepData, userRepo);
     this.changeInnerTextID('most-sleep-today', `${sleepiestUser.user} with ${sleepiestUser.hoursSlept}hrs of sleep`);
+    let topSleepers = this.getTopThreeNames(sleepRepo.getUsersWithQualityAbove3(mostRecentDate), userRepo);
+    this.changeInnerTextID('best-sleep-this-week', `${topSleepers}`);
   }
 
   populateFriendsCard(currentUser, userRepo) {
@@ -81,6 +83,13 @@ class DomUpdates {
     const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     let theDate = new Date(string.split('/').join('-'));
     return weekdays[theDate.getDay()];
+  }
+
+  getTopThreeNames(users, userRepo) {
+    let threeUsers = users.splice(0, 3).map((user) => {
+      return userRepo.getDataFromID(user).name;
+    });
+    return threeUsers.join(', ');
   }
 }
 
