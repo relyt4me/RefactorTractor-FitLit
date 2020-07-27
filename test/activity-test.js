@@ -4,12 +4,11 @@ import UserRepo from '../src/User-repo'; //git rid of eventually
 import User from '../src/User';
 import activitySampleData from './sampleData/activitySampleData';
 
-// import test data file carly made
 describe('Activity', () => {
   let activityData, user1, user2, user3, user4, users, userRepo, activity,
   noActivityData;
 
-  before(() => { // create smaller sample, probably use before
+  before(() => {
     activityData = activitySampleData
     user1 = new User({
       id: 1,
@@ -135,24 +134,24 @@ describe('Activity', () => {
   })
 
   it('should return the miles a given user has walked on a given date', () => {
-    expect(activity.getMilesByDate(1, "2019/06/15", user1, userRepo)).to.eql(2.9);
+    expect(activity.getMilesByDate(1, "2019/06/15", user1)).to.eql(2.9);
   });
 
   it('should return undefined when getMilesByDate is given for a nonExistant user', () => {
-    expect(activity.getMilesByDate(1, "2019/06/15", 6, userRepo)).to.eql(undefined);
+    expect(activity.getMilesByDate(1, "2019/06/15", 6)).to.eql(undefined);
   });
 
   it('should return average active minutes in a given week', () => {
-    expect(activity.calculateActiveAverageForWeek(1, "2019/06/21", userRepo)).to.eql(171.1);
+    expect(activity.calculateActiveAverageForWeek(1, "2019/06/21")).to.eql(171.1);
   });
 
   it('should return undefined when alculateActiveAverageForWeek is given a nonExistant userID', () => {
-    expect(activity.calculateActiveAverageForWeek(0, "2019/06/21", userRepo)).to.eql(undefined);
+    expect(activity.calculateActiveAverageForWeek(0, "2019/06/21")).to.eql(undefined);
   });
 
   it('should return undefined when alculateActiveAverageForWeek is given a nonExistant date', () => {
-    expect(activity.calculateActiveAverageForWeek(0, "201919/06/21", userRepo)).to.eql(undefined);
-    expect(activity.calculateActiveAverageForWeek(0, 201919, userRepo)).to.eql(undefined);
+    expect(activity.calculateActiveAverageForWeek(0, "201919/06/21")).to.eql(undefined);
+    expect(activity.calculateActiveAverageForWeek(0, 201919)).to.eql(undefined);
   });
 
   it('should return true/false if the given user met their step goal on a given day', () => {
@@ -194,23 +193,23 @@ describe('Activity', () => {
   })
 
   it('should return the average flight of stairs for all users on given day', () => {
-    expect(activity.getAllUserAverageForDay("2019/06/15", userRepo, "flightsOfStairs")).to.eql(20.8)
+    expect(activity.getAllUserAverageForDay("2019/06/15", "flightsOfStairs")).to.eql(20.8)
   })
 
   it('should return average steps taken for given date for all users', () => {
-    expect(activity.getAllUserAverageForDay("2019/06/23", userRepo, "numSteps")).to.eql(8554.6)
+    expect(activity.getAllUserAverageForDay("2019/06/23", "numSteps")).to.eql(8554.6)
   });
 
   it('should return average minutes active given date for all users', () => {
-    expect(activity.getAllUserAverageForDay("2019/06/23", userRepo, "minutesActive")).to.eql(173.6)
+    expect(activity.getAllUserAverageForDay("2019/06/23", "minutesActive")).to.eql(173.6)
   });
 
   it('should show a 3-day increasing streak for a users step count', () => {
-    expect(activity.getStreak(userRepo, 1, 'numSteps')).to.eql(['2019/06/17', '2019/06/20', '2019/06/23'])
+    expect(activity.getStreak(1, 'numSteps')).to.eql(['2019/06/17', '2019/06/20', '2019/06/23'])
   });
 
   it('should show a 3-day increasing streak for a users minutes of activity', () => {
-    expect(activity.getStreak(userRepo, 2, 'minutesActive')).to.eql(['2019/06/19'])
+    expect(activity.getStreak(2, 'minutesActive')).to.eql(['2019/06/19'])
   });
 })
 
