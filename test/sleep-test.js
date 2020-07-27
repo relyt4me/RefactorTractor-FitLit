@@ -7,7 +7,7 @@ import Sleep from '../src/Sleep';
 describe('Sleep', function () {
   let sleepRepo;
 
-  beforeEach(function () {
+  before(function () {
     sleepRepo = new Sleep(sleepSampleData);
   });
 
@@ -94,7 +94,7 @@ describe('Sleep', function () {
   it('Should give the user IDs of all users with the highest Hours of Sleep', () => {
     let users = {
       'users': [
-        { "id": 1, "name": "Luisa Hane" }, 
+        { "id": 1, "name": "Luisa Hane" },
         { "id": 2, "name": "Jarvis Consideine" }
       ]};
     expect(sleepRepo.getSleepWinnerForDay('2019/06/18', sleepSampleData, users))
