@@ -94,6 +94,48 @@ describe('Activity', () => {
     expect(activity.getUserDataForDay(1, "2019/06/18", 'timeSleeping')).to.eql(undefined);
   });
 
+  it('should return a user\'s number of steps over the course of the last 7 days', () => {
+    expect(activity.getUserWeekData(1, "2019/06/23", 'numSteps')).to.eql([
+    { date: '2019/06/23', amount: 13928, unit: 'steps' },
+    { date: '2019/06/22', amount: 10289, unit: 'steps' },
+    { date: '2019/06/21', amount: 6760, unit: 'steps' },
+    { date: '2019/06/20', amount: 14478, unit: 'steps' },
+    { date: '2019/06/19', amount: 8429, unit: 'steps' },
+    { date: '2019/06/18', amount: 4419, unit: 'steps' },
+    { date: '2019/06/17', amount: 14329, unit: 'steps' }
+    ])
+  })
+
+  it('should return a user\'s number active minutes over the course of the last 7 days', () => {
+    expect(activity.getUserWeekData(1, "2019/06/23", 'minutesActive')).to.eql([
+    { date: '2019/06/23', amount: 218, unit: 'minutesActive' },
+    { date: '2019/06/22', amount: 119, unit: 'minutesActive' },
+    { date: '2019/06/21', amount: 135, unit: 'minutesActive' },
+    { date: '2019/06/20', amount: 140, unit: 'minutesActive' },
+    { date: '2019/06/19', amount: 275, unit: 'minutesActive' },
+    { date: '2019/06/18', amount: 165, unit: 'minutesActive' },
+    { date: '2019/06/17', amount: 168, unit: 'minutesActive' }
+    ])
+  })
+
+  it('should return a user\'s number of stairs climbed over the course of the last 7 days', () => {
+    expect(activity.getUserWeekData(1, "2019/06/23", 'flightsOfStairs')).to.eql([
+    { date: '2019/06/23', amount: 21, unit: 'flightsOfStairs' },
+    { date: '2019/06/22', amount: 6, unit: 'flightsOfStairs' },
+    { date: '2019/06/21', amount: 6, unit: 'flightsOfStairs' },
+    { date: '2019/06/20', amount: 12, unit: 'flightsOfStairs' },
+    { date: '2019/06/19', amount: 2, unit: 'flightsOfStairs' },
+    { date: '2019/06/18', amount: 33, unit: 'flightsOfStairs' },
+    { date: '2019/06/17', amount: 18, unit: 'flightsOfStairs' }
+    ])
+  })
+
+  it('should return an empty array when a full week\'s data is not available', () => {
+    expect(activity.getUserWeekData(1, "2019/06/16", 'flightsOfStairs')).to.eql([])
+  })
+
+
+
   it('should return the miles a given user has walked on a given date', () => {
     expect(activity.getMilesByDate(1, "2019/06/15", user1, userRepo)).to.eql(2.9);
   });
