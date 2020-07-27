@@ -130,7 +130,8 @@ class Activity {
     let rankedList = this.getFriendsAverageStepsForWeek(user, date);
     return rankedList.map(friend => {
       const userName = userRepo.users.find(user => user.id === friend.id).name
-      return `${userName}: ${friend.avgSteps}`
+      return {name: userName, steps: friend.avgSteps}
+      // return `${userName}: ${friend.avgSteps}`
     })
   }
 

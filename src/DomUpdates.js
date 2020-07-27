@@ -50,11 +50,12 @@ class DomUpdates {
     this.changeInnerTextID('most-sleep-today', `${sleepiestUser.user} with ${sleepiestUser.hoursSlept}hrs of sleep`);
   }
 
-  populateFriendsCard(currentUser, userRepo) {
-    const friendsListHTML = currentUser
-      .getFriendsNames(userRepo.users)
-      .map((friendName) => `<li> 👤 ${friendName}</li>`)
-      .join('');
+  populateFriendsCard(currentUser, userRepo, activityRepo, mostRecentDate) {
+    let friends = activityRepo.showChallengeListAndWinner(currentUser, mostRecentDate, userRepo)
+    friends[0].steps = `wins with ${friends[0].steps}`
+    const friendsListHTML = friends
+    .map((friend) => `<li> 👤 ${friend.name} </br>${friend.steps} steps</li>`)
+    .join('');
     document.getElementById('friend-list').innerHTML = friendsListHTML;
   }
 
