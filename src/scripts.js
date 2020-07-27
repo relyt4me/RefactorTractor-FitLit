@@ -82,6 +82,7 @@ function postUserInputs(event) {
   const userSleepData = getUserSleepData(userDate);
   const userActivityData = getUserActivityData(userDate);
   const userHydrationData = getUserHydrationData(userDate);
+  postAllUserData(userSleepData, userActivityData, userHydrationData);
 }
 
 function getUserSleepData(userDate) {
