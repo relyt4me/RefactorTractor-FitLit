@@ -425,12 +425,12 @@ describe('Friend Activity', () => {
     ])
   });
 
+  it('should know the ID of the winning friend', () => {
+    expect(activity.getWinnerId(user4, "2019/06/24", userRepo)).to.eql(1)
+  })
+
   it('should show the friend with most average steps over the previous week', function () {
     expect(activity.showcaseWinner(user1, "2019/06/24", userRepo)).to.eql('Rainbow Dash: 8294.4')
     expect(activity.showcaseWinner(user3, "2019/06/24", userRepo)).to.eql('Alex Roth: 9355.6')
-  })
-
-  it('should know the ID of the winning friend', () => {
-    expect(activity.getWinnerId(user4, "2019/06/24", userRepo)).to.eql(1)
   })
 });

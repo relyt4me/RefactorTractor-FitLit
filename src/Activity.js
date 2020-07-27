@@ -109,15 +109,7 @@ class Activity {
     })
   }
 
-  getFriendsActivity(user, userRepo) {
-    let friendsActivities = []
-    user.friends.forEach(friendID => {
-      friendsActivities.push(...this.activityData.filter(data => {
-        return friendID === data.userID
-      }))
-    })
-    return friendsActivities
-  }
+
 
   getFriendsAverageStepsForWeek(user, date, userRepo) {
     let averages = []
