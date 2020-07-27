@@ -22,12 +22,16 @@ class Sleep {
   }
 
   calculateDailySleep(id, date) {
-    let findSleepByDate = this.sleepData.find((data) => id === data.userID && date === data.date);
+    let findSleepByDate = this.sleepData.find((data) => {
+      return id === data.userID && date === data.date
+    });
     return findSleepByDate.hoursSlept;
   }
 
   calculateDailySleepQuality(id, date) {
-    let findSleepQualityByDate = this.sleepData.find((data) => id === data.userID && date === data.date);
+    let findSleepQualityByDate = this.sleepData.find((data) => {
+      return id === data.userID && date === data.date
+    });
     return findSleepQualityByDate.sleepQuality;
   }
 
@@ -44,8 +48,12 @@ class Sleep {
   }
 
   getWeekOfData(id, endDate) {
-    const sleepForThisUser = this.sleepData.filter((sleep) => id === sleep.userID);
-    const firstIndex = sleepForThisUser.findIndex((day) => day.date === endDate);
+    const sleepForThisUser = this.sleepData.filter((sleep) => {
+      return id === sleep.userID
+    });
+    const firstIndex = sleepForThisUser.findIndex((day) => {
+      return day.date === endDate
+    });
     return sleepForThisUser.slice(firstIndex - 6, firstIndex + 1);
   }
 
@@ -56,16 +64,6 @@ class Sleep {
     }, 0);
     const averageSleepMetric = totalSleepMetric / this.sleepData.length;
     return parseFloat(averageSleepMetric.toFixed(1)) || undefined;
-  }
-
-  getUsersWithQualityAbove3(endDate) {
-    const uniqueUsers = this.getUniqueUserIDs();
-    return uniqueUsers.filter((user) => {
-      let totalUserSleepQualityForWeek = this.getWeekOfData(user, endDate).reduce((sum, sleepInstance) => {
-        return (sum += sleepInstance.sleepQuality);
-      }, 0);
-      return totalUserSleepQualityForWeek / 7 > 3;
-    });
   }
 
   getUniqueUserIDs() {
@@ -89,19 +87,16 @@ class Sleep {
     return user;
   }
 
-  // getWinnerNamesFromList(sortedArray, userRepo) {
-  //   let bestSleepers = sortedArray.filter(function (element) {
-  //     return element[Object.keys(element)] === Object.values(sortedArray[0])[0];
-  //   });
-
-  //   let bestSleeperIds = bestSleepers.map(function (bestSleeper) {
-  //     return Object.keys(bestSleeper);
-  //   });
-
-  //   return bestSleeperIds.map(function (sleepNumber) {
-  //     return userRepo.getDataFromID(parseInt(sleepNumber)).name;
-  //   });
-  // }
+  getUsersWithQualityAbove3(endDate) {
+    const uniqueUsers = this.getUniqueUserIDs();
+    return uniqueUsers.filter((user) => {
+      let totalUserSleepQualityForWeek = this.getWeekOfData(user, endDate)
+      .reduce((sum, sleepInstance) => {
+        return (sum += sleepInstance.sleepQuality);
+      }, 0);
+      return totalUserSleepQualityForWeek / 7 > 3;
+    });
+  }
 }
 
 export default Sleep;
