@@ -7,7 +7,7 @@ describe('User', () => {
 
   let user1;
 
-  beforeEach(() => {
+  before(() => {
     user1 = new User(userSampleData[0]);
   });
 
@@ -20,8 +20,8 @@ describe('User', () => {
   });
 
   it('Should require an argument to create a new User', () => {
-    expect(() => { 
-      new User() 
+    expect(() => {
+      new User()
     }).to.throw(Error);
   })
 
@@ -45,7 +45,7 @@ describe('User', () => {
 
   it('Should throw error if no arguement is used', () => {
     expect(() => {
-      user1.getFriendsNames() 
+      user1.getFriendsNames()
     }).to.throw(Error);
   });
 });

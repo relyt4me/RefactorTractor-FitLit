@@ -39,6 +39,25 @@ class DomUpdates {
     this.fillColumn('z', sleepRepo.getWeekOfHoursSlept(currentUser.id, mostRecentDate));
   }
 
+  populateLeaderBoard(userRepo, sleepRepo, activityRepo, mostRecentDate, sleepData) {
+    this.changeInnerTextID('avg-step-goal', userRepo.calculateAverageStepGoal());
+    this.changeInnerTextID('avg-sleep-hours', sleepRepo.calculateAllUserAvgSleepMetric('hoursSlept'));
+    this.changeInnerTextID('avg-sleep-qlty', sleepRepo.calculateAllUserAvgSleepMetric('sleepQuality'));
+    this.changeInnerTextID('avg-steps-made', activityRepo.getOveralUserAverage(mostRecentDate, 'numSteps').numSteps);
+    this.changeInnerTextID('avg-stairs', activityRepo.getOveralUserAverage(mostRecentDate, 'flightsOfStairs').flightsOfStairs);
+    this.changeInnerTextID('avg-minutes', activityRepo.getOveralUserAverage(mostRecentDate, 'minutesActive').minutesActive);
+    let sleepiestUser = sleepRepo.getSleepWinnerForDay(mostRecentDate, sleepData, userRepo);
+    this.changeInnerTextID('most-sleep-today', `${sleepiestUser.user} with ${sleepiestUser.hoursSlept}hrs of sleep`);
+  }
+
+  populateFriendsCard(currentUser, userRepo) {
+    const friendsListHTML = currentUser
+      .getFriendsNames(userRepo.users)
+      .map((friendName) => `<li> 👤 ${friendName}</li>`)
+      .join('');
+    document.getElementById('friend-list').innerHTML = friendsListHTML;
+  }
+
   fillColumn(columnName, weekInformation, isDate) {
     let columnCells = [0, 1, 2, 3, 4, 5, 6];
     columnCells = columnCells.map((row) => document.getElementById(`${columnName}-${row}`));
@@ -62,25 +81,6 @@ class DomUpdates {
     const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     let theDate = new Date(string.split('/').join('-'));
     return weekdays[theDate.getDay()];
-  }
-
-  populateFriendsCard(currentUser, userRepo) {
-    const friendsListHTML = currentUser
-      .getFriendsNames(userRepo.users)
-      .map((friendName) => `<li> 👤 ${friendName}</li>`)
-      .join('');
-    document.getElementById('friend-list').innerHTML = friendsListHTML;
-  }
-
-  populateLeaderBoard(userRepo, sleepRepo, activityRepo, mostRecentDate, sleepData) {
-    this.changeInnerTextID('avg-step-goal', userRepo.calculateAverageStepGoal());
-    this.changeInnerTextID('avg-sleep-hours', sleepRepo.calculateAllUserAvgSleepMetric('hoursSlept'));
-    this.changeInnerTextID('avg-sleep-qlty', sleepRepo.calculateAllUserAvgSleepMetric('sleepQuality'));
-    this.changeInnerTextID('avg-steps-made', activityRepo.getOveralUserAverage(mostRecentDate, 'numSteps').numSteps);
-    this.changeInnerTextID('avg-stairs', activityRepo.getOveralUserAverage(mostRecentDate, 'flightsOfStairs').flightsOfStairs);
-    this.changeInnerTextID('avg-minutes', activityRepo.getOveralUserAverage(mostRecentDate, 'minutesActive').minutesActive);
-    let sleepiestUser = sleepRepo.getSleepWinnerForDay(mostRecentDate, sleepData, userRepo);
-    this.changeInnerTextID('most-sleep-today', `${sleepiestUser.user} with ${sleepiestUser.hoursSlept}hrs of sleep`);
   }
 }
 

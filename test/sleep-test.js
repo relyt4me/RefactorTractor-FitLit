@@ -4,10 +4,10 @@ import sleepSampleData from './sampleData/sleepSampleData';
 import userSampleData from './sampleData/userSampleData';
 import Sleep from '../src/Sleep';
 
-describe('Sleep', function () {
+describe('Sleep', () => {
   let sleepRepo;
 
-  beforeEach(function () {
+  before(() => {
     sleepRepo = new Sleep(sleepSampleData);
   });
 
@@ -47,12 +47,12 @@ describe('Sleep', function () {
     expect(sleepRepo.calculateAverageSleepQuality(0)).to.eql(undefined);
   });
 
-  it('Should find the sleep hours for a user on a specified date', function () {
+  it('Should find the sleep hours for a user on a specified date', () => {
     expect(sleepRepo.calculateDailySleep(2, '2019/06/15')).to.equal(7);
     expect(sleepRepo.calculateDailySleep(4, '2019/06/21')).to.equal(10.6);
   });
 
-  it('Should find the sleep quality for a user on a specified date', function () {
+  it('Should find the sleep quality for a user on a specified date', () => {
     expect(sleepRepo.calculateDailySleepQuality(3, '2019/06/15')).to.equal(4.7);
     expect(sleepRepo.calculateDailySleepQuality(5, '2019/06/21')).to.equal(4.1);
   });
@@ -94,7 +94,7 @@ describe('Sleep', function () {
   it('Should give the user IDs of all users with the highest Hours of Sleep', () => {
     let users = {
       'users': [
-        { "id": 1, "name": "Luisa Hane" }, 
+        { "id": 1, "name": "Luisa Hane" },
         { "id": 2, "name": "Jarvis Consideine" }
       ]};
     expect(sleepRepo.getSleepWinnerForDay('2019/06/18', sleepSampleData, users))

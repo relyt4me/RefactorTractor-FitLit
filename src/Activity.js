@@ -32,14 +32,14 @@ class Activity {
     }, [])
   }
 
-  getMilesByDate(id, date, user = undefined, userRepo) {
+  getMilesByDate(id, date, user = undefined) {
     let userStepsByDate = this.getUserDataForDay(id, date, 'numSteps').amount;
     let miles = ((userStepsByDate * user.strideLength) / 5280).toFixed(1)
     return parseFloat(miles) || undefined;
   }
 
 
-  calculateActiveAverageForWeek(id, date, userRepo) {
+  calculateActiveAverageForWeek(id, date) {
     if(id < 1 || typeof id !== 'number' || date.length !== 10
     || typeof date !== 'string') {
       return undefined
@@ -81,7 +81,7 @@ class Activity {
     return overallAverage
   }
 
-  getAllUserAverageForDay(date, userRepo, dataType) {
+  getAllUserAverageForDay(date, dataType) {
     const dayData = this.activityData.filter(data => data.date === date)
     const average = parseFloat((dayData.reduce((acc, elem) => {
       return acc += elem[dataType]}, 0) / dayData.length).toFixed(1))
@@ -94,7 +94,7 @@ class Activity {
     return average;
   }
 
-  getStreak(userRepo, id, dataType) {
+  getStreak(id, dataType) {
     let userActivities = this.activityData.filter(data => data.userID === id);
     userActivities = userActivities.sort((a, b) => {
       return new Date(a.date) - new Date(b.date)});
@@ -111,7 +111,7 @@ class Activity {
 
 
 
-  getFriendsAverageStepsForWeek(user, date, userRepo) {
+  getFriendsAverageStepsForWeek(user, date) {
     let averages = []
     user.friends.forEach((friendID) => {
       const friendsActivities = this.getUserWeekData(friendID, date, 'numSteps')
@@ -127,7 +127,7 @@ class Activity {
   }
 
   showChallengeListAndWinner(user, date, userRepo) {
-    let rankedList = this.getFriendsAverageStepsForWeek(user, date, userRepo);
+    let rankedList = this.getFriendsAverageStepsForWeek(user, date);
     return rankedList.map(friend => {
       const userName = userRepo.users.find(user => user.id === friend.id).name
       return `${userName}: ${friend.avgSteps}`

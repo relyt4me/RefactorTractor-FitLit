@@ -11,7 +11,6 @@ import fetchData from './fetchAllData';
 import DomUpdates from './DomUpdates';
 import postAllUserData from './postAllUserData';
 
-const postButton = document.getElementById('post-button');
 const data = {
   userData: null,
   sleepData: null,
@@ -22,7 +21,7 @@ const data = {
 let userRepo, hydrationRepo, sleepRepo, activityRepo, currentUser, domUpdate;
 
 window.onload = startApp();
-postButton.addEventListener('click', postUserInputs)
+document.getElementById('post-button').addEventListener('click', postUserInputs)
 
 function startApp() {
   fetchData()
@@ -63,7 +62,7 @@ function newRandomUser() {
 function populatePage() {
   let mostRecentDate = getUsersRecentDate(currentUser.id, data.hydrationData);
   document.getElementById('greet-user-text').innerText = `${currentUser.getFirstName()}'s Activity Tracker`;
-  domUpdate.populateUserWidget(currentUser, sleepRepo, activityRepo, mostRecentDate); 
+  domUpdate.populateUserWidget(currentUser, sleepRepo, activityRepo, mostRecentDate);
   domUpdate.populateTodayInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate);
   domUpdate.populateWeekInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate);
   domUpdate.populateFriendsCard(currentUser, userRepo);
@@ -76,11 +75,6 @@ function getUsersRecentDate(id, dataSet) {
   return sortedByDate[0].date;
 }
 
-// What is this function currently doing?
-function makeWinnerID(activityInfo, user, dateString, userStorage) {
-  return activityInfo.getWinnerId(user, dateString, userStorage);
-}
-
 function postUserInputs(event) {
   event.preventDefault();
   let userDate = document.getElementById('date').value || "1941/12/07";
@@ -88,10 +82,7 @@ function postUserInputs(event) {
   const userSleepData = getUserSleepData(userDate);
   const userActivityData = getUserActivityData(userDate);
   const userHydrationData = getUserHydrationData(userDate);
-  // console.log(userSleepData, userActivityData, userHydrationData)
-  // postAllUserData posts information to servers, make sure everything looks good
-  // before uncommenting function and posting
-  // postAllUserData(userSleepData, userActivityData, userHydrationData)
+  postAllUserData(userSleepData, userActivityData, userHydrationData);
 }
 
 function getUserSleepData(userDate) {
