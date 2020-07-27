@@ -208,6 +208,8 @@ Contributions are what make the open source community such an amazing place to b
   * carlymclift@gmail.com 
   * [Carly's Linkedin](https://www.linkedin.com/in/carly-clift-8795491a4/)
 * Tyler Haglund
+  * relyt4me@gmail.com
+  * [Tyler's Linkedin](https://www.linkedin.com/in/tyler-he-him-haglund-043b511aa)
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
