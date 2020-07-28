@@ -31,12 +31,14 @@ class DomUpdates {
   }
 
   populateWeekInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate) {
-    this.fillColumn('day', hydrationRepo.getWeekOfOunces(currentUser.id, mostRecentDate), true);
+    this.fillColumn('day', hydrationRepo.getWeekOfOunces(currentUser.id, mostRecentDate), 'date');
     this.fillColumn('h', hydrationRepo.getWeekOfOunces(currentUser.id, mostRecentDate));
     this.fillColumn('u', activityRepo.getUserWeekData(currentUser.id, mostRecentDate, 'flightsOfStairs'));
     this.fillColumn('s', activityRepo.getUserWeekData(currentUser.id, mostRecentDate, 'numSteps'));
     this.fillColumn('m', activityRepo.getUserWeekData(currentUser.id, mostRecentDate, 'minutesActive'));
-    this.fillColumn('z', sleepRepo.getWeekOfHoursSlept(currentUser.id, mostRecentDate));
+    let weekOfHours = sleepRepo.getWeekOfHoursSlept(currentUser.id, mostRecentDate);
+    let weekOfQuality = sleepRepo.getWeekOfQualitySlept(currentUser.id, mostRecentDate);
+    this.fillColumn('z', weekOfHours, 'sleep', weekOfQuality);
   }
 
   populateLeaderBoard(userRepo, sleepRepo, activityRepo, mostRecentDate, sleepData) {
@@ -48,6 +50,8 @@ class DomUpdates {
     this.changeInnerTextID('avg-minutes', activityRepo.getOveralUserAverage(mostRecentDate, 'minutesActive').minutesActive);
     let sleepiestUser = sleepRepo.getSleepWinnerForDay(mostRecentDate, sleepData, userRepo);
     this.changeInnerTextID('most-sleep-today', `${sleepiestUser.user} with ${sleepiestUser.hoursSlept}hrs of sleep`);
+    let topSleepers = this.getTopThreeNames(sleepRepo.getUsersWithQualityAbove3(mostRecentDate), userRepo);
+    this.changeInnerTextID('best-sleep-this-week', `${topSleepers}`);
   }
 
   populateFriendsCard(currentUser, userRepo) {
@@ -58,11 +62,13 @@ class DomUpdates {
     document.getElementById('friend-list').innerHTML = friendsListHTML;
   }
 
-  fillColumn(columnName, weekInformation, isDate) {
+  fillColumn(columnName, weekInformation, type, secondMetric) {
     let columnCells = [0, 1, 2, 3, 4, 5, 6];
     columnCells = columnCells.map((row) => document.getElementById(`${columnName}-${row}`));
-    if (isDate) {
+    if (type === 'date') {
       this.fillDays(columnCells, weekInformation);
+    } else if (type === 'sleep') {
+      this.fillSleep(columnCells, weekInformation, secondMetric);
     } else {
       columnCells.forEach((cell, index) => {
         cell.innerText = `${weekInformation[index].amount} ${weekInformation[index].unit}`;
@@ -81,6 +87,20 @@ class DomUpdates {
     const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     let theDate = new Date(string.split('/').join('-'));
     return weekdays[theDate.getDay()];
+  }
+
+  getTopThreeNames(users, userRepo) {
+    let threeUsers = users.splice(0, 3).map((user) => {
+      return userRepo.getDataFromID(user).name;
+    });
+    return threeUsers.join(', ');
+  }
+
+  fillSleep(cells, weekInformation, secondMetric) {
+    cells.forEach((cell, index) => {
+      const text = `${weekInformation[index].amount} hours, ${secondMetric[index].amount} ⭐'s`;
+      cell.innerText = text;
+    });
   }
 }
 

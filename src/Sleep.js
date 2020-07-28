@@ -7,7 +7,7 @@ class Sleep {
     let sleepForThisUser = this.sleepData.filter((sleep) => id === sleep.userID);
     const averageSleepHours =
       sleepForThisUser.reduce((sumSoFar, sleepDay) => {
-        return (sumSoFar += sleepDay.hoursSlept);
+        return (sumSoFar += parseFloat(sleepDay.hoursSlept));
       }, 0) / sleepForThisUser.length;
     return parseFloat(averageSleepHours.toFixed(1)) || undefined;
   }
@@ -16,21 +16,21 @@ class Sleep {
     let sleepForThisUser = this.sleepData.filter((sleep) => id === sleep.userID);
     const averageSleepQuality =
       sleepForThisUser.reduce((sumSoFar, sleep) => {
-        return (sumSoFar += sleep.sleepQuality);
+        return (sumSoFar += parseFloat(sleep.sleepQuality));
       }, 0) / sleepForThisUser.length;
     return parseFloat(averageSleepQuality.toFixed(1)) || undefined;
   }
 
   calculateDailySleep(id, date) {
     let findSleepByDate = this.sleepData.find((data) => {
-      return id === data.userID && date === data.date
+      return id === data.userID && date === data.date;
     });
     return findSleepByDate.hoursSlept;
   }
 
   calculateDailySleepQuality(id, date) {
     let findSleepQualityByDate = this.sleepData.find((data) => {
-      return id === data.userID && date === data.date
+      return id === data.userID && date === data.date;
     });
     return findSleepQualityByDate.sleepQuality;
   }
@@ -49,17 +49,17 @@ class Sleep {
 
   getWeekOfData(id, endDate) {
     const sleepForThisUser = this.sleepData.filter((sleep) => {
-      return id === sleep.userID
+      return id === sleep.userID;
     });
     const firstIndex = sleepForThisUser.findIndex((day) => {
-      return day.date === endDate
+      return day.date === endDate;
     });
     return sleepForThisUser.slice(firstIndex - 6, firstIndex + 1);
   }
 
   calculateAllUserAvgSleepMetric(metric) {
     let totalSleepMetric = this.sleepData.reduce((sumSoFar, sleepInstance) => {
-      sumSoFar += sleepInstance[metric];
+      sumSoFar += parseFloat(sleepInstance[metric]);
       return sumSoFar;
     }, 0);
     const averageSleepMetric = totalSleepMetric / this.sleepData.length;
@@ -90,9 +90,8 @@ class Sleep {
   getUsersWithQualityAbove3(endDate) {
     const uniqueUsers = this.getUniqueUserIDs();
     return uniqueUsers.filter((user) => {
-      let totalUserSleepQualityForWeek = this.getWeekOfData(user, endDate)
-      .reduce((sum, sleepInstance) => {
-        return (sum += sleepInstance.sleepQuality);
+      let totalUserSleepQualityForWeek = this.getWeekOfData(user, endDate).reduce((sum, sleepInstance) => {
+        return (sum += parseFloat(sleepInstance.sleepQuality));
       }, 0);
       return totalUserSleepQualityForWeek / 7 > 3;
     });
