@@ -4,7 +4,7 @@ class DomUpdates {
   }
 
   addActivityHTML(activityRepo, id, user, dataType,) {
-    const innerHTML = `<p>3 day streak on: ${activityRepo.getStreak(user.id, dataType)}</p>`
+    const innerHTML = `<p>streak on: ${activityRepo.getStreak(user.id, dataType)}</p>`
     document.getElementById(id).insertAdjacentHTML('afterEnd', innerHTML)
   }
 
@@ -19,20 +19,31 @@ class DomUpdates {
     } else {
       this.changeInnerTextID('step-goal-complete', 'Step goal reached today: 🚫');
     }
-    this.changeInnerTextID('days-exceeded-step-goal', activityRepo.getDaysGoalExceeded(currentUser.id, currentUser).length);
-    this.changeInnerTextID('user-avg-hr-sleep', sleepRepo.calculateAverageSleep(currentUser.id));
-    this.changeInnerTextID('user-avg-qlty-sleep', sleepRepo.calculateAverageSleepQuality(currentUser.id));
-    this.changeInnerTextID('user-record-stairs', activityRepo.getStairRecord(currentUser.id));
+    this.changeInnerTextID('days-exceeded-step-goal',
+      activityRepo.getDaysGoalExceeded(currentUser.id, currentUser).length);
+    this.changeInnerTextID('user-avg-hr-sleep',
+      sleepRepo.calculateAverageSleep(currentUser.id));
+    this.changeInnerTextID('user-avg-qlty-sleep',
+      sleepRepo.calculateAverageSleepQuality(currentUser.id));
+    this.changeInnerTextID('user-record-stairs',
+      activityRepo.getStairRecord(currentUser.id));
   }
 
   populateTodayInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate) {
-    this.changeInnerTextID('user-hydration-today', hydrationRepo.calculateDailyOunces(currentUser.id, mostRecentDate));
-    this.changeInnerTextID('user-stairs-today',activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'flightsOfStairs').amount + ' flights');
-    this.changeInnerTextID('user-steps-today', activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'numSteps').amount + ' steps');
-    this.changeInnerTextID('user-miles-today', activityRepo.getMilesByDate(currentUser.id, mostRecentDate, currentUser) + ' miles');
-    this.changeInnerTextID('user-minutes-today', activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'minutesActive').amount + ' minutes');
-    this.changeInnerTextID('user-sleep-hours-today', sleepRepo.calculateDailySleep(currentUser.id, mostRecentDate));
-    this.changeInnerTextID('user-sleep-qlty-today', sleepRepo.calculateDailySleepQuality(currentUser.id, mostRecentDate));
+    this.changeInnerTextID('user-hydration-today',
+      hydrationRepo.calculateDailyOunces(currentUser.id, mostRecentDate));
+    this.changeInnerTextID('user-stairs-today',
+      activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'flightsOfStairs').amount + ' flights');
+    this.changeInnerTextID('user-steps-today',
+      activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'numSteps').amount + ' steps');
+    this.changeInnerTextID('user-miles-today',
+      activityRepo.getMilesByDate(currentUser.id, mostRecentDate, currentUser) + ' miles');
+    this.changeInnerTextID('user-minutes-today',
+      activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'minutesActive').amount + ' minutes');
+    this.changeInnerTextID('user-sleep-hours-today',
+      sleepRepo.calculateDailySleep(currentUser.id, mostRecentDate));
+    this.changeInnerTextID('user-sleep-qlty-today',
+      sleepRepo.calculateDailySleepQuality(currentUser.id, mostRecentDate));
   }
 
   populateActivityStreaks(activityRepo, user) {
@@ -42,27 +53,40 @@ class DomUpdates {
   }
 
   populateWeekInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate) {
-    this.fillColumn('day', hydrationRepo.getWeekOfOunces(currentUser.id, mostRecentDate), 'date');
-    this.fillColumn('h', hydrationRepo.getWeekOfOunces(currentUser.id, mostRecentDate));
-    this.fillColumn('u', activityRepo.getUserWeekData(currentUser.id, mostRecentDate, 'flightsOfStairs'));
-    this.fillColumn('s', activityRepo.getUserWeekData(currentUser.id, mostRecentDate, 'numSteps'));
-    this.fillColumn('m', activityRepo.getUserWeekData(currentUser.id, mostRecentDate, 'minutesActive'));
+    this.fillColumn('day',
+      hydrationRepo.getWeekOfOunces(currentUser.id, mostRecentDate), 'date');
+    this.fillColumn('h',
+      hydrationRepo.getWeekOfOunces(currentUser.id, mostRecentDate));
+    this.fillColumn('u',
+      activityRepo.getUserWeekData(currentUser.id, mostRecentDate, 'flightsOfStairs'));
+    this.fillColumn('s',
+      activityRepo.getUserWeekData(currentUser.id, mostRecentDate, 'numSteps'));
+    this.fillColumn('m',
+      activityRepo.getUserWeekData(currentUser.id, mostRecentDate, 'minutesActive'));
     let weekOfHours = sleepRepo.getWeekOfHoursSlept(currentUser.id, mostRecentDate);
     let weekOfQuality = sleepRepo.getWeekOfQualitySlept(currentUser.id, mostRecentDate);
     this.fillColumn('z', weekOfHours, 'sleep', weekOfQuality);
   }
 
   populateLeaderBoard(userRepo, sleepRepo, activityRepo, mostRecentDate, sleepData) {
-    this.changeInnerTextID('avg-step-goal', userRepo.calculateAverageStepGoal());
-    this.changeInnerTextID('avg-sleep-hours', sleepRepo.calculateAllUserAvgSleepMetric('hoursSlept'));
-    this.changeInnerTextID('avg-sleep-qlty', sleepRepo.calculateAllUserAvgSleepMetric('sleepQuality'));
-    this.changeInnerTextID('avg-steps-made', activityRepo.getOveralUserAverage(mostRecentDate, 'numSteps').numSteps);
-    this.changeInnerTextID('avg-stairs', activityRepo.getOveralUserAverage(mostRecentDate, 'flightsOfStairs').flightsOfStairs);
-    this.changeInnerTextID('avg-minutes', activityRepo.getOveralUserAverage(mostRecentDate, 'minutesActive').minutesActive);
+    this.changeInnerTextID('avg-step-goal',
+      userRepo.calculateAverageStepGoal());
+    this.changeInnerTextID('avg-sleep-hours',
+      sleepRepo.calculateAllUserAvgSleepMetric('hoursSlept'));
+    this.changeInnerTextID('avg-sleep-qlty',
+      sleepRepo.calculateAllUserAvgSleepMetric('sleepQuality'));
+    this.changeInnerTextID('avg-steps-made',
+      activityRepo.getOveralUserAverage(mostRecentDate, 'numSteps').numSteps);
+    this.changeInnerTextID('avg-stairs',
+      activityRepo.getOveralUserAverage(mostRecentDate, 'flightsOfStairs').flightsOfStairs);
+    this.changeInnerTextID('avg-minutes',
+      activityRepo.getOveralUserAverage(mostRecentDate, 'minutesActive').minutesActive);
     let sleepiestUser = sleepRepo.getSleepWinnerForDay(mostRecentDate, sleepData, userRepo);
-    this.changeInnerTextID('most-sleep-today', `${sleepiestUser.user} with ${sleepiestUser.hoursSlept}hrs of sleep`);
+    this.changeInnerTextID('most-sleep-today',
+      `${sleepiestUser.user} with ${sleepiestUser.hoursSlept}hrs of sleep`);
     let topSleepers = this.getTopThreeNames(sleepRepo.getUsersWithQualityAbove3(mostRecentDate), userRepo);
-    this.changeInnerTextID('best-sleep-this-week', `${topSleepers}`);
+    this.changeInnerTextID('best-sleep-this-week',
+      `${topSleepers}`);
   }
 
   populateFriendsCard(currentUser, userRepo, activityRepo, mostRecentDate) {
