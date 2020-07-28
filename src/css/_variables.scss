@@ -1,8 +1,9 @@
 $column-height: calc(100vh - 91px);
-$standout-text-color: complement(#e5323b);
-$header-background-color: #0077bb;
-$main-background-color: #bbbbbb;
-$section-background-color: #33bbee;
+$standout-text-color: complement(#e4bec0);
+$header-background-color: desaturate(#0051bb, 20%);
+$main-background-color: white;
+$section-background-color: saturate(#abe5fa, 40%);
 $small-card-background: #fffffa;
-$border-color: #ee7733;
+$border-color: #335fee;
+$accent-color: black;
 $remaining-text-color: black;
