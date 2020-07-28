@@ -65,8 +65,9 @@ function populatePage() {
   domUpdate.populateUserWidget(currentUser, sleepRepo, activityRepo, mostRecentDate);
   domUpdate.populateTodayInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate);
   domUpdate.populateWeekInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate);
-  domUpdate.populateFriendsCard(currentUser, userRepo);
+  domUpdate.populateFriendsCard(currentUser, userRepo, activityRepo, mostRecentDate);
   domUpdate.populateLeaderBoard(userRepo, sleepRepo, activityRepo, mostRecentDate, data.sleepData);
+  domUpdate.populateActivityStreaks(activityRepo, currentUser)
 }
 
 function getUsersRecentDate(id, dataSet) {

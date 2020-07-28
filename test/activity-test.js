@@ -204,12 +204,12 @@ describe('Activity', () => {
     expect(activity.getAllUserAverageForDay("2019/06/23", "minutesActive")).to.eql(173.6)
   });
 
-  it('should show a 3-day increasing streak for a users step count', () => {
-    expect(activity.getStreak(1, 'numSteps')).to.eql(['2019/06/17', '2019/06/20', '2019/06/23'])
+  it.only('should show a 3-day increasing streak for a users step count', () => {
+    expect(activity.getStreak(1, 'numSteps')).to.eql('2019/06/23')
   });
 
-  it('should show a 3-day increasing streak for a users minutes of activity', () => {
-    expect(activity.getStreak(2, 'minutesActive')).to.eql(['2019/06/19'])
+  it.only('should show a 3-day increasing streak for a users minutes of activity', () => {
+    expect(activity.getStreak(2, 'minutesActive')).to.eql('2019/06/19')
   });
 })
 
@@ -423,13 +423,4 @@ describe('Friend Activity', () => {
       'Alex Roth: 9355.6', 'Allie McCarthy: 7031.3'
     ])
   });
-
-  it('should know the ID of the winning friend', () => {
-    expect(activity.getWinnerId(user4, "2019/06/24", userRepo)).to.eql(1)
-  })
-
-  it('should show the friend with most average steps over the previous week', () => {
-    expect(activity.showcaseWinner(user1, "2019/06/24", userRepo)).to.eql('Rainbow Dash: 8294.4')
-    expect(activity.showcaseWinner(user3, "2019/06/24", userRepo)).to.eql('Alex Roth: 9355.6')
-  })
 });

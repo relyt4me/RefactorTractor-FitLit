@@ -104,12 +104,11 @@ class Activity {
         && userActivities[i - 1][dataType] < userActivities[i][dataType]
       }
     });
-    return streaks.map(streak => {
+    const streakDates = streaks.map(streak => {
       return streak.date;
-    })
+    }).reverse()
+    return streakDates[0];
   }
-
-
 
   getFriendsAverageStepsForWeek(user, date) {
     let averages = []
@@ -130,19 +129,8 @@ class Activity {
     let rankedList = this.getFriendsAverageStepsForWeek(user, date);
     return rankedList.map(friend => {
       const userName = userRepo.users.find(user => user.id === friend.id).name
-      return `${userName}: ${friend.avgSteps}`
+      return {name: userName, steps: friend.avgSteps}
     })
-  }
-
-  getWinnerId(user, date, userRepo) {
-    let friends = this.getFriendsAverageStepsForWeek(user, date, userRepo)
-    return friends.shift().id
-  }
-
-  showcaseWinner(user, date, userRepo) {
-    let friendsAverages = this.showChallengeListAndWinner(user, date, userRepo);
-    let winner = friendsAverages.shift();
-    return winner;
   }
 }
 
