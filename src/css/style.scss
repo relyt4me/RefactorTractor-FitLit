@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family: 'Comic Sans';
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
   color: $remaining-text-color;
   background-color: $main-background-color;
   display: grid;
@@ -28,7 +28,7 @@ header {
   height: 71px;
   padding-top: 17px;
   color: $standout-text-color;
-  border-bottom: 2px solid $standout-text-color;
+  border-bottom: 5px solid $standout-text-color;
   background-color: $header-background-color;
   border-radius: 0 0 8px 8px;
   h1 {
