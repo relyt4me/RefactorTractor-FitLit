@@ -204,11 +204,11 @@ describe('Activity', () => {
     expect(activity.getAllUserAverageForDay("2019/06/23", "minutesActive")).to.eql(173.6)
   });
 
-  it.only('should show a 3-day increasing streak for a users step count', () => {
+  it('should show a 3-day increasing streak for a users step count', () => {
     expect(activity.getStreak(1, 'numSteps')).to.eql('2019/06/23')
   });
 
-  it.only('should show a 3-day increasing streak for a users minutes of activity', () => {
+  it('should show a 3-day increasing streak for a users minutes of activity', () => {
     expect(activity.getStreak(2, 'minutesActive')).to.eql('2019/06/19')
   });
 })
@@ -420,7 +420,7 @@ describe('Friend Activity', () => {
 
   it('should get a users ranked friendslist activity for a chosen week with names', () => {
     expect(activity.showChallengeListAndWinner(user4, "2019/06/24", userRepo)).to.eql([
-      'Alex Roth: 9355.6', 'Allie McCarthy: 7031.3'
+      {name: 'Alex Roth', steps: 9355.6}, {name: 'Allie McCarthy', steps: 7031.3}
     ])
   });
 });
