@@ -3,6 +3,11 @@ class DomUpdates {
     document.getElementById(id).innerText = text;
   }
 
+  addActivityHTML(activityRepo, id, user, dataType,) {
+    const innerHTML = `<p>3 day streak on: ${activityRepo.getStreak(user.id, dataType)}</p>`
+    document.getElementById(id).insertAdjacentHTML('afterEnd', innerHTML)
+  }
+
   populateUserWidget(currentUser, sleepRepo, activityRepo, mostRecentDate) {
     this.changeInnerTextID('user-name-header', currentUser.name);
     this.changeInnerTextID('user-address', currentUser.address);
@@ -22,12 +27,18 @@ class DomUpdates {
 
   populateTodayInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate) {
     this.changeInnerTextID('user-hydration-today', hydrationRepo.calculateDailyOunces(currentUser.id, mostRecentDate));
-    this.changeInnerTextID('user-stairs-today', activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'flightsOfStairs').amount);
-    this.changeInnerTextID('user-steps-today', activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'numSteps').amount);
-    this.changeInnerTextID('user-miles-today', activityRepo.getMilesByDate(currentUser.id, mostRecentDate, currentUser));
-    this.changeInnerTextID('user-minutes-today', activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'minutesActive').amount);
+    this.changeInnerTextID('user-stairs-today',activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'flightsOfStairs').amount + ' flights');
+    this.changeInnerTextID('user-steps-today', activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'numSteps').amount + ' steps');
+    this.changeInnerTextID('user-miles-today', activityRepo.getMilesByDate(currentUser.id, mostRecentDate, currentUser) + ' miles');
+    this.changeInnerTextID('user-minutes-today', activityRepo.getUserDataForDay(currentUser.id, mostRecentDate, 'minutesActive').amount + ' minutes');
     this.changeInnerTextID('user-sleep-hours-today', sleepRepo.calculateDailySleep(currentUser.id, mostRecentDate));
     this.changeInnerTextID('user-sleep-qlty-today', sleepRepo.calculateDailySleepQuality(currentUser.id, mostRecentDate));
+  }
+
+  populateActivityStreaks(activityRepo, user) {
+    this.addActivityHTML(activityRepo, 'user-stairs-today', user, 'flightsOfStairs')
+    this.addActivityHTML(activityRepo, 'user-miles-today', user, 'numSteps')
+    this.addActivityHTML(activityRepo, 'user-minutes-today', user, 'minutesActive')
   }
 
   populateWeekInfo(currentUser, sleepRepo, hydrationRepo, activityRepo, mostRecentDate) {
