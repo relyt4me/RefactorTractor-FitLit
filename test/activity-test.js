@@ -420,8 +420,7 @@ describe('Friend Activity', () => {
 
   it('should get a users ranked friendslist activity for a chosen week with names', () => {
     expect(activity.showChallengeListAndWinner(user4, "2019/06/24", userRepo)).to.eql([
-      {"name": "Alex Roth", "steps": 9355.6},
-      {"name": "Allie McCarthy", "steps": 7031.3}
-    ])
+      {name: 'Alex Roth', steps: 9355.6}, {name: 'Allie McCarthy', steps: 7031.3}
+    ]);
   });
 });

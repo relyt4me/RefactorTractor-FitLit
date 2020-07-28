@@ -107,7 +107,7 @@ describe('DomUpdates', () => {
   });
 
   it('Should call getElementById correctly once to create the friend-card', () => {
-    domUpdates.populateFriendsCard(currentUser, userRepo);
+    domUpdates.populateFriendsCard(currentUser, userRepo, activityRepo, mostRecentDate);
 
     expect(document.getElementById).to.have.been.called(1);
     expect(document.getElementById).to.have.been.called.with('friend-list');
@@ -116,6 +116,6 @@ describe('DomUpdates', () => {
   it('Should call call getElementById each time changeInnerTextID is called with populateLeaderBoard', () => {
     domUpdates.populateLeaderBoard(userRepo, sleepRepo, activityRepo, mostRecentDate, sleepRepo.sleepData);
 
-    expect(document.getElementById).to.have.been.called(7);
+    expect(document.getElementById).to.have.been.called(8);
   });
 });
